@@ -40,6 +40,7 @@ public class LoginError extends javax.swing.JFrame {
         jLabel38 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ingreso");
 
         jPanel1.setBackground(new java.awt.Color(15, 80, 166));
         jPanel1.setPreferredSize(new java.awt.Dimension(901, 416));
@@ -71,7 +72,7 @@ public class LoginError extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 51, 51));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Contraseña y/o usuario incorrecto!");
+        jLabel1.setText("Contraseña y/o usuario incorrecto! ");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

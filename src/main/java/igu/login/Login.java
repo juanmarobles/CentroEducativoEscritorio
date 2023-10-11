@@ -39,6 +39,7 @@ public class Login extends javax.swing.JFrame {
         jLabel38 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ingreso");
 
         jPanel1.setBackground(new java.awt.Color(15, 80, 166));
         jPanel1.setPreferredSize(new java.awt.Dimension(901, 416));
