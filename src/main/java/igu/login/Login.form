@@ -74,7 +74,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="164" max="32767" attributes="0"/>
-                      <Component id="jButton9" min="-2" pref="132" max="-2" attributes="0"/>
+                      <Component id="btnAcceder" min="-2" pref="132" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jLabel37" alignment="1" max="32767" attributes="0"/>
@@ -88,8 +88,8 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField9" alignment="0" pref="418" max="32767" attributes="0"/>
-                          <Component id="jPasswordField9" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtUsuario" alignment="0" pref="418" max="32767" attributes="0"/>
+                          <Component id="txtPassword" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -105,20 +105,20 @@
                       <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                       <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextField9" min="-2" pref="48" max="-2" attributes="0"/>
+                      <Component id="txtUsuario" min="-2" pref="48" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPasswordField9" min="-2" pref="51" max="-2" attributes="0"/>
+                      <Component id="txtPassword" min="-2" pref="51" max="-2" attributes="0"/>
                       <EmptySpace pref="34" max="32767" attributes="0"/>
-                      <Component id="jButton9" min="-2" pref="56" max="-2" attributes="0"/>
+                      <Component id="btnAcceder" min="-2" pref="56" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="jButton9">
+            <Component class="javax.swing.JButton" name="btnAcceder">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="a6" green="50" red="f" type="rgb"/>
@@ -131,8 +131,11 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="ACCEDER"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAccederActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JPasswordField" name="jPasswordField9">
+            <Component class="javax.swing.JPasswordField" name="txtPassword">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel34">
               <Properties>
@@ -154,7 +157,7 @@
                 <Property name="text" type="java.lang.String" value="Usuario"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField9">
+            <Component class="javax.swing.JTextField" name="txtUsuario">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel36">
               <Properties>
@@ -182,11 +185,6 @@
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel38">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\lucia\Descargas\CENTRO-HD.jpg"/>
-            </Property>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

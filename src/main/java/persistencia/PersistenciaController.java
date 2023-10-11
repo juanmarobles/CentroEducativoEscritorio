@@ -4,10 +4,29 @@
  */
 package persistencia;
 
+import java.util.List;
+import logica.entidades.Alumno;
+
 /**
  *
- * @author juanm
+ * @author juanmarobles
  */
 public class PersistenciaController {
+    RolJpaController rolJPA = new RolJpaController();
+    UsuarioJpaController usuJPA = new UsuarioJpaController();
+    UsuarioRolJpaController usuorolJPA = new UsuarioRolJpaController();
+    AlumnoJpaController aluJPA = new AlumnoJpaController();
+
+    public void guardarAlumno(Alumno alumno) {
+            aluJPA.create(alumno);
+    }
+
+    public List<Alumno> traerAlumnos() {
+       return aluJPA.findAlumnoEntities();
+    }
+
+    public Alumno traerAlumno(Long idAlumno) {
+        return aluJPA.findAlumno(idAlumno);
+    }
     
 }
