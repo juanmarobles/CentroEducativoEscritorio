@@ -31,6 +31,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
@@ -41,6 +42,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         MenuVehiculos = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         MenuServicios = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        MenuAlumnos1 = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        menuTutores1 = new javax.swing.JMenuItem();
+        jSeparator8 = new javax.swing.JPopupMenu.Separator();
+        MenuAlumnos4 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        MenuAlumnos2 = new javax.swing.JMenuItem();
+        jSeparator6 = new javax.swing.JPopupMenu.Separator();
+        menuTutores2 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        MenuAlumnos3 = new javax.swing.JMenuItem();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        menuTutores3 = new javax.swing.JMenuItem();
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
@@ -50,15 +65,38 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setBackground(new java.awt.Color(51, 102, 255));
         setIconImages(null);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Fondo de pantalla.png"))); // NOI18N
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setAutoscrolls(true);
+        jPanel2.setPreferredSize(new java.awt.Dimension(1920, 1080));
 
-        jMenuBar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\lucia\\Descargas\\zyro-image-removebg-preview.png")); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(676, 676, 676)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(716, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(273, 273, 273)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(372, Short.MAX_VALUE))
+        );
+
+        jMenuBar1.setBackground(new java.awt.Color(15, 80, 166));
+        jMenuBar1.setBorder(null);
         jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jMenuBar1.setMinimumSize(new java.awt.Dimension(505, 38));
         jMenuBar1.setPreferredSize(new java.awt.Dimension(505, 40));
 
-        jMenu3.setText("Cargar Entidades");
+        jMenu3.setForeground(new java.awt.Color(255, 255, 255));
+        jMenu3.setText("Entidades");
 
         MenuAlumnos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         MenuAlumnos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cliente.png"))); // NOI18N
@@ -113,21 +151,120 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu4.setForeground(new java.awt.Color(255, 255, 255));
+        jMenu4.setText("Cuotas");
+
+        MenuAlumnos1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        MenuAlumnos1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cliente.png"))); // NOI18N
+        MenuAlumnos1.setText("Realizar Pago");
+        MenuAlumnos1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MenuAlumnos1.setPreferredSize(new java.awt.Dimension(96, 36));
+        MenuAlumnos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuAlumnos1ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(MenuAlumnos1);
+        jMenu4.add(jSeparator5);
+
+        menuTutores1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        menuTutores1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/equipo.png"))); // NOI18N
+        menuTutores1.setText("Listar Deudores");
+        menuTutores1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuTutores1.setPreferredSize(new java.awt.Dimension(142, 36));
+        menuTutores1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTutores1ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(menuTutores1);
+        jMenu4.add(jSeparator8);
+
+        MenuAlumnos4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        MenuAlumnos4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cliente.png"))); // NOI18N
+        MenuAlumnos4.setText("Ver Cuotas");
+        MenuAlumnos4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MenuAlumnos4.setPreferredSize(new java.awt.Dimension(96, 36));
+        MenuAlumnos4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuAlumnos4ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(MenuAlumnos4);
+
+        jMenuBar1.add(jMenu4);
+
+        jMenu5.setForeground(new java.awt.Color(255, 255, 255));
+        jMenu5.setText("Clases y Aulas");
+
+        MenuAlumnos2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        MenuAlumnos2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cliente.png"))); // NOI18N
+        MenuAlumnos2.setText("Horarios");
+        MenuAlumnos2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MenuAlumnos2.setPreferredSize(new java.awt.Dimension(96, 36));
+        MenuAlumnos2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuAlumnos2ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(MenuAlumnos2);
+        jMenu5.add(jSeparator6);
+
+        menuTutores2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        menuTutores2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/equipo.png"))); // NOI18N
+        menuTutores2.setText("Asignar Aulas");
+        menuTutores2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuTutores2.setPreferredSize(new java.awt.Dimension(142, 36));
+        menuTutores2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTutores2ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(menuTutores2);
+
+        jMenuBar1.add(jMenu5);
+
+        jMenu6.setForeground(new java.awt.Color(255, 255, 255));
+        jMenu6.setText("Notas");
+
+        MenuAlumnos3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        MenuAlumnos3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cliente.png"))); // NOI18N
+        MenuAlumnos3.setText("Cargar Notas");
+        MenuAlumnos3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MenuAlumnos3.setPreferredSize(new java.awt.Dimension(96, 36));
+        MenuAlumnos3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuAlumnos3ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(MenuAlumnos3);
+        jMenu6.add(jSeparator7);
+
+        menuTutores3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        menuTutores3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/equipo.png"))); // NOI18N
+        menuTutores3.setText("Ver Notas");
+        menuTutores3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuTutores3.setPreferredSize(new java.awt.Dimension(142, 36));
+        menuTutores3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTutores3ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(menuTutores3);
+
+        jMenuBar1.add(jMenu6);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1080, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 86, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -156,6 +293,34 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_MenuVehiculosActionPerformed
 
+    private void menuTutores1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTutores1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuTutores1ActionPerformed
+
+    private void MenuAlumnos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAlumnos1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuAlumnos1ActionPerformed
+
+    private void MenuAlumnos2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAlumnos2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuAlumnos2ActionPerformed
+
+    private void menuTutores2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTutores2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuTutores2ActionPerformed
+
+    private void MenuAlumnos3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAlumnos3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuAlumnos3ActionPerformed
+
+    private void menuTutores3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTutores3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuTutores3ActionPerformed
+
+    private void MenuAlumnos4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAlumnos4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuAlumnos4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -173,15 +338,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem MenuAlumnos;
+    private javax.swing.JMenuItem MenuAlumnos1;
+    private javax.swing.JMenuItem MenuAlumnos2;
+    private javax.swing.JMenuItem MenuAlumnos3;
+    private javax.swing.JMenuItem MenuAlumnos4;
     private javax.swing.JMenuItem MenuServicios;
     private javax.swing.JMenuItem MenuVehiculos;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
+    private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
+    private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JMenuItem menuTutores;
+    private javax.swing.JMenuItem menuTutores1;
+    private javax.swing.JMenuItem menuTutores2;
+    private javax.swing.JMenuItem menuTutores3;
     // End of variables declaration//GEN-END:variables
 }
