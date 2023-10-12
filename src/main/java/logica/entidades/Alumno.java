@@ -3,8 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package logica.entidades;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
+
 /**
  *
  * @author juanmarobles
@@ -12,6 +15,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "alumnos")
 public class Alumno implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -24,12 +28,10 @@ public class Alumno implements Serializable {
 
     @Column(name = "dni")
     private int dni;
-    
-    @Column(name = "telefono")
-    private int telefono;
 
-    @Column(name = "tutor")
-    private String tutor; 
+    @ManyToOne
+    @JoinColumn(name = "tutor_id") 
+    private Tutor tutor;
 
     @Column(name = "nivel")
     private String nivel;
@@ -37,11 +39,14 @@ public class Alumno implements Serializable {
     @Column(name = "division")
     private String division;
 
+    @Column(name = "fecha_nac")
+    private Date fechaNac;
+
     public Alumno() {
-        
+
     }
 
-    public Alumno(Long id, String nombre, String apellido, int dni, String tutor, String nivel, int telefono, String division) {
+    public Alumno(Long id, String nombre, String apellido, int dni, Tutor tutor, String nivel, int telefono, Date fechaNac, String division) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -49,15 +54,15 @@ public class Alumno implements Serializable {
         this.tutor = tutor;
         this.nivel = nivel;
         this.division = division;
-        this.telefono = telefono;
+        this.fechaNac = fechaNac;
     }
 
-    public int getTelefono() {
-        return telefono;
+    public Date getFechaNac() {
+        return fechaNac;
     }
 
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
+    public void setFechaNac(Date fechaNac) {
+        this.fechaNac = fechaNac;
     }
 
     public Long getId() {
@@ -92,16 +97,16 @@ public class Alumno implements Serializable {
         this.dni = dni;
     }
 
-    public String getTutor() {
+    public String getNivel() {
+        return nivel;
+    }
+
+    public Tutor getTutor() {
         return tutor;
     }
 
-    public void setTutor(String tutor) {
+    public void setTutor(Tutor tutor) {
         this.tutor = tutor;
-    }
-
-    public String getNivel() {
-        return nivel;
     }
 
     public void setNivel(String nivel) {
@@ -115,5 +120,5 @@ public class Alumno implements Serializable {
     public void setDivision(String division) {
         this.division = division;
     }
-    
+
 }

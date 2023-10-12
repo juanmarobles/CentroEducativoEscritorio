@@ -6,6 +6,7 @@ package logica;
 
 import java.util.List;
 import logica.entidades.Alumno;
+import logica.entidades.Tutor;
 import persistencia.PersistenciaController;
 
 /**
@@ -45,19 +46,15 @@ public class EntidadesController {
         return ctrl.traerAlumnos();
     }
 
-    public void cargarAlumno(String nombre, String apellido, int dni,int Telefono, String tutor, String nivel, String division) {
+    public void cargarAlumno(String nombre, String apellido, int dni, Tutor tutor, String nivel, String division) {
         Alumno alumno = new Alumno();
         alumno.setNombre(nombre);
         alumno.setApellido(apellido);
         alumno.setDni(dni);
-        alumno.setTelefono(Telefono);
         alumno.setTutor(tutor);
         alumno.setNivel(nivel);
         alumno.setDivision(division);
-        
-        
         ctrl.guardarAlumno(alumno);
-        
     }
 
     public void editarAlumno() {

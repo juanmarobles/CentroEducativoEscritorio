@@ -806,12 +806,6 @@ public class MenuAutoridad extends javax.swing.JFrame {
         jLabel64.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         jLabel64.setText("Nombre:");
 
-        jTextField32.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField32ActionPerformed(evt);
-            }
-        });
-
         jLabel65.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         jLabel65.setText("Apellido:");
 
@@ -1991,10 +1985,6 @@ public class MenuAutoridad extends javax.swing.JFrame {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
-
-    private void jTextField32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField32ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField32ActionPerformed
 
     private void jTextField33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField33ActionPerformed
         // TODO add your handling code here:

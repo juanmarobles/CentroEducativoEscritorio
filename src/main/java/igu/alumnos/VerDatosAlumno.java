@@ -462,13 +462,14 @@ public class VerDatosAlumno extends javax.swing.JFrame {
     };
     
     // Nombres de columnas
-    String titulos[] = {"LEGAJO", "NOMBRE", "APELLIDO", "DNI", "TUTOR", "NIVEL", "DIVISION", "TELEFONO"};
+    String titulos[] = {"LEGAJO", "NOMBRE", "APELLIDO", "DNI", "TUTOR", "NIVEL", "DIVISION","FECHA_NAC"};
     tabla.setColumnIdentifiers(titulos);
 
     // Recorrer la lista ordenada y mostrar elementos en la tabla
     if (listaAlumnos != null) {
         for (Alumno alumno : listaAlumnos) {
-            Object[] objeto = {alumno.getId(),alumno.getNombre(),alumno.getApellido(),alumno.getDni(),alumno.getTutor(),alumno.getNivel(),alumno.getDivision(),alumno.getTelefono()};
+            Object[] objeto = {alumno.getId(),alumno.getNombre(),alumno.getApellido(),alumno.getDni(),alumno.getTutor(),
+                alumno.getNivel(),alumno.getDivision(),alumno.getFechaNac()};
             tabla.addRow(objeto);
         }
     }

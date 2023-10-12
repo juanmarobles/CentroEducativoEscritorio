@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package persistencia;
 
 import java.io.Serializable;
@@ -14,43 +13,35 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import logica.entidades.Alumno;
-import logica.entidades.Tutor;
+import logica.entidades.Cuota;
 import persistencia.exceptions.NonexistentEntityException;
 
 /**
  *
  * @author juanmarobles
  */
-public class AlumnoJpaController implements Serializable {
+public class CuotaJpaController implements Serializable {
 
-    public AlumnoJpaController(EntityManagerFactory emf) {
+    public CuotaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
+
     //CONTROLADOR
-    public AlumnoJpaController() {
+    public CuotaJpaController() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
     }
+
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
-    public void create(Alumno alumno) {
+    public void create(Cuota cuota) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Tutor tutor = alumno.getTutor();
-            if (tutor != null) {
-                tutor = em.getReference(tutor.getClass(), tutor.getId());
-                alumno.setTutor(tutor);
-            }
-            em.persist(alumno);
-            if (tutor != null) {
-                tutor.getAlumnos().add(alumno);
-                tutor = em.merge(tutor);
-            }
+            em.persist(cuota);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -59,34 +50,19 @@ public class AlumnoJpaController implements Serializable {
         }
     }
 
-    public void edit(Alumno alumno) throws NonexistentEntityException, Exception {
+    public void edit(Cuota cuota) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Alumno persistentAlumno = em.find(Alumno.class, alumno.getId());
-            Tutor tutorOld = persistentAlumno.getTutor();
-            Tutor tutorNew = alumno.getTutor();
-            if (tutorNew != null) {
-                tutorNew = em.getReference(tutorNew.getClass(), tutorNew.getId());
-                alumno.setTutor(tutorNew);
-            }
-            alumno = em.merge(alumno);
-            if (tutorOld != null && !tutorOld.equals(tutorNew)) {
-                tutorOld.getAlumnos().remove(alumno);
-                tutorOld = em.merge(tutorOld);
-            }
-            if (tutorNew != null && !tutorNew.equals(tutorOld)) {
-                tutorNew.getAlumnos().add(alumno);
-                tutorNew = em.merge(tutorNew);
-            }
+            cuota = em.merge(cuota);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = alumno.getId();
-                if (findAlumno(id) == null) {
-                    throw new NonexistentEntityException("The alumno with id " + id + " no longer exists.");
+                int id = cuota.getIdCuota();
+                if (findCuota(id) == null) {
+                    throw new NonexistentEntityException("The cuota with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -97,24 +73,19 @@ public class AlumnoJpaController implements Serializable {
         }
     }
 
-    public void destroy(Long id) throws NonexistentEntityException {
+    public void destroy(int id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Alumno alumno;
+            Cuota cuota;
             try {
-                alumno = em.getReference(Alumno.class, id);
-                alumno.getId();
+                cuota = em.getReference(Cuota.class, id);
+                cuota.getIdCuota();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The alumno with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The cuota with id " + id + " no longer exists.", enfe);
             }
-            Tutor tutor = alumno.getTutor();
-            if (tutor != null) {
-                tutor.getAlumnos().remove(alumno);
-                tutor = em.merge(tutor);
-            }
-            em.remove(alumno);
+            em.remove(cuota);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -123,19 +94,19 @@ public class AlumnoJpaController implements Serializable {
         }
     }
 
-    public List<Alumno> findAlumnoEntities() {
-        return findAlumnoEntities(true, -1, -1);
+    public List<Cuota> findCuotaEntities() {
+        return findCuotaEntities(true, -1, -1);
     }
 
-    public List<Alumno> findAlumnoEntities(int maxResults, int firstResult) {
-        return findAlumnoEntities(false, maxResults, firstResult);
+    public List<Cuota> findCuotaEntities(int maxResults, int firstResult) {
+        return findCuotaEntities(false, maxResults, firstResult);
     }
 
-    private List<Alumno> findAlumnoEntities(boolean all, int maxResults, int firstResult) {
+    private List<Cuota> findCuotaEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Alumno.class));
+            cq.select(cq.from(Cuota.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -147,20 +118,20 @@ public class AlumnoJpaController implements Serializable {
         }
     }
 
-    public Alumno findAlumno(Long id) {
+    public Cuota findCuota(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Alumno.class, id);
+            return em.find(Cuota.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getAlumnoCount() {
+    public int getCuotaCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Alumno> rt = cq.from(Alumno.class);
+            Root<Cuota> rt = cq.from(Cuota.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

@@ -16,6 +16,9 @@ public class PersistenciaController {
     UsuarioJpaController usuJPA = new UsuarioJpaController();
     UsuarioRolJpaController usuorolJPA = new UsuarioRolJpaController();
     AlumnoJpaController aluJPA = new AlumnoJpaController();
+    CuotaJpaController cuotaJPA = new CuotaJpaController();
+    TutorJpaController tutorJpa = new TutorJpaController();
+    
 
     public void guardarAlumno(Alumno alumno) {
             aluJPA.create(alumno);

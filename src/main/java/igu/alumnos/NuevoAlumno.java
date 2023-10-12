@@ -2,14 +2,19 @@ package igu.alumnos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import logica.EntidadesController;
+import logica.entidades.ModeloTutor;
+import logica.entidades.Tutor;
 
 public class NuevoAlumno extends javax.swing.JFrame {
 
     EntidadesController control = new EntidadesController();
+    private Tutor tutor;
 
     public NuevoAlumno() {
         initComponents();
@@ -17,7 +22,7 @@ public class NuevoAlumno extends javax.swing.JFrame {
         txtNombre.addActionListener(createActionListener(btnCargar));
         txtApellido.addActionListener(createActionListener(btnCargar));
         txtDni.addActionListener(createActionListener(btnCargar));
-        txtTutor.addActionListener(createActionListener(btnCargar));
+        cbTutor.addActionListener(createActionListener(btnCargar));
 
     }
 
@@ -51,10 +56,10 @@ public class NuevoAlumno extends javax.swing.JFrame {
         cmbNivel = new javax.swing.JComboBox<>();
         cmbDivision = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        cmbDivision1 = new javax.swing.JComboBox<>();
         btnCargar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        cbTutor = new javax.swing.JComboBox<>();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -115,15 +120,10 @@ public class NuevoAlumno extends javax.swing.JFrame {
 
         cmbNivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Inicial", "Primario", "Secundario", " " }));
 
-        cmbDivision.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbDivision.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B" }));
 
         jLabel8.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 16)); // NOI18N
         jLabel8.setText("Division");
-
-        jLabel9.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 16)); // NOI18N
-        jLabel9.setText("Año");
-
-        cmbDivision1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnCargar.setBackground(new java.awt.Color(15, 80, 166));
         btnCargar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -147,11 +147,14 @@ public class NuevoAlumno extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 16)); // NOI18N
+        jLabel10.setText("Tutor");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
@@ -159,8 +162,8 @@ public class NuevoAlumno extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel8))
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtDni)
@@ -168,8 +171,8 @@ public class NuevoAlumno extends javax.swing.JFrame {
                     .addComponent(txtApellido)
                     .addComponent(jFormattedTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(cmbNivel, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbDivision1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbDivision, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbDivision, 0, 234, Short.MAX_VALUE)
+                    .addComponent(cbTutor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(30, 30, 30))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
@@ -197,19 +200,19 @@ public class NuevoAlumno extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(cbTutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbDivision1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbDivision, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addGap(77, 77, 77)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -228,7 +231,7 @@ public class NuevoAlumno extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(10, Short.MAX_VALUE)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -257,13 +260,11 @@ public class NuevoAlumno extends javax.swing.JFrame {
         String apellido = txtApellido.getText();
         String dniText = txtDni.getText();
         int dni = Integer.parseInt(dniText);
-        String telText = txtTelefono.getText();
-        int tel = Integer.parseInt(telText);
-        String tutor = txtTutor.getText();
+        Tutor tutor = (Tutor) cbTutor.getSelectedItem();
         String nivel = (cmbNivel.getSelectedItem() != null) ? cmbNivel.getSelectedItem().toString() : "";
         String division = (cmbDivision.getSelectedItem() != null) ? cmbDivision.getSelectedItem().toString() : "";
 
-        control.cargarAlumno(nombre,apellido,dni,tel,tutor,nivel,division);
+        control.cargarAlumno(nombre, apellido, dni, tutor, nivel, division);
         mostrarMensaje("Alumno agregado correctamente", "Info", "Agregado con exito!");
 
         VerDatosAlumno verAnterior = new VerDatosAlumno();
@@ -274,6 +275,95 @@ public class NuevoAlumno extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnCargarActionPerformed
+    private void cargarTutores() {
+
+        ModeloTutor modTutores = new ModeloTutor();
+        ArrayList<Tutor> listaTutores = modTutores.getTutores();
+
+        cbTutor.setEditable(true);
+
+        // Ordenar la lista de clientes alfabéticamente por el nombre
+        listaTutores.sort((tutor1, tutor2) -> tutor1.getNombre().compareToIgnoreCase(tutor2.getNombre()));
+
+        // Limpiar el ComboBox
+        cbTutor.removeAllItems();
+
+        // Agregar los nombres de los clientes al ComboBox de forma ordenada
+        for (Tutor tutor : listaTutores) {
+            cbTutor.addItem(tutor.getNombre());
+        }
+
+        // Eliminar la opción en blanco después de configurar el decorador
+        cbTutor.removeItem("");
+
+        // Establecer el índice seleccionado a -1 para no mostrar ninguna selección
+        cbTutor.setSelectedIndex(-1);
+
+        // Agregar ActionListener para capturar el evento "Enter"
+        cbTutor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String textoBusqueda = cbTutor.getEditor().getItem().toString();
+                mostrarResultadosBusqueda(cbTutor, textoBusqueda);
+                if (cbTutor.getSelectedIndex() != -1) {
+                    // Normaliza el texto de búsqueda a mayúsculas
+                    textoBusqueda = textoBusqueda.toUpperCase();
+
+                    Tutor tutorSeleccionado = null; // Cambia el nombre de la variable para evitar conflicto
+                    for (Tutor tutor : listaTutores) {
+                        if (tutor.getNombre().toUpperCase().equals(textoBusqueda)) {
+                            tutorSeleccionado = tutor;
+                            break;
+                        }
+                    }
+
+                    // Asigna el tutor seleccionado a la variable tutor
+                    NuevoAlumno.this.tutor = tutorSeleccionado;
+                }
+            }
+        });
+
+    }
+
+    //METODO BUSQUEDA COMBOBOX
+    private static void mostrarResultadosBusqueda(JComboBox<String> combobox, String textoBusqueda) {
+        // Limpiar selección previa
+        combobox.setSelectedIndex(-1);
+
+        // Buscar resultados de búsqueda exacta
+        boolean encontradoExacta = false;
+
+        for (int i = 0; i < combobox.getItemCount(); i++) {
+            String item = combobox.getItemAt(i).toString();
+            if (item.equalsIgnoreCase(textoBusqueda)) {
+                combobox.setSelectedItem(item);
+                combobox.getEditor().setItem(item);
+                encontradoExacta = true;
+                break; // Terminar la búsqueda cuando se encuentra una coincidencia exacta
+            }
+        }
+
+        // Si no se encontró una coincidencia exacta, buscar coincidencias parciales
+        if (!encontradoExacta) {
+            boolean encontradoParcial = false;
+            for (int i = 0; i < combobox.getItemCount(); i++) {
+                String item = combobox.getItemAt(i).toString();
+                if (item.toLowerCase().contains(textoBusqueda.toLowerCase())) {
+                    combobox.setSelectedIndex(i);
+                    combobox.getEditor().setItem(item);
+                    encontradoParcial = true;
+                    break; // Terminar la búsqueda cuando se encuentra una coincidencia parcial
+                }
+            }
+
+            // Si no se encontró ninguna coincidencia parcial, mantener el texto de búsqueda tal como lo ingresó el usuario
+            if (!encontradoParcial) {
+                combobox.getEditor().setItem(textoBusqueda);
+                combobox.setPopupVisible(true);
+            }
+        }
+    }
+
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         VerDatosAlumno verAnterior = new VerDatosAlumno();
@@ -341,18 +431,18 @@ public class NuevoAlumno extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCargar;
+    private javax.swing.JComboBox<String> cbTutor;
     private javax.swing.JComboBox<String> cmbDivision;
-    private javax.swing.JComboBox<String> cmbDivision1;
     private javax.swing.JComboBox<String> cmbNivel;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;

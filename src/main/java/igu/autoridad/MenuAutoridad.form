@@ -1274,9 +1274,6 @@
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="jTextField32">
-                                  <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField32ActionPerformed"/>
-                                  </Events>
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel65">
                                   <Properties>
