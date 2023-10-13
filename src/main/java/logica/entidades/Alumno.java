@@ -40,6 +40,7 @@ public class Alumno implements Serializable {
     private String division;
 
     @Column(name = "fecha_nac")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaNac;
 
     public Alumno() {

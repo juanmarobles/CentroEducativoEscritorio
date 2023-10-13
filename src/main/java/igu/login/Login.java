@@ -165,6 +165,7 @@ public class Login extends javax.swing.JFrame {
     private void btnAccederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccederActionPerformed
         String usuario = txtUsuario.getText();
         String password = txtPassword.getText();
+        
         this.dispose(); // Cierra la ventana de inicio de sesión
 
                 VentanaPrincipal pr = new VentanaPrincipal();

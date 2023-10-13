@@ -5,7 +5,11 @@
 package persistencia;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import logica.entidades.Alumno;
+import logica.entidades.Tutor;
+import persistencia.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -17,7 +21,7 @@ public class PersistenciaController {
     UsuarioRolJpaController usuorolJPA = new UsuarioRolJpaController();
     AlumnoJpaController aluJPA = new AlumnoJpaController();
     CuotaJpaController cuotaJPA = new CuotaJpaController();
-    TutorJpaController tutorJpa = new TutorJpaController();
+    TutorJpaController tutorJPA = new TutorJpaController();
     
 
     public void guardarAlumno(Alumno alumno) {
@@ -30,6 +34,22 @@ public class PersistenciaController {
 
     public Alumno traerAlumno(Long idAlumno) {
         return aluJPA.findAlumno(idAlumno);
+    }
+
+    public void guardarTutor(Tutor tutor) {
+        
+    }
+
+    public void borrarAlumno(Long idAlumno) {
+        try {
+            aluJPA.destroy(idAlumno);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Tutor buscarTutorPornombre(String tutorNombre) {
+        return tutorJPA.buscarTutorPorNombre(tutorNombre);
     }
     
 }

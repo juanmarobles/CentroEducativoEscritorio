@@ -8,6 +8,10 @@
     <class>logica.entidades.Cuota</class>
     <class>logica.entidades.Tutor</class>
     <class>logica.entidades.Alumno</class>
+    <class>logica.entidades.Curso</class>
+    <class>logica.entidades.Docente</class>
+    <class>logica.entidades.Materia</class>
+    <class>logica.entidades.Persona</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/centroedu?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

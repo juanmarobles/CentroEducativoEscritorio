@@ -36,7 +36,7 @@ public class ModeloTutor {
                 tutor.setId(rs.getInt("id"));
                 tutor.setNombre(rs.getString("nombre"));
                 tutor.setApellido(rs.getString("apellido"));
-                tutor.setDni(rs.getString("dni"));
+                tutor.setDni(rs.getInt("dni"));
                 tutor.setEmail(rs.getString("email"));
                 tutor.setDomicilio(rs.getString("domicilio"));
                 tutor.setTelefono(rs.getInt("telefono"));
