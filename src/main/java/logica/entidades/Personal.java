@@ -4,10 +4,12 @@
  */
 package logica.entidades;
 
+
 /**
  *
- * @author juanm
+ * @author juanmarobles
  */
+
 public class Personal {
     
 }

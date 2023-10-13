@@ -16,7 +16,8 @@ import javax.swing.plaf.synth.SynthLookAndFeel;
  * @author Usuario
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-
+    
+    
     private static VentanaPrincipal instancia;
   
  public VentanaPrincipal() {

@@ -286,7 +286,6 @@ public class EditarDocente extends javax.swing.JInternalFrame {
         String apellido = txtApellido.getText();
         String dniText = txtDni.getText();
         int dni = Integer.parseInt(dniText);
-        Tutor tutor = (Tutor) cbTutor.getSelectedItem();
         String nivel = (cmbNivel.getSelectedItem() != null) ? cmbNivel.getSelectedItem().toString() : "";
         String division = (cmbDivision.getSelectedItem() != null) ? cmbDivision.getSelectedItem().toString() : "";
 

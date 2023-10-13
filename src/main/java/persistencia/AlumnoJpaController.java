@@ -28,12 +28,14 @@ public class AlumnoJpaController implements Serializable {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
-    //CONTROLADOR
-    public AlumnoJpaController() {
-        emf = Persistence.createEntityManagerFactory("centroeducativoPU");
-    }
+
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
+    }
+    
+     //CONTROLADOR
+    public AlumnoJpaController(){
+    emf = Persistence.createEntityManagerFactory("centroeducativoPU");
     }
 
     public void create(Alumno alumno) {

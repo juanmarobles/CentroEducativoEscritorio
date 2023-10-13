@@ -33,6 +33,7 @@ public class TutorJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
+    
     //CONTROLADOR
     public TutorJpaController() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
@@ -189,6 +190,23 @@ public class TutorJpaController implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+    public Tutor buscarTutorPorNombre(String nombreTutor) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("centroeducativoPU"); // Reemplaza "nombreUnidadPersistencia" con el nombre de tu unidad de persistencia
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            TypedQuery<Tutor> query = em.createQuery("SELECT t FROM Tutor t WHERE t.nombre = :nombreTutor", Tutor.class);
+            query.setParameter("nombreTutor", nombreTutor);
+
+            Tutor tutor = query.getSingleResult();
+            return tutor;
+        } catch (NoResultException e) {
+            return null; // Retorna null si no se encontró ningún tutor con ese nombre
+        } finally {
+            em.close();
+            emf.close();
         }
     }
 
