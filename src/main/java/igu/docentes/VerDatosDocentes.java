@@ -265,9 +265,8 @@ public class VerDatosDocentes extends javax.swing.JInternalFrame {
             mostrarMensaje("La tabla esta vacia, no se puede editar", "Error", "Error al editar");
     }//GEN-LAST:event_btnEditarActionPerformed
     }
-        
 
-   
+
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // Control de q la tabla no este vacia
         if (tablaDocente.getRowCount() > 0) {
@@ -277,7 +276,8 @@ public class VerDatosDocentes extends javax.swing.JInternalFrame {
                 int idDocente = Integer.parseInt(String.valueOf(tablaDocente.getValueAt(tablaDocente.getSelectedRow(), 0)));
 
                 control.borrarDocente(idDocente);
-                mostrarMensaje("Alumno borrado correctamente", "Info", "Borrado con exito!");
+                mostrarMensaje("Docente borrado correctamente", "Info", "Borrado con exito!");
+
                 mostrarTablaDocentes();
             } else {
                 mostrarMensaje("No seleccinó un Registro para eliminar", "Error", "Error al eliminar");
@@ -326,37 +326,38 @@ public class VerDatosDocentes extends javax.swing.JInternalFrame {
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
     }
-private void mostrarTablaDocentes() {
-    // Carga de los datos desde la base de datos
-    List<Docente> listaDocentes = control.traerDocentes();
 
-    // Ordenar la lista de clientes alfabéticamente por el nombre
-    listaDocentes.sort((docente1, docente2) -> docente1.getNombre().compareToIgnoreCase(docente2.getNombre()));
+    private void mostrarTablaDocentes() {
+        // Carga de los datos desde la base de datos
+        List<Docente> listaDocentes = control.traerDocentes();
 
-    // Filas y columnas no editables
-    DefaultTableModel tabla = new DefaultTableModel() {
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
+        // Ordenar la lista de clientes alfabéticamente por el nombre
+        listaDocentes.sort((docente1, docente2) -> docente1.getNombre().compareToIgnoreCase(docente2.getNombre()));
+
+        // Filas y columnas no editables
+        DefaultTableModel tabla = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        // Nombres de columnas
+        String titulos[] = {"Id_Docente", "Nombre", "Apellido", "Telefono", "Domicilio", "Email", "Cuit", "Dni", "Cursos", "Materias"};
+        tabla.setColumnIdentifiers(titulos);
+
+        // Recorrer la lista ordenada y mostrar elementos en la tabla
+        if (listaDocentes != null) {
+            for (Docente d : listaDocentes) {
+                Object[] objeto = {d.getIdPersona(), d.getNombre(), d.getApellido(), d.getTelefono(), d.getDomicilio(), d.getEmail(), d.getDni(),
+                    d.getCursos(), d.getMaterias()};
+                tabla.addRow(objeto);
+            }
         }
-    };
-    
-    // Nombres de columnas
-    String titulos[] = {"Id_Docente", "Nombre", "Apellido","Telefono", "Domicilio", "Email", "Cuit", "Dni","Cursos", "Materias"};
-    tabla.setColumnIdentifiers(titulos);
 
-    // Recorrer la lista ordenada y mostrar elementos en la tabla
-    if (listaDocentes != null) {
-        for (Docente d : listaDocentes) {
-            Object[] objeto = {d.getIdPersona(), d.getNombre(), d.getApellido(), d.getTelefono(), d.getDomicilio(), d.getEmail(), d.getDni(),
-                d.getCursos(),d.getMaterias()};
-            tabla.addRow(objeto);
-        }
+        // Configurar el TableRowSorter para habilitar el ordenamiento en la tabla
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabla);
+        tablaDocente.setModel(tabla);
+        tablaDocente.setRowSorter(sorter);
     }
-
-    // Configurar el TableRowSorter para habilitar el ordenamiento en la tabla
-    TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabla);
-    tablaDocente.setModel(tabla);
-    tablaDocente.setRowSorter(sorter);
-}
 }
