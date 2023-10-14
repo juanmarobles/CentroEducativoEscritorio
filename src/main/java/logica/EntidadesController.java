@@ -7,6 +7,7 @@ package logica;
 import java.util.Date;
 import java.util.List;
 import logica.entidades.Alumno;
+import logica.entidades.Docente;
 import logica.entidades.Tutor;
 import persistencia.PersistenciaController;
 
@@ -65,7 +66,7 @@ public class EntidadesController {
         alumno.setTutor(tutor);
         alumno.setNivel(nivel);
         alumno.setDivision(division);
-
+        ctrl.editarAlumno(alumno);
     }
 
     public Alumno traerAlumno(Long idAlumno) {
@@ -90,6 +91,41 @@ public class EntidadesController {
 
     public Tutor buscarTutorPorNombre(String tutorNombre) {
         return ctrl.buscarTutorPornombre(tutorNombre);
+    }
+    /* ------------------------------------CRUD DOCENTES--------------------------------------------------------*/
+
+    public List<Docente> traerDocentes() {
+        return ctrl.traerDocentes();
+        }
+
+    public void cargarDocente(String nombre, String apellido, int dni, String domicilio, String tel, String email, String turno, String nivel) {
+        Docente d = new Docente();
+        d.setNombre(nombre);
+        d.setApellido(apellido);
+        d.setDni(dni);
+        d.setDomicilio(domicilio);
+        d.setTelefono(dni);
+        d.setEmail(email);
+        d.setTurno(turno);
+        d.setNivel(nivel);
+        
+        ctrl.crearDocente(d);
+    }
+
+    public void editarDocente(Docente docente, String nombre, String apellido, int dni, String domicilio, int telefono, String email, String nivel, String turno) {
+        docente.setNombre(nombre);
+        docente.setApellido(apellido);
+        docente.setDni(dni);
+        docente.setDomicilio(domicilio);
+        docente.setTelefono(telefono);
+        docente.setEmail(email);
+        docente.setNivel(nivel);
+        docente.setTurno(turno);
+        ctrl.editarDocente(docente);
+    }
+
+    public Docente traerDocente(int idDocente) {    
+        return ctrl.traerDocente(idDocente);
     }
 
 }

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import logica.entidades.Docente;
 import persistencia.exceptions.NonexistentEntityException;
 
@@ -32,7 +33,12 @@ public class DocenteJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
+     //CONTROLADOR
+    public DocenteJpaController() {
+        emf = Persistence.createEntityManagerFactory("centroeducativoPU");
+    }
 
+    
     public void create(Docente docente) {
         if (docente.getCursos() == null) {
             docente.setCursos(new ArrayList<Curso>());
