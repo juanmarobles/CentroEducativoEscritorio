@@ -92,4 +92,12 @@ public class PersistenciaController {
         return docJPA.findDocente(idDocente);
     }
 
+    public void borrarDocente(int idDocente) {
+        try {
+            docJPA.destroy(idDocente);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

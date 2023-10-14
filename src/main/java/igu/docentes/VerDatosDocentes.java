@@ -274,9 +274,9 @@ public class VerDatosDocentes extends javax.swing.JInternalFrame {
             //validar q se haya seleccionado un registro
             if (tablaDocente.getSelectedRow() != -1) {
                 //obtener la id de lo q quiero borrar
-                Long idAlumno = Long.parseLong(String.valueOf(tablaDocente.getValueAt(tablaDocente.getSelectedRow(), 0)));
+                int idDocente = Integer.parseInt(String.valueOf(tablaDocente.getValueAt(tablaDocente.getSelectedRow(), 0)));
 
-                control.borrarAlumno(idAlumno);
+                control.borrarDocente(idDocente);
                 mostrarMensaje("Alumno borrado correctamente", "Info", "Borrado con exito!");
                 mostrarTablaDocentes();
             } else {

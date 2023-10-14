@@ -128,4 +128,8 @@ public class EntidadesController {
         return ctrl.traerDocente(idDocente);
     }
 
+    public void borrarDocente(int idDocente) {
+        ctrl.borrarDocente(idDocente);
+    }
+
 }
