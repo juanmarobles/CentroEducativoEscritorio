@@ -2,6 +2,9 @@ package igu.alumnos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,11 +22,7 @@ public class NuevoAlumno extends javax.swing.JFrame {
     public NuevoAlumno() {
         initComponents();
 
-        txtNombre.addActionListener(createActionListener(btnCargar));
-        txtApellido.addActionListener(createActionListener(btnCargar));
-        txtDni.addActionListener(createActionListener(btnCargar));
-        cbTutor.addActionListener(createActionListener(btnCargar));
-
+        cargarTutores();
     }
 
     // Método para crear un ActionListener reutilizable
@@ -51,7 +50,7 @@ public class NuevoAlumno extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        txtFecha = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
         cmbNivel = new javax.swing.JComboBox<>();
         cmbDivision = new javax.swing.JComboBox<>();
@@ -105,13 +104,14 @@ public class NuevoAlumno extends javax.swing.JFrame {
         jLabel5.setText("Fecha Nac.:");
 
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            txtFecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtFecha.setText("");
+        txtFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField1ActionPerformed(evt);
+                txtFechaActionPerformed(evt);
             }
         });
 
@@ -175,7 +175,7 @@ public class NuevoAlumno extends javax.swing.JFrame {
                             .addComponent(txtDni)
                             .addComponent(txtNombre)
                             .addComponent(txtApellido)
-                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtFecha, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cmbNivel, javax.swing.GroupLayout.Alignment.TRAILING, 0, 234, Short.MAX_VALUE)
                             .addComponent(cmbDivision, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbTutor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -199,7 +199,7 @@ public class NuevoAlumno extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -260,19 +260,16 @@ public class NuevoAlumno extends javax.swing.JFrame {
         String apellido = txtApellido.getText();
         String dniText = txtDni.getText();
         int dni = Integer.parseInt(dniText);
-        Tutor tutor = (Tutor) cbTutor.getSelectedItem();
+        Tutor tutorSeleccionado = (Tutor) cbTutor.getSelectedItem();
         String nivel = (cmbNivel.getSelectedItem() != null) ? cmbNivel.getSelectedItem().toString() : "";
         String division = (cmbDivision.getSelectedItem() != null) ? cmbDivision.getSelectedItem().toString() : "";
-
-        control.cargarAlumno(nombre, apellido, dni, tutor, nivel, division);
-        mostrarMensaje("Alumno agregado correctamente", "Info", "Agregado con exito!");
-
+        String fecha = txtFecha.getText();
+        control.cargarAlumno(nombre, apellido, dni, tutorSeleccionado, nivel, division, fecha);
+        mostrarMensaje("Alumno agregado correctamente", "Info", "Agregado con éxito!");
         VerDatosAlumno verAnterior = new VerDatosAlumno();
         verAnterior.setVisible(true);
         verAnterior.setLocationRelativeTo(null);
-
         this.dispose();
-
 
     }//GEN-LAST:event_btnCargarActionPerformed
     private void cargarTutores() {
@@ -290,12 +287,13 @@ public class NuevoAlumno extends javax.swing.JFrame {
 
         // Agregar los nombres de los clientes al ComboBox de forma ordenada
         for (Tutor tutor : listaTutores) {
-            cbTutor.addItem(tutor.getNombre());
+            // Añadir salidas de depuración para verificar el contenido de los objetos Tutor
+            System.out.println("Tutor: " + tutor);
+            cbTutor.addItem(tutor);
         }
 
         // Eliminar la opción en blanco después de configurar el decorador
         cbTutor.removeItem("");
-
         // Establecer el índice seleccionado a -1 para no mostrar ninguna selección
         cbTutor.setSelectedIndex(-1);
 
@@ -303,22 +301,14 @@ public class NuevoAlumno extends javax.swing.JFrame {
         cbTutor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String textoBusqueda = cbTutor.getEditor().getItem().toString();
-                mostrarResultadosBusqueda(cbTutor, textoBusqueda);
-                if (cbTutor.getSelectedIndex() != -1) {
-                    // Normaliza el texto de búsqueda a mayúsculas
-                    textoBusqueda = textoBusqueda.toUpperCase();
+                // Verifica si hay un tutor seleccionado
+                if (cbTutor.getSelectedItem() != null) {
+                    // Obtén el objeto Tutor seleccionado
+                    Tutor tutorSeleccionado = listaTutores.get(cbTutor.getSelectedIndex());
 
-                    Tutor tutorSeleccionado = null; // Cambia el nombre de la variable para evitar conflicto
-                    for (Tutor tutor : listaTutores) {
-                        if (tutor.getNombre().toUpperCase().equals(textoBusqueda)) {
-                            tutorSeleccionado = tutor;
-                            break;
-                        }
-                    }
-
-                    // Asigna el tutor seleccionado a la variable tutor
-                    NuevoAlumno.this.tutor = tutorSeleccionado;
+                    // Ahora puedes trabajar con el tutorSeleccionado
+                } else {
+                    mostrarMensaje("Por favor, selecciona un tutor válido.", "Error", "Error de selección");
                 }
             }
         });
@@ -376,9 +366,9 @@ public class NuevoAlumno extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidoActionPerformed
 
-    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
+    private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
+    }//GEN-LAST:event_txtFechaActionPerformed
     public void mostrarMensaje(String mensaje, String tipo, String titulo) {
         JOptionPane optionPane = new JOptionPane(mensaje);
         if (tipo.equals("Info")) {
@@ -431,10 +421,9 @@ public class NuevoAlumno extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCargar;
-    private javax.swing.JComboBox<String> cbTutor;
+    private javax.swing.JComboBox<Tutor> cbTutor;
     private javax.swing.JComboBox<String> cmbDivision;
     private javax.swing.JComboBox<String> cmbNivel;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
@@ -448,6 +437,7 @@ public class NuevoAlumno extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDni;
+    private javax.swing.JFormattedTextField txtFecha;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

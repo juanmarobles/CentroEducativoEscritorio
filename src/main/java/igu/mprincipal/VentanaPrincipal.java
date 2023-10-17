@@ -1,12 +1,12 @@
 
 package igu.mprincipal;
 
-import com.mycompany.lestanitest.igu.PagoCuotas;
+//import com.mycompany.lestanitest.igu.PagoCuotas;
 import igu.alumnos.VerDatosAlumno;
 import igu.asignacionAulas.Aulas_Materias;
 import igu.docentes.VerDatosDocentes;
 import igu.notas.BoletinNotas;
-import igu.notas.CargarNotas;
+//import igu.notas.CargarNotas;
 import igu.personal.VerDatosPersonal;
 import igu.tutores.VerDatosTutor;
 import java.util.logging.Level;
@@ -31,6 +31,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         initComponents();
        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         instancia = this;
+        
+      
+        //labelRol.setText("Rol del usuario: " + rolUsuario);
     }
     
 
@@ -41,11 +44,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        labelRol = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         Entidades = new javax.swing.JMenu();
         MenuAlumnos = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        menuTutores = new javax.swing.JMenuItem();
+        MenuTutores = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         MenuDocentes = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
@@ -69,21 +74,35 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel2.setAutoscrolls(true);
         jPanel2.setPreferredSize(new java.awt.Dimension(1920, 1080));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\lucia\\Descargas\\zyro-image-removebg-preview.png")); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel2.setText("Bienvenido: ");
+
+        labelRol.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(676, 676, 676)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(716, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(772, 772, 772)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(527, 527, 527)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelRol, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(620, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(273, 273, 273)
+                .addGap(31, 31, 31)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelRol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(210, 210, 210)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(372, Short.MAX_VALUE))
         );
@@ -111,17 +130,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         Entidades.add(MenuAlumnos);
         Entidades.add(jSeparator2);
 
-        menuTutores.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        menuTutores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/equipo.png"))); // NOI18N
-        menuTutores.setText("Tutores");
-        menuTutores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        menuTutores.setPreferredSize(new java.awt.Dimension(142, 36));
-        menuTutores.addActionListener(new java.awt.event.ActionListener() {
+        MenuTutores.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        MenuTutores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/equipo.png"))); // NOI18N
+        MenuTutores.setText("Tutores");
+        MenuTutores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MenuTutores.setPreferredSize(new java.awt.Dimension(142, 36));
+        MenuTutores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuTutoresActionPerformed(evt);
+                MenuTutoresActionPerformed(evt);
             }
         });
-        Entidades.add(menuTutores);
+        Entidades.add(MenuTutores);
         Entidades.add(jSeparator3);
 
         MenuDocentes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -216,62 +235,48 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private VerDatosAlumno ventanaAlumnos;
-    private VerDatosTutor ventanaTutor;
     private VerDatosDocentes ventanaDocentes;
     private VerDatosPersonal ventanaPersonal;
-    private PagoCuotas ventanaCuotas;
+   // private PagoCuotas ventanaCuotas;
     private Aulas_Materias ventanaHorarios;
-    private CargarNotas ventanaCarga_Notas;
+    //private CargarNotas ventanaCarga_Notas;
     private BoletinNotas ventanaVer_Notas;
     
     private void MenuAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAlumnosActionPerformed
-        // Verificar si la ventana ya está abierta
         if (ventanaAlumnos == null || !ventanaAlumnos.isVisible()) {
-            // Si la ventana no está abierta o está oculta, crea una nueva instancia
             ventanaAlumnos = new VerDatosAlumno();
         }
 
-        // Mostrar la ventana y enfocarla (llevarla al frente)
         ventanaAlumnos.setVisible(true);
         ventanaAlumnos.toFront();
     }//GEN-LAST:event_MenuAlumnosActionPerformed
-    
-    private void menuTutoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTutoresActionPerformed
-        // Verificar si la ventana ya está abierta
+    private VerDatosTutor ventanaTutor;
+    private void MenuTutoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuTutoresActionPerformed
         if (ventanaTutor == null || !ventanaTutor.isVisible()) {
-            // Si la ventana no está abierta o está oculta, crea una nueva instancia
             ventanaTutor = new VerDatosTutor();
         }
 
-        // Mostrar la ventana y enfocarla (llevarla al frente)
         ventanaTutor.setVisible(true);
         ventanaTutor.toFront();
-    }//GEN-LAST:event_menuTutoresActionPerformed
+    }//GEN-LAST:event_MenuTutoresActionPerformed
     private void MenuPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuPersonalActionPerformed
-        // Verificar si la ventana ya está abierta
-        if (ventanaPersonal == null || !ventanaPersonal.isVisible()) {
-            // Si la ventana no está abierta o está oculta, crea una nueva instancia
+        
             ventanaPersonal = new VerDatosPersonal();
-        }
-
-        // Mostrar la ventana y enfocarla (llevarla al frente)
+        
         ventanaPersonal.setVisible(true);
         ventanaPersonal.toFront();
     }//GEN-LAST:event_MenuPersonalActionPerformed
     private void MenuDocentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuDocentesActionPerformed
-       // Verificar si la ventana ya está abierta
         if (ventanaDocentes == null || !ventanaDocentes.isVisible()) {
-            // Si la ventana no está abierta o está oculta, crea una nueva instancia
             ventanaDocentes = new VerDatosDocentes();
         }
 
-        // Mostrar la ventana y enfocarla (llevarla al frente)
         ventanaDocentes.setVisible(true);
         ventanaDocentes.toFront();
     }//GEN-LAST:event_MenuDocentesActionPerformed
 
     private void CargarNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarNotasActionPerformed
-        // Verificar si la ventana ya está abierta
+       /* // Verificar si la ventana ya está abierta
         if (ventanaCarga_Notas == null || !ventanaCarga_Notas.isVisible()) {
             // Si la ventana no está abierta o está oculta, crea una nueva instancia
             ventanaCarga_Notas = new CargarNotas();
@@ -280,6 +285,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // Mostrar la ventana y enfocarla (llevarla al frente)
         ventanaCarga_Notas.setVisible(true);
         ventanaCarga_Notas.toFront();
+        */
     }//GEN-LAST:event_CargarNotasActionPerformed
 
     private void BoletinNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoletinNotasActionPerformed
@@ -307,7 +313,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_Horarios_AulasActionPerformed
 
     private void CuotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuotasActionPerformed
-        // Verificar si la ventana ya está abierta
+       /* // Verificar si la ventana ya está abierta
         if (ventanaCuotas == null || !ventanaCuotas.isVisible()) {
             // Si la ventana no está abierta o está oculta, crea una nueva instancia
             ventanaCuotas = new PagoCuotas();
@@ -316,6 +322,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // Mostrar la ventana y enfocarla (llevarla al frente)
         ventanaCuotas.setVisible(true);
         ventanaCuotas.toFront();
+        */
     }//GEN-LAST:event_CuotasActionPerformed
 
     /**
@@ -342,8 +349,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuAlumnos;
     private javax.swing.JMenuItem MenuDocentes;
     private javax.swing.JMenuItem MenuPersonal;
+    private javax.swing.JMenuItem MenuTutores;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
@@ -351,6 +360,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator7;
-    private javax.swing.JMenuItem menuTutores;
+    private javax.swing.JLabel labelRol;
     // End of variables declaration//GEN-END:variables
 }

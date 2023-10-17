@@ -40,14 +40,13 @@ public class Alumno implements Serializable {
     private String division;
 
     @Column(name = "fecha_nac")
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date fechaNac;
+    private String fechaNac;
 
     public Alumno() {
 
     }
 
-    public Alumno(Long id, String nombre, String apellido, int dni, Tutor tutor, String nivel, int telefono, Date fechaNac, String division) {
+    public Alumno(Long id, String nombre, String apellido, int dni, Tutor tutor, String nivel, int telefono, String fechaNac, String division) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -58,11 +57,11 @@ public class Alumno implements Serializable {
         this.fechaNac = fechaNac;
     }
 
-    public Date getFechaNac() {
+    public String getFechaNac() {
         return fechaNac;
     }
 
-    public void setFechaNac(Date fechaNac) {
+    public void setFechaNac(String fechaNac) {
         this.fechaNac = fechaNac;
     }
 

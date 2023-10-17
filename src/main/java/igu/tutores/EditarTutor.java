@@ -4,6 +4,7 @@
  */
 package igu.tutores;
 
+import java.text.SimpleDateFormat;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import logica.EntidadesController;
@@ -14,15 +15,19 @@ import logica.entidades.Tutor;
  * @author lucia
  * @autor juanmarobles
  */
-public class EditarTutor extends javax.swing.JInternalFrame {
+public class EditarTutor extends javax.swing.JFrame  {
 
-    EntidadesController control = new EntidadesController();
+    EntidadesController control = null;
     Tutor tutor = new Tutor();
+
     /**
      * Creates new form EditarTutor
      */
     public EditarTutor(int idTutor) {
+        control = new EntidadesController();
+
         initComponents();
+        cargarDatosTutor(idTutor);
     }
 
     /**
@@ -220,23 +225,20 @@ public class EditarTutor extends javax.swing.JInternalFrame {
         String telefono = txtTelefono.getText();
         int dni = Integer.parseInt(dniText);
 
-        control.editarTutor(tutor,nombre, apellido, dni, domicilio, email, telefono);
+        control.editarTutor(tutor, nombre, apellido, dni, domicilio, email, telefono);
         mostrarMensaje("Tutor editado correctamente", "Info", "Agregado con exito!");
-        /*
-       VerDatosTutor verAnterior = new VerDatosTutor();
+
+        VerDatosTutor verAnterior = new VerDatosTutor();
         verAnterior.setVisible(true);
-        verAnterior.setLocationRelativeTo(null);
-         */
 
         this.dispose();
     }//GEN-LAST:event_btnCargarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        /* VerDatosAlumno verAnterior = new VerDatosAlumno();
+        VerDatosTutor verAnterior = new VerDatosTutor();
         verAnterior.setVisible(true);
-        verAnterior.setLocationRelativeTo(null);
         dispose();
-         */
+
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     public void mostrarMensaje(String mensaje, String tipo, String titulo) {
@@ -271,4 +273,17 @@ public class EditarTutor extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
+ private void cargarDatosTutor(int idTutor) {
+        //busco id en la bd
+        tutor = control.traerTutor(idTutor);
+        txtNombre.setText(tutor.getNombre());
+        txtApellido.setText(tutor.getApellido());
+        int dni = tutor.getDni();
+        txtDni.setText(Integer.toString(dni));
+        txtDomicilio.setText(tutor.getDomicilio());
+        txtEmail.setText(tutor.getEmail());
+        int tel = tutor.getTelefono();
+        txtTelefono.setText(Integer.toString(tel));
+    }
 }

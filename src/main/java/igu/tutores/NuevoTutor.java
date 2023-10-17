@@ -13,7 +13,7 @@ import logica.EntidadesController;
  * @author lucia
  * @author backend juanmarobles
  */
-public class NuevoTutor extends javax.swing.JInternalFrame {
+public class NuevoTutor extends javax.swing.JFrame  {
     EntidadesController control = new EntidadesController();
     
     /**
@@ -220,11 +220,11 @@ public class NuevoTutor extends javax.swing.JInternalFrame {
 
         control.crearTutor(nombre, apellido, dni, domicilio, email, telefono);
         mostrarMensaje("Tutor agregado correctamente", "Info", "Agregado con exito!");
-        /*
+        
        VerDatosTutor verAnterior = new VerDatosTutor();
         verAnterior.setVisible(true);
         verAnterior.setLocationRelativeTo(null);
-         */
+         
 
         this.dispose();
 

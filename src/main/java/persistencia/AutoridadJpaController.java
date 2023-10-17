@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
 package persistencia;
 
 import java.io.Serializable;
@@ -13,35 +14,35 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import logica.entidades.Rol;
+import logica.entidades.Autoridad;
 import persistencia.exceptions.NonexistentEntityException;
 
 /**
  *
  * @author juanmarobles
  */
-public class RolJpaController implements Serializable {
+public class AutoridadJpaController implements Serializable {
 
-    public RolJpaController(EntityManagerFactory emf) {
+    public AutoridadJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    //CONTROLADOR
-    public RolJpaController(){
-    emf = Persistence.createEntityManagerFactory("centroeducativoPU");
-    }
-    
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
+    
+    //CONTROLADOR
+    public AutoridadJpaController() {
+        emf = Persistence.createEntityManagerFactory("centroeducativoPU");
+    }
 
-    public void create(Rol rol) {
+    public void create(Autoridad autoridad) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(rol);
+            em.persist(autoridad);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -50,19 +51,19 @@ public class RolJpaController implements Serializable {
         }
     }
 
-    public void edit(Rol rol) throws NonexistentEntityException, Exception {
+    public void edit(Autoridad autoridad) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            rol = em.merge(rol);
+            autoridad = em.merge(autoridad);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = rol.getId();
-                if (findRol(id) == null) {
-                    throw new NonexistentEntityException("The rol with id " + id + " no longer exists.");
+                int id = autoridad.getIdAutoridad();
+                if (findAutoridad(id) == null) {
+                    throw new NonexistentEntityException("The autoridad with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -73,19 +74,19 @@ public class RolJpaController implements Serializable {
         }
     }
 
-    public void destroy(Long id) throws NonexistentEntityException {
+    public void destroy(int id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Rol rol;
+            Autoridad autoridad;
             try {
-                rol = em.getReference(Rol.class, id);
-                rol.getId();
+                autoridad = em.getReference(Autoridad.class, id);
+                autoridad.getIdAutoridad();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The rol with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The autoridad with id " + id + " no longer exists.", enfe);
             }
-            em.remove(rol);
+            em.remove(autoridad);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -94,19 +95,19 @@ public class RolJpaController implements Serializable {
         }
     }
 
-    public List<Rol> findRolEntities() {
-        return findRolEntities(true, -1, -1);
+    public List<Autoridad> findAutoridadEntities() {
+        return findAutoridadEntities(true, -1, -1);
     }
 
-    public List<Rol> findRolEntities(int maxResults, int firstResult) {
-        return findRolEntities(false, maxResults, firstResult);
+    public List<Autoridad> findAutoridadEntities(int maxResults, int firstResult) {
+        return findAutoridadEntities(false, maxResults, firstResult);
     }
 
-    private List<Rol> findRolEntities(boolean all, int maxResults, int firstResult) {
+    private List<Autoridad> findAutoridadEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Rol.class));
+            cq.select(cq.from(Autoridad.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -118,20 +119,20 @@ public class RolJpaController implements Serializable {
         }
     }
 
-    public Rol findRol(Long id) {
+    public Autoridad findAutoridad(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Rol.class, id);
+            return em.find(Autoridad.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getRolCount() {
+    public int getAutoridadCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Rol> rt = cq.from(Rol.class);
+            Root<Autoridad> rt = cq.from(Autoridad.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
@@ -139,5 +140,5 @@ public class RolJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

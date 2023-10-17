@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
 package persistencia;
 
 import java.io.Serializable;
@@ -11,9 +12,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import logica.entidades.Usuario;
+import static logica.entidades.Usuario_.contrasena;
 import persistencia.exceptions.NonexistentEntityException;
 
 /**
@@ -25,15 +28,17 @@ public class UsuarioJpaController implements Serializable {
     public UsuarioJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-     //CONTROLADOR
-    public UsuarioJpaController(){
-    emf = Persistence.createEntityManagerFactory("centroeducativoPU");
-    }
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
+    
+     //CONTROLADOR
+    public UsuarioJpaController() {
+        emf = Persistence.createEntityManagerFactory("centroeducativoPU");
+    }
+
 
     public void create(Usuario usuario) {
         EntityManager em = null;
@@ -138,5 +143,27 @@ public class UsuarioJpaController implements Serializable {
             em.close();
         }
     }
+
+    public Usuario findUsuarioPorCredenciales(String usuario, String contrasena) {
+    EntityManager em = getEntityManager();
+    try {
+        // Consulta para buscar un usuario por nombre de usuario y contraseña
+        String jpql = "SELECT u FROM Usuario u WHERE u.usuario = :usuario AND u.contrasena = :contrasena";
+        TypedQuery<Usuario> query = em.createQuery(jpql, Usuario.class);
+        query.setParameter("usuario", usuario);
+        query.setParameter("contrasena", contrasena);
+        
+        List<Usuario> result = query.getResultList();
+        if (!result.isEmpty()) {
+            // Devuelve el primer usuario encontrado (debería ser único en este caso)
+            return result.get(0);
+        }
+        return null; // No se encontró ningún usuario con las credenciales proporcionadas
+    } finally {
+        em.close();
+    }
+}
+   
     
+
 }

@@ -8,7 +8,9 @@ import java.util.Date;
 import java.util.List;
 import logica.entidades.Alumno;
 import logica.entidades.Docente;
+import logica.entidades.Personal;
 import logica.entidades.Tutor;
+import logica.entidades.Usuario;
 import persistencia.PersistenciaController;
 
 /**
@@ -39,6 +41,17 @@ public class EntidadesController {
          */
     }
 
+    public void crearUsuario(String nombre, String apellido, String usuario, String contrasena, String rol) {
+        Usuario u = new Usuario();
+        u.setNombre(nombre);
+        u.setApellido(apellido);
+        u.setUsuario(usuario);
+        u.setContrasena(contrasena);
+        u.setRol(rol);
+        ctrl.crearUsuario(u);
+    }
+
+
     /* ------------------------------------CRUD ALUMNOS--------------------------------------------------------*/
     public void borrarAlumno(Long idAlumno) {
         ctrl.borrarAlumno(idAlumno);
@@ -48,7 +61,7 @@ public class EntidadesController {
         return ctrl.traerAlumnos();
     }
 
-    public void cargarAlumno(String nombre, String apellido, int dni, Tutor tutor, String nivel, String division) {
+    public void cargarAlumno(String nombre, String apellido, int dni, Tutor tutor, String nivel, String division, String fecha) {
         Alumno alumno = new Alumno();
         alumno.setNombre(nombre);
         alumno.setApellido(apellido);
@@ -56,16 +69,18 @@ public class EntidadesController {
         alumno.setTutor(tutor);
         alumno.setNivel(nivel);
         alumno.setDivision(division);
+        alumno.setFechaNac(fecha);
         ctrl.guardarAlumno(alumno);
     }
 
-    public void editarAlumno(Alumno alumno, String nombre, String apellido, int dni, Date fecha, Tutor tutor, String nivel, String division) {
+    public void editarAlumno(Alumno alumno, String nombre, String apellido, int dni, String fecha, Tutor tutor, String nivel, String division) {
         alumno.setNombre(nombre);
         alumno.setApellido(apellido);
         alumno.setDni(dni);
         alumno.setTutor(tutor);
         alumno.setNivel(nivel);
         alumno.setDivision(division);
+        alumno.setFechaNac(fecha);
         ctrl.editarAlumno(alumno);
     }
 
@@ -86,17 +101,23 @@ public class EntidadesController {
     }
 
     public void editarTutor(Tutor tutor, String nombre, String apellido, int dni, String domicilio, String email, String telefono) {
-
+        tutor.setNombre(nombre);
+        tutor.setApellido(apellido);
+        tutor.setDni(dni);
+        tutor.setDomicilio(domicilio);
+        tutor.setEmail(email);
+        tutor.setTelefono(dni);
+        ctrl.EditarTutor(tutor);
     }
 
     public Tutor buscarTutorPorNombre(String tutorNombre) {
         return ctrl.buscarTutorPornombre(tutorNombre);
     }
-    /* ------------------------------------CRUD DOCENTES--------------------------------------------------------*/
 
+    /* ------------------------------------CRUD DOCENTES--------------------------------------------------------*/
     public List<Docente> traerDocentes() {
         return ctrl.traerDocentes();
-        }
+    }
 
     public void cargarDocente(String nombre, String apellido, int dni, String domicilio, String tel, String email, String turno, String nivel) {
         Docente d = new Docente();
@@ -108,7 +129,7 @@ public class EntidadesController {
         d.setEmail(email);
         d.setTurno(turno);
         d.setNivel(nivel);
-        
+
         ctrl.crearDocente(d);
     }
 
@@ -124,12 +145,62 @@ public class EntidadesController {
         ctrl.editarDocente(docente);
     }
 
-    public Docente traerDocente(int idDocente) {    
+    public Docente traerDocente(int idDocente) {
         return ctrl.traerDocente(idDocente);
     }
 
     public void borrarDocente(int idDocente) {
         ctrl.borrarDocente(idDocente);
+    }
+
+    public void borrarTutor(int idTutor) {
+        ctrl.borrarTutor(idTutor);
+    }
+
+    public List<Tutor> traerTutores() {
+        return ctrl.traerTutores();
+    }
+
+    public void borrarPersonal(int idPersonal) {
+        ctrl.borrarPersonal(idPersonal);
+    }
+
+    public List<Personal> traerPersonal() {
+        return ctrl.traerPersonal();
+    }
+
+    public void cargarPersonal(String nombre, String apellido, int dni, int cuit, int tel, String email, String area, String turno) {
+        Personal p = new Personal();
+        p.setNombre(nombre);
+        p.setApellido(apellido);
+        p.setDni(dni);
+        p.setCuit(cuit);
+        p.setTelefono(tel);
+        p.setEmail(email);
+        p.setArea(area);
+        p.setTurno(turno);
+        ctrl.crearPersonal(p);
+    }
+
+    public void editarPersonal(Personal personal, String nombre, String apellido, int dni, int cuit, int tel, String email, String area, String turno) {
+        personal.setNombre(nombre);
+        personal.setApellido(apellido);
+        personal.setDni(dni);
+        personal.setCuit(cuit);
+        personal.setTelefono(tel);
+        personal.setEmail(email);
+        personal.setArea(area);
+        personal.setTurno(turno);
+        ctrl.editarPersonal(personal);
+    }
+
+    public Tutor traerTutor(int idTutor) {
+        return ctrl.traerTutor(idTutor);
+
+    }
+
+    public Personal traerPersonal(int idPersonal) {
+        return ctrl.traerPersonal(idPersonal);
     }
 
 }

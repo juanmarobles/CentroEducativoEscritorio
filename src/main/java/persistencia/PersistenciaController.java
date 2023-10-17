@@ -9,7 +9,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import logica.entidades.Alumno;
 import logica.entidades.Docente;
+import logica.entidades.Personal;
 import logica.entidades.Tutor;
+import logica.entidades.Usuario;
 import persistencia.exceptions.NonexistentEntityException;
 
 /**
@@ -18,13 +20,19 @@ import persistencia.exceptions.NonexistentEntityException;
  */
 public class PersistenciaController {
 
-    RolJpaController rolJPA = new RolJpaController();
     UsuarioJpaController usuJPA = new UsuarioJpaController();
-    UsuarioRolJpaController usuorolJPA = new UsuarioRolJpaController();
     AlumnoJpaController aluJPA = new AlumnoJpaController();
     CuotaJpaController cuotaJPA = new CuotaJpaController();
     TutorJpaController tutorJPA = new TutorJpaController();
     DocenteJpaController docJPA = new DocenteJpaController();
+    PersonalJpaController personalJPA = new PersonalJpaController();
+    
+        /* ------------------------------------CRUD USUARIOS--------------------------------------------------------*/
+
+     public void crearUsuario(Usuario usuario) {
+         usuJPA.create(usuario);     
+     }
+    
 
     /* ------------------------------------CRUD ALUMNOS--------------------------------------------------------*/
         //save
@@ -69,6 +77,14 @@ public class PersistenciaController {
     public Tutor buscarTutorPornombre(String tutorNombre) {
         return tutorJPA.buscarTutorPorNombre(tutorNombre);
     }
+    //edit
+     public void EditarTutor(Tutor tutor) {
+        try {
+            tutorJPA.edit(tutor);
+        } catch (Exception ex) {
+            Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
 
     /* ------------------------------------CRUD DOCENTES--------------------------------------------------------*/
 
@@ -99,5 +115,59 @@ public class PersistenciaController {
             Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    /* ------------------------------------CRUD TUTORES--------------------------------------------------------*/
+
+    public void borrarTutor(int idTutor) {
+        try {
+            tutorJPA.destroy(idTutor);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    public List<Tutor> traerTutores() {
+        return tutorJPA.findTutorEntities();
+    }
+
+    public Tutor traerTutor(int idTutor) {
+        return tutorJPA.findTutor(idTutor);
+    }
+    
+        /* ------------------------------------CRUD PERSONAL--------------------------------------------------------*/
+
+    public void borrarPersonal(int idPersonal) {
+        try {
+            personalJPA.destroy(idPersonal);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void crearPersonal(Personal p) {
+        personalJPA.create(p);
+    }
+
+    public List<Personal> traerPersonal() {
+       return  personalJPA.findPersonalEntities();
+    }
+
+    public void editarPersonal(Personal personal) {
+        try {
+            personalJPA.edit(personal);
+        } catch (Exception ex) {
+            Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Personal traerPersonal(int idPersonal) {
+        return personalJPA.findPersonal(idPersonal);
+    }
+
+   
+
+    
+
+   
 
 }

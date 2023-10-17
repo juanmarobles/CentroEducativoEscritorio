@@ -4,15 +4,23 @@
  */
 package logica.entidades;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author juanmarobles
  */
 @Entity
-public class Autoridad {
+public class Autoridad implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int idAutoridad;
+    
     @Column(name = "nombre")
     private String nombre;
 
@@ -22,11 +30,20 @@ public class Autoridad {
     public Autoridad() {
     }
 
-    public Autoridad(String nombre, String apellido) {
+    public Autoridad(int idAutoridad, String nombre, String apellido) {
+        this.idAutoridad = idAutoridad;
         this.nombre = nombre;
         this.apellido = apellido;
     }
 
+    public int getIdAutoridad() {
+        return idAutoridad;
+    }
+
+    public void setIdAutoridad(int idAutoridad) {
+        this.idAutoridad = idAutoridad;
+    }
+    
     public String getNombre() {
         return nombre;
     }

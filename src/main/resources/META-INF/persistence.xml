@@ -12,6 +12,8 @@
     <class>logica.entidades.Docente</class>
     <class>logica.entidades.Materia</class>
     <class>logica.entidades.Persona</class>
+    <class>logica.entidades.Personal</class>
+    <class>logica.entidades.Autoridad</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/centroedu?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

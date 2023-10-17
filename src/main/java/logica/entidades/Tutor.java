@@ -110,6 +110,11 @@ public class Tutor implements Serializable {
     public void setAlumnos(List<Alumno> alumnos) {
         this.alumnos = alumnos;
     }
+
+    @Override
+    public String toString() {
+        return nombre +apellido ;
+    }
     
     
     

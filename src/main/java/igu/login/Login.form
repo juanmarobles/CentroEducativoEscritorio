@@ -94,7 +94,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-                      <Component id="btnAcceder1" min="-2" pref="132" max="-2" attributes="0"/>
+                      <Component id="btnRegistrar" min="-2" pref="132" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnAcceder" min="-2" pref="132" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
@@ -118,7 +118,7 @@
                       <Component id="txtPassword" min="-2" pref="51" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnAcceder1" alignment="3" min="-2" pref="56" max="-2" attributes="0"/>
+                          <Component id="btnRegistrar" alignment="3" min="-2" pref="56" max="-2" attributes="0"/>
                           <Component id="btnAcceder" alignment="3" min="-2" pref="56" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -191,7 +191,7 @@
                 <Property name="text" type="java.lang.String" value="Centro Educativo"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnAcceder1">
+            <Component class="javax.swing.JButton" name="btnRegistrar">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="a6" green="50" red="f" type="rgb"/>
@@ -205,7 +205,7 @@
                 <Property name="text" type="java.lang.String" value="REGISTRAR"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAcceder1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

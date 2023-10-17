@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
 package persistencia;
 
 import java.io.Serializable;
@@ -13,34 +14,35 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import logica.entidades.UsuarioRol;
+import logica.entidades.Personal;
 import persistencia.exceptions.NonexistentEntityException;
 
 /**
  *
  * @author juanmarobles
  */
-public class UsuarioRolJpaController implements Serializable {
+public class PersonalJpaController implements Serializable {
 
-    public UsuarioRolJpaController(EntityManagerFactory emf) {
+    public PersonalJpaController(EntityManagerFactory emf) {
         this.emf = emf;
-    }
-    //CONTROLADOR
-    public UsuarioRolJpaController(){
-    emf = Persistence.createEntityManagerFactory("centroeducativoPU");
     }
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
+    
+    //CONTROLADOR
+    public PersonalJpaController() {
+        emf = Persistence.createEntityManagerFactory("centroeducativoPU");
+    }
 
-    public void create(UsuarioRol usuarioRol) {
+    public void create(Personal personal) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(usuarioRol);
+            em.persist(personal);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -49,19 +51,19 @@ public class UsuarioRolJpaController implements Serializable {
         }
     }
 
-    public void edit(UsuarioRol usuarioRol) throws NonexistentEntityException, Exception {
+    public void edit(Personal personal) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            usuarioRol = em.merge(usuarioRol);
+            personal = em.merge(personal);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = usuarioRol.getId();
-                if (findUsuarioRol(id) == null) {
-                    throw new NonexistentEntityException("The usuarioRol with id " + id + " no longer exists.");
+                int id = personal.getIdPersona();
+                if (findPersonal(id) == null) {
+                    throw new NonexistentEntityException("The personal with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -72,19 +74,19 @@ public class UsuarioRolJpaController implements Serializable {
         }
     }
 
-    public void destroy(Long id) throws NonexistentEntityException {
+    public void destroy(int id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            UsuarioRol usuarioRol;
+            Personal personal;
             try {
-                usuarioRol = em.getReference(UsuarioRol.class, id);
-                usuarioRol.getId();
+                personal = em.getReference(Personal.class, id);
+                personal.getIdPersona();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The usuarioRol with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The personal with id " + id + " no longer exists.", enfe);
             }
-            em.remove(usuarioRol);
+            em.remove(personal);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -93,19 +95,19 @@ public class UsuarioRolJpaController implements Serializable {
         }
     }
 
-    public List<UsuarioRol> findUsuarioRolEntities() {
-        return findUsuarioRolEntities(true, -1, -1);
+    public List<Personal> findPersonalEntities() {
+        return findPersonalEntities(true, -1, -1);
     }
 
-    public List<UsuarioRol> findUsuarioRolEntities(int maxResults, int firstResult) {
-        return findUsuarioRolEntities(false, maxResults, firstResult);
+    public List<Personal> findPersonalEntities(int maxResults, int firstResult) {
+        return findPersonalEntities(false, maxResults, firstResult);
     }
 
-    private List<UsuarioRol> findUsuarioRolEntities(boolean all, int maxResults, int firstResult) {
+    private List<Personal> findPersonalEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(UsuarioRol.class));
+            cq.select(cq.from(Personal.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -117,20 +119,20 @@ public class UsuarioRolJpaController implements Serializable {
         }
     }
 
-    public UsuarioRol findUsuarioRol(Long id) {
+    public Personal findPersonal(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(UsuarioRol.class, id);
+            return em.find(Personal.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getUsuarioRolCount() {
+    public int getPersonalCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<UsuarioRol> rt = cq.from(UsuarioRol.class);
+            Root<Personal> rt = cq.from(Personal.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
@@ -138,5 +140,5 @@ public class UsuarioRolJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

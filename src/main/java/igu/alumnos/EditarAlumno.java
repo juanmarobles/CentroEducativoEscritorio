@@ -80,7 +80,7 @@ public class EditarAlumno extends javax.swing.JFrame {
         cmbNivel = new javax.swing.JComboBox<>();
         txtNombre = new javax.swing.JTextField();
         txtApellido = new javax.swing.JTextField();
-        txtFechaNac = new javax.swing.JFormattedTextField();
+        txtFecha = new javax.swing.JFormattedTextField();
         txtDni = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtTutor = new javax.swing.JTextField();
@@ -142,13 +142,13 @@ public class EditarAlumno extends javax.swing.JFrame {
         });
 
         try {
-            txtFechaNac.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("")));
+            txtFecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtFechaNac.addActionListener(new java.awt.event.ActionListener() {
+        txtFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaNacActionPerformed(evt);
+                txtFechaActionPerformed(evt);
             }
         });
 
@@ -190,7 +190,7 @@ public class EditarAlumno extends javax.swing.JFrame {
                                     .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtApellido, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtDni, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtFechaNac, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(txtFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -216,7 +216,7 @@ public class EditarAlumno extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -276,38 +276,32 @@ public class EditarAlumno extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        try {
+
         String nombre = txtNombre.getText();
         String apellido = txtApellido.getText();
         String dniText = txtDni.getText();
         int dni = Integer.parseInt(dniText);
-        String fechaText = txtFechaNac.getText();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date fecha = dateFormat.parse(fechaText);
-        String tutorNombre = txtTutor.getText(); 
+        String fecha = txtFecha.getText();
+        String tutorNombre = txtTutor.getText();
         String nivel = (cmbNivel.getSelectedItem() != null) ? cmbNivel.getSelectedItem().toString() : "";
         String division = (cmbDivision.getSelectedItem() != null) ? cmbDivision.getSelectedItem().toString() : "";
-
         Tutor tutor = control.buscarTutorPorNombre(tutorNombre);
 
-        if (tutor != null) {
-            control.editarAlumno(alumno, nombre, apellido, dni, fecha, tutor, nivel, division);
+        control.editarAlumno(alumno, nombre, apellido, dni, fecha, tutor, nivel, division);
 
-            mostrarMensaje("Alumno modificado correctamente", "Info", "Edición exitosa!");
+        mostrarMensaje("Alumno modificado correctamente", "Info", "Edición exitosa!");
 
-            VerDatosAlumno verAnterior = new VerDatosAlumno();
-            verAnterior.setVisible(true);
-            verAnterior.setLocationRelativeTo(null);
+        VerDatosAlumno verAnterior = new VerDatosAlumno();
+        verAnterior.setVisible(true);
+        verAnterior.setLocationRelativeTo(null);
 
-            this.dispose();
-        } else {
-            mostrarMensaje("Tutor no encontrado", "Error", "El tutor especificado no se encuentra en la base de datos.");
-        }
-    } catch (ParseException ex) {
-        Logger.getLogger(EditarAlumno.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        this.dispose();
+
+        mostrarMensaje("Tutor no encontrado", "Error", "El tutor especificado no se encuentra en la base de datos.");
+
+
     }//GEN-LAST:event_btnEditarActionPerformed
-    
+
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         VerDatosAlumno verAnterior = new VerDatosAlumno();
         verAnterior.setVisible(true);
@@ -319,9 +313,9 @@ public class EditarAlumno extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidoActionPerformed
 
-    private void txtFechaNacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaNacActionPerformed
+    private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaNacActionPerformed
+    }//GEN-LAST:event_txtFechaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -344,7 +338,7 @@ public class EditarAlumno extends javax.swing.JFrame {
     private javax.swing.JLabel lbl;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDni;
-    private javax.swing.JFormattedTextField txtFechaNac;
+    private javax.swing.JFormattedTextField txtFecha;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTutor;
     // End of variables declaration//GEN-END:variables
@@ -356,12 +350,10 @@ public class EditarAlumno extends javax.swing.JFrame {
         txtApellido.setText(alumno.getApellido());
         int dni = alumno.getDni();
         txtDni.setText(Integer.toString(dni));
-        Tutor tutor = alumno.getTutor(); 
-        String nombreTutor = tutor.getNombre(); 
+        Tutor tutor = alumno.getTutor();
+        String nombreTutor = tutor.getNombre();
         txtTutor.setText(nombreTutor);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
-        String fechaNacString = dateFormat.format(alumno.getFechaNac()); 
-        txtFechaNac.setText(fechaNacString); 
+        txtFecha.setText(alumno.getFechaNac());
 
     }
 }

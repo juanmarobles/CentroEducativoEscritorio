@@ -73,7 +73,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="txtFiltroAlumno" min="-2" pref="275" max="-2" attributes="0"/>
+                              <Component id="txtFiltroDocente" min="-2" pref="275" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnBuscar" min="-2" pref="110" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="206" max="-2" attributes="0"/>
@@ -108,7 +108,7 @@
                               </Group>
                               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtFiltroAlumno" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="txtFiltroDocente" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                                   <Component id="btnBuscar" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                                   <Component id="btnAgregarDocente" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
                                   <Component id="btnEditar" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
@@ -186,10 +186,10 @@
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator4">
             </Component>
-            <Component class="javax.swing.JTextField" name="txtFiltroAlumno">
+            <Component class="javax.swing.JTextField" name="txtFiltroDocente">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFiltroAlumnoActionPerformed"/>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltroAlumnoKeyTyped"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFiltroDocenteActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltroDocenteKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnBuscar">

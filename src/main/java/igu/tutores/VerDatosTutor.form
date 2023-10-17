@@ -61,11 +61,11 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="txtFiltroAlumno" min="-2" pref="275" max="-2" attributes="0"/>
+                          <Component id="txtFiltroTutores" min="-2" pref="275" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnBuscar" min="-2" pref="110" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="206" max="-2" attributes="0"/>
-                          <Component id="btnAgregarDocente" min="-2" pref="127" max="-2" attributes="0"/>
+                          <Component id="btnAgregarTutor" min="-2" pref="127" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnEditar" min="-2" pref="127" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -96,9 +96,9 @@
                           </Group>
                           <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtFiltroAlumno" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="txtFiltroTutores" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                               <Component id="btnBuscar" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                              <Component id="btnAgregarDocente" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
+                              <Component id="btnAgregarTutor" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
                               <Component id="btnEditar" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
                               <Component id="btnEliminar" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
                           </Group>
@@ -174,10 +174,10 @@
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator4">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtFiltroAlumno">
+        <Component class="javax.swing.JTextField" name="txtFiltroTutores">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFiltroAlumnoActionPerformed"/>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltroAlumnoKeyTyped"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFiltroTutoresActionPerformed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltroTutoresKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnBuscar">
@@ -203,7 +203,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnAgregarDocente">
+        <Component class="javax.swing.JButton" name="btnAgregarTutor">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="a6" green="50" red="f" type="rgb"/>
@@ -220,7 +220,7 @@
             <Property name="text" type="java.lang.String" value="Agregar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarDocenteActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarTutorActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnEditar">
@@ -270,7 +270,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tablaDocente">
+            <Component class="javax.swing.JTable" name="tablaTutores">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">

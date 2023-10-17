@@ -4,6 +4,8 @@
  */
 package igu.docentes;
 
+import igu.alumnos.VerDatosAlumno;
+import igu.personal.VerDatosPersonal;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -19,7 +21,7 @@ import logica.entidades.Docente;
  *
  * @author lucia
  */
-public class VerDatosDocentes extends javax.swing.JInternalFrame {
+public class VerDatosDocentes extends javax.swing.JFrame  {
 
     TableRowSorter trs;
     EntidadesController control = new EntidadesController();
@@ -45,7 +47,7 @@ public class VerDatosDocentes extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
-        txtFiltroAlumno = new javax.swing.JTextField();
+        txtFiltroDocente = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         btnAgregarDocente = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
@@ -86,14 +88,14 @@ public class VerDatosDocentes extends javax.swing.JInternalFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("DOCENTE");
 
-        txtFiltroAlumno.addActionListener(new java.awt.event.ActionListener() {
+        txtFiltroDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFiltroAlumnoActionPerformed(evt);
+                txtFiltroDocenteActionPerformed(evt);
             }
         });
-        txtFiltroAlumno.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtFiltroDocente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtFiltroAlumnoKeyTyped(evt);
+                txtFiltroDocenteKeyTyped(evt);
             }
         });
 
@@ -172,7 +174,7 @@ public class VerDatosDocentes extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtFiltroAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFiltroDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(206, 206, 206)
@@ -200,7 +202,7 @@ public class VerDatosDocentes extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(45, 45, 45)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtFiltroAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFiltroDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAgregarDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,21 +235,21 @@ public class VerDatosDocentes extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFiltroAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltroAlumnoActionPerformed
+    private void txtFiltroDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltroDocenteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFiltroAlumnoActionPerformed
+    }//GEN-LAST:event_txtFiltroDocenteActionPerformed
 
-    private void txtFiltroAlumnoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroAlumnoKeyTyped
-        txtFiltroAlumno.addKeyListener(new KeyAdapter() {
+    private void txtFiltroDocenteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroDocenteKeyTyped
+        txtFiltroDocente.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                trs.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltroAlumno.getText(), 1));
+                trs.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltroDocente.getText(), 2));
             }
 
         });
         trs = new TableRowSorter(tablaDocente.getModel());
         tablaDocente.setRowSorter(trs);
-    }//GEN-LAST:event_txtFiltroAlumnoKeyTyped
+    }//GEN-LAST:event_txtFiltroDocenteKeyTyped
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (tablaDocente.getRowCount() > 0) {
@@ -311,7 +313,7 @@ public class VerDatosDocentes extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable tablaDocente;
-    private javax.swing.JTextField txtFiltroAlumno;
+    private javax.swing.JTextField txtFiltroDocente;
     // End of variables declaration//GEN-END:variables
 
     public void mostrarMensaje(String mensaje, String tipo, String titulo) {
@@ -359,5 +361,44 @@ public class VerDatosDocentes extends javax.swing.JInternalFrame {
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabla);
         tablaDocente.setModel(tabla);
         tablaDocente.setRowSorter(sorter);
+    }
+     private void formWindowOpened(java.awt.event.WindowEvent evt) {                                  
+        mostrarTablaDocentes();
+    }
+     
+     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(VerDatosAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(VerDatosAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(VerDatosAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(VerDatosAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new VerDatosDocentes().setVisible(true);
+
+            }
+        });
     }
 }
