@@ -118,7 +118,7 @@ public class NuevoAlumno extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 16)); // NOI18N
         jLabel6.setText("Nivel");
 
-        cmbNivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Inicial", "Primario", "Secundario", " " }));
+        cmbNivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Inicial", "Primario", "Secundario" }));
 
         cmbDivision.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B" }));
 

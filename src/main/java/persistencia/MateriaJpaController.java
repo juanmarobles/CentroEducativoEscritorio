@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package persistencia;
 
 import java.io.Serializable;
@@ -11,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import logica.entidades.Materia;
@@ -29,6 +29,11 @@ public class MateriaJpaController implements Serializable {
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
+    }
+//CONTROLADOR
+
+    public MateriaJpaController() {
+        emf = Persistence.createEntityManagerFactory("centroeducativoPU");
     }
 
     public void create(Materia materia) {

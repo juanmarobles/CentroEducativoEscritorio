@@ -6,16 +6,14 @@
 package persistencia;
 
 import java.io.Serializable;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import logica.entidades.Curso;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import logica.entidades.Docente;
 import persistencia.exceptions.NonexistentEntityException;
 
@@ -33,31 +31,16 @@ public class DocenteJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-     //CONTROLADOR
-    public DocenteJpaController() {
-        emf = Persistence.createEntityManagerFactory("centroeducativoPU");
+ //CONTROLADOR
+    public DocenteJpaController(){
+    emf = Persistence.createEntityManagerFactory("centroeducativoPU");
     }
-
-    
     public void create(Docente docente) {
-        if (docente.getCursos() == null) {
-            docente.setCursos(new ArrayList<Curso>());
-        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Curso> attachedCursos = new ArrayList<Curso>();
-            for (Curso cursosCursoToAttach : docente.getCursos()) {
-                cursosCursoToAttach = em.getReference(cursosCursoToAttach.getClass(), cursosCursoToAttach.getCursoId());
-                attachedCursos.add(cursosCursoToAttach);
-            }
-            docente.setCursos(attachedCursos);
             em.persist(docente);
-            for (Curso cursosCurso : docente.getCursos()) {
-                cursosCurso.getDocentes().add(docente);
-                cursosCurso = em.merge(cursosCurso);
-            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -71,29 +54,7 @@ public class DocenteJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Docente persistentDocente = em.find(Docente.class, docente.getIdPersona());
-            List<Curso> cursosOld = persistentDocente.getCursos();
-            List<Curso> cursosNew = docente.getCursos();
-            List<Curso> attachedCursosNew = new ArrayList<Curso>();
-            for (Curso cursosNewCursoToAttach : cursosNew) {
-                cursosNewCursoToAttach = em.getReference(cursosNewCursoToAttach.getClass(), cursosNewCursoToAttach.getCursoId());
-                attachedCursosNew.add(cursosNewCursoToAttach);
-            }
-            cursosNew = attachedCursosNew;
-            docente.setCursos(cursosNew);
             docente = em.merge(docente);
-            for (Curso cursosOldCurso : cursosOld) {
-                if (!cursosNew.contains(cursosOldCurso)) {
-                    cursosOldCurso.getDocentes().remove(docente);
-                    cursosOldCurso = em.merge(cursosOldCurso);
-                }
-            }
-            for (Curso cursosNewCurso : cursosNew) {
-                if (!cursosOld.contains(cursosNewCurso)) {
-                    cursosNewCurso.getDocentes().add(docente);
-                    cursosNewCurso = em.merge(cursosNewCurso);
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -122,11 +83,6 @@ public class DocenteJpaController implements Serializable {
                 docente.getIdPersona();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The docente with id " + id + " no longer exists.", enfe);
-            }
-            List<Curso> cursos = docente.getCursos();
-            for (Curso cursosCurso : cursos) {
-                cursosCurso.getDocentes().remove(docente);
-                cursosCurso = em.merge(cursosCurso);
             }
             em.remove(docente);
             em.getTransaction().commit();

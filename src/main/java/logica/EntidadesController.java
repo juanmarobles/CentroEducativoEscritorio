@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import logica.entidades.Alumno;
 import logica.entidades.Docente;
+import logica.entidades.Materia;
 import logica.entidades.Personal;
 import logica.entidades.Tutor;
 import logica.entidades.Usuario;
@@ -73,7 +74,7 @@ public class EntidadesController {
         ctrl.guardarAlumno(alumno);
     }
 
-    public void editarAlumno(Alumno alumno, String nombre, String apellido, int dni, String fecha, Tutor tutor, String nivel, String division) {
+    public void editarAlumno(Alumno alumno, String nombre, String apellido, int dni, String fecha, Tutor tutor, String nivel, String division, String fecha2) {
         alumno.setNombre(nombre);
         alumno.setApellido(apellido);
         alumno.setDni(dni);
@@ -119,7 +120,7 @@ public class EntidadesController {
         return ctrl.traerDocentes();
     }
 
-    public void cargarDocente(String nombre, String apellido, int dni, String domicilio, String tel, String email, String turno, String nivel) {
+    public void cargarDocente(String nombre, String apellido, int dni, String domicilio, String tel, String email, String turno, String nivel, String materia) {
         Docente d = new Docente();
         d.setNombre(nombre);
         d.setApellido(apellido);
@@ -128,6 +129,7 @@ public class EntidadesController {
         d.setTelefono(dni);
         d.setEmail(email);
         d.setTurno(turno);
+        d.setMateria(materia); // Utiliza la materia pasada como argumento.
         d.setNivel(nivel);
 
         ctrl.crearDocente(d);

@@ -15,7 +15,7 @@ import logica.entidades.Docente;
  *
  * @author lucia
  */
-public class EditarDocente extends javax.swing.JInternalFrame {
+public class EditarDocente extends javax.swing.JFrame {
     
     EntidadesController control = new EntidadesController();
     Docente docente =  new Docente();

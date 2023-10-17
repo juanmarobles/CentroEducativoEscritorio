@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +17,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import logica.EntidadesController;
 import logica.entidades.Alumno;
+import logica.entidades.ModeloTutor;
 import logica.entidades.Tutor;
 
 /**
@@ -38,6 +40,7 @@ public class EditarAlumno extends javax.swing.JFrame {
         cmbNivel.addActionListener(createActionListener(btnEditar));
 
         cargarDatosAlumno(idAlumno);
+
     }
 
     // Método para crear un ActionListener reutilizable
@@ -80,11 +83,11 @@ public class EditarAlumno extends javax.swing.JFrame {
         cmbNivel = new javax.swing.JComboBox<>();
         txtNombre = new javax.swing.JTextField();
         txtApellido = new javax.swing.JTextField();
-        txtFecha = new javax.swing.JFormattedTextField();
         txtDni = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtTutor = new javax.swing.JTextField();
         lbl = new javax.swing.JLabel();
+        txtFecha = new javax.swing.JFormattedTextField();
+        txtTutor = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -141,22 +144,23 @@ public class EditarAlumno extends javax.swing.JFrame {
             }
         });
 
-        try {
-            txtFecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtFecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaActionPerformed(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 16)); // NOI18N
         jLabel4.setText("DNI");
 
         lbl.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 16)); // NOI18N
         lbl.setText("Tutor");
+
+        try {
+            txtFecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtFecha.setText("");
+        txtFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFechaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -176,9 +180,9 @@ public class EditarAlumno extends javax.swing.JFrame {
                                     .addComponent(jLabel6)
                                     .addComponent(lbl))
                                 .addGap(56, 56, 56)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cmbNivel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtTutor, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTutor)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
@@ -187,10 +191,10 @@ public class EditarAlumno extends javax.swing.JFrame {
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
                                     .addComponent(txtApellido, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtDni, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(txtFecha)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -216,12 +220,16 @@ public class EditarAlumno extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(lbl)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtTutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
@@ -282,22 +290,24 @@ public class EditarAlumno extends javax.swing.JFrame {
         String dniText = txtDni.getText();
         int dni = Integer.parseInt(dniText);
         String fecha = txtFecha.getText();
-        String tutorNombre = txtTutor.getText();
+        String tutorSeleccionado = txtTutor.getText();
         String nivel = (cmbNivel.getSelectedItem() != null) ? cmbNivel.getSelectedItem().toString() : "";
         String division = (cmbDivision.getSelectedItem() != null) ? cmbDivision.getSelectedItem().toString() : "";
-        Tutor tutor = control.buscarTutorPorNombre(tutorNombre);
+        String nombreTutor = txtTutor.getText();
+        Tutor tutor = control.buscarTutorPorNombre(nombreTutor);
 
-        control.editarAlumno(alumno, nombre, apellido, dni, fecha, tutor, nivel, division);
+        if (tutor != null) {
+            control.editarAlumno(alumno, nombre, apellido, dni, fecha, tutor, nivel, division, fecha);
+            mostrarMensaje("Alumno modificado correctamente", "Info", "Edición exitosa!");
 
-        mostrarMensaje("Alumno modificado correctamente", "Info", "Edición exitosa!");
+            VerDatosAlumno verAnterior = new VerDatosAlumno();
+            verAnterior.setVisible(true);
+            verAnterior.setLocationRelativeTo(null);
 
-        VerDatosAlumno verAnterior = new VerDatosAlumno();
-        verAnterior.setVisible(true);
-        verAnterior.setLocationRelativeTo(null);
-
-        this.dispose();
-
-        mostrarMensaje("Tutor no encontrado", "Error", "El tutor especificado no se encuentra en la base de datos.");
+            this.dispose();
+        } else {
+            mostrarMensaje("Tutor no encontrado", "Error", "El tutor especificado no se encuentra en la base de datos.");
+        }
 
 
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -352,8 +362,8 @@ public class EditarAlumno extends javax.swing.JFrame {
         txtDni.setText(Integer.toString(dni));
         Tutor tutor = alumno.getTutor();
         String nombreTutor = tutor.getNombre();
-        txtTutor.setText(nombreTutor);
         txtFecha.setText(alumno.getFechaNac());
 
     }
+
 }

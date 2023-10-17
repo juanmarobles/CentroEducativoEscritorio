@@ -25,7 +25,7 @@ import logica.entidades.Personal;
  *
  * @author lucia
  */
-public class VerDatosPersonal extends javax.swing.JFrame  {
+public class VerDatosPersonal extends javax.swing.JFrame {
 
     EntidadesController control;
     TableRowSorter trs;
@@ -56,6 +56,12 @@ public class VerDatosPersonal extends javax.swing.JFrame  {
                 }
             }
         });
+
+        mostrarTablaPersonal();
+    }
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {
+        mostrarTablaPersonal();
     }
 
     /**
@@ -303,9 +309,8 @@ public class VerDatosPersonal extends javax.swing.JFrame  {
         } else {
             mostrarMensaje("La tabla esta vacia, no se puede editar", "Error", "Error al editar");
     }//GEN-LAST:event_btnEditarActionPerformed
-  }
+    }
 
-   
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // Control de q la tabla no este vacia
@@ -313,7 +318,7 @@ public class VerDatosPersonal extends javax.swing.JFrame  {
             //validar q se haya seleccionado un registro
             if (tablaPersonal.getSelectedRow() != -1) {
                 //obtener la id de lo q quiero borrar
-                int  idPersonal = Integer.parseInt(String.valueOf(tablaPersonal.getValueAt(tablaPersonal.getSelectedRow(), 0)));
+                int idPersonal = Integer.parseInt(String.valueOf(tablaPersonal.getValueAt(tablaPersonal.getSelectedRow(), 0)));
 
                 control.borrarPersonal(idPersonal);
                 mostrarMensaje("Personal borrado correctamente", "Info", "Borrado con exito!");
@@ -343,8 +348,7 @@ public class VerDatosPersonal extends javax.swing.JFrame  {
     private javax.swing.JTextField txtFiltroPersonal;
     // End of variables declaration//GEN-END:variables
 
-
- public void mostrarMensaje(String mensaje, String tipo, String titulo) {
+    public void mostrarMensaje(String mensaje, String tipo, String titulo) {
         JOptionPane optionPane = new JOptionPane(mensaje);
         if (tipo.equals("Info")) {
             optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
@@ -357,42 +361,42 @@ public class VerDatosPersonal extends javax.swing.JFrame  {
         dialog.setVisible(true);
     }
 
- private void mostrarTablaPersonal() {
-    // Carga de los datos desde la base de datos
-    List<Personal> listaPersonal = control.traerPersonal();
+    private void mostrarTablaPersonal() {
+        // Carga de los datos desde la base de datos
+        List<Personal> listaPersonal = control.traerPersonal();
 
-    // Ordenar la lista de clientes alfabéticamente por el nombre
-    listaPersonal.sort((personal1, personal2) -> personal1.getNombre().compareToIgnoreCase(personal2.getNombre()));
+        // Ordenar la lista de clientes alfabéticamente por el nombre
+        listaPersonal.sort((personal1, personal2) -> personal1.getNombre().compareToIgnoreCase(personal2.getNombre()));
 
-    // Filas y columnas no editables
-    DefaultTableModel tabla = new DefaultTableModel() {
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
+        // Filas y columnas no editables
+        DefaultTableModel tabla = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        // Nombres de columnas
+        String titulos[] = {"id_personal", "NOMBRE", "APELLIDO", "DNI", "CUIT", "EMAIL", "TELEFONO", "AREA", "TURNO"};
+        tabla.setColumnIdentifiers(titulos);
+
+        // Recorrer la lista ordenada y mostrar elementos en la tabla
+        if (listaPersonal != null) {
+            for (Personal personal : listaPersonal) {
+                Object[] objeto = {personal.getIdPersona(), personal.getNombre(), personal.getApellido(), personal.getDni(), personal.getCuit(), personal.getEmail(),
+                    personal.getTelefono(), personal.getArea(), personal.getTurno()
+                };
+                tabla.addRow(objeto);
+            }
         }
-    };
-    
-    // Nombres de columnas
-    String titulos[] = {"id_personal", "NOMBRE", "APELLIDO", "DNI", "CUIT","EMAIL","TELEFONO","AREA","TURNO"};
-    tabla.setColumnIdentifiers(titulos);
 
-    // Recorrer la lista ordenada y mostrar elementos en la tabla
-    if (listaPersonal != null) {
-        for (Personal personal : listaPersonal) {
-            Object[] objeto = {personal.getIdPersona(),personal.getNombre(),personal.getApellido(),personal.getDni(),personal.getCuit(),personal.getEmail(),
-                personal.getTelefono(),personal.getArea(),personal.getTurno()
-            };
-            tabla.addRow(objeto);
-        }
+        // Configurar el TableRowSorter para habilitar el ordenamiento en la tabla
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabla);
+        tablaPersonal.setModel(tabla);
+        tablaPersonal.setRowSorter(sorter);
     }
 
-    // Configurar el TableRowSorter para habilitar el ordenamiento en la tabla
-    TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabla);
-    tablaPersonal.setModel(tabla);
-    tablaPersonal.setRowSorter(sorter);
-}
- 
-  public static void main(String args[]) {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
