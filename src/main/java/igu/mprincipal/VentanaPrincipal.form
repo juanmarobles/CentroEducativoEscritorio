@@ -290,7 +290,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icon/equipo.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Ver Notas"/>
+                <Property name="text" type="java.lang.String" value="Boletin"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                   <Color id="Hand Cursor"/>
                 </Property>
@@ -380,6 +380,11 @@
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="C:\Users\lucia\Descargas\zyro-image-removebg-preview.png"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

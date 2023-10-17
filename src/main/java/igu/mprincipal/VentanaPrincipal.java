@@ -243,7 +243,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         menuTutores3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menuTutores3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/equipo.png"))); // NOI18N
-        menuTutores3.setText("Ver Notas");
+        menuTutores3.setText("Boletin");
         menuTutores3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menuTutores3.setPreferredSize(new java.awt.Dimension(142, 36));
         menuTutores3.addActionListener(new java.awt.event.ActionListener() {
