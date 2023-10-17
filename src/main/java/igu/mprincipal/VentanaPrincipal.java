@@ -44,11 +44,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         MenuServicios = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        MenuAlumnos1 = new javax.swing.JMenuItem();
-        jSeparator5 = new javax.swing.JPopupMenu.Separator();
-        menuTutores1 = new javax.swing.JMenuItem();
-        jSeparator8 = new javax.swing.JPopupMenu.Separator();
-        MenuAlumnos4 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         MenuAlumnos2 = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
@@ -154,45 +149,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenu4.setForeground(new java.awt.Color(255, 255, 255));
         jMenu4.setText("Cuotas");
-
-        MenuAlumnos1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        MenuAlumnos1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cliente.png"))); // NOI18N
-        MenuAlumnos1.setText("Realizar Pago");
-        MenuAlumnos1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        MenuAlumnos1.setPreferredSize(new java.awt.Dimension(96, 36));
-        MenuAlumnos1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuAlumnos1ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(MenuAlumnos1);
-        jMenu4.add(jSeparator5);
-
-        menuTutores1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        menuTutores1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/equipo.png"))); // NOI18N
-        menuTutores1.setText("Listar Deudores");
-        menuTutores1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        menuTutores1.setPreferredSize(new java.awt.Dimension(142, 36));
-        menuTutores1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuTutores1ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(menuTutores1);
-        jMenu4.add(jSeparator8);
-
-        MenuAlumnos4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        MenuAlumnos4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cliente.png"))); // NOI18N
-        MenuAlumnos4.setText("Ver Cuotas");
-        MenuAlumnos4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        MenuAlumnos4.setPreferredSize(new java.awt.Dimension(96, 36));
-        MenuAlumnos4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuAlumnos4ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(MenuAlumnos4);
-
         jMenuBar1.add(jMenu4);
 
         jMenu5.setForeground(new java.awt.Color(255, 255, 255));
@@ -213,7 +169,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         menuTutores2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menuTutores2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/equipo.png"))); // NOI18N
-        menuTutores2.setText("Asignar Aulas");
+        menuTutores2.setText("Asignacion Aulas");
         menuTutores2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menuTutores2.setPreferredSize(new java.awt.Dimension(142, 36));
         menuTutores2.addActionListener(new java.awt.event.ActionListener() {
@@ -294,14 +250,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_MenuVehiculosActionPerformed
 
-    private void menuTutores1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTutores1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuTutores1ActionPerformed
-
-    private void MenuAlumnos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAlumnos1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MenuAlumnos1ActionPerformed
-
     private void MenuAlumnos2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAlumnos2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_MenuAlumnos2ActionPerformed
@@ -317,10 +265,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuTutores3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTutores3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuTutores3ActionPerformed
-
-    private void MenuAlumnos4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAlumnos4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MenuAlumnos4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -339,10 +283,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem MenuAlumnos;
-    private javax.swing.JMenuItem MenuAlumnos1;
     private javax.swing.JMenuItem MenuAlumnos2;
     private javax.swing.JMenuItem MenuAlumnos3;
-    private javax.swing.JMenuItem MenuAlumnos4;
     private javax.swing.JMenuItem MenuServicios;
     private javax.swing.JMenuItem MenuVehiculos;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
@@ -356,12 +298,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
-    private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
-    private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JMenuItem menuTutores;
-    private javax.swing.JMenuItem menuTutores1;
     private javax.swing.JMenuItem menuTutores2;
     private javax.swing.JMenuItem menuTutores3;
     // End of variables declaration//GEN-END:variables
