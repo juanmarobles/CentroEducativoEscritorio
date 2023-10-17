@@ -1,7 +1,14 @@
 
 package igu.mprincipal;
 
+import com.mycompany.lestanitest.igu.PagoCuotas;
 import igu.alumnos.VerDatosAlumno;
+import igu.asignacionAulas.Aulas_Materias;
+import igu.docentes.VerDatosDocentes;
+import igu.notas.BoletinNotas;
+import igu.notas.CargarNotas;
+import igu.personal.VerDatosPersonal;
+import igu.tutores.VerDatosTutor;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -35,23 +42,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
+        Entidades = new javax.swing.JMenu();
         MenuAlumnos = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         menuTutores = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
-        MenuVehiculos = new javax.swing.JMenuItem();
+        MenuDocentes = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
-        MenuServicios = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        MenuAlumnos2 = new javax.swing.JMenuItem();
-        jSeparator6 = new javax.swing.JPopupMenu.Separator();
-        menuTutores2 = new javax.swing.JMenuItem();
+        MenuPersonal = new javax.swing.JMenuItem();
+        Cuotas = new javax.swing.JMenu();
+        Horarios_Aulas = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
-        MenuAlumnos3 = new javax.swing.JMenuItem();
+        CargarNotas = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
-        menuTutores3 = new javax.swing.JMenuItem();
+        BoletinNotas = new javax.swing.JMenuItem();
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
@@ -91,8 +95,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuBar1.setMinimumSize(new java.awt.Dimension(505, 38));
         jMenuBar1.setPreferredSize(new java.awt.Dimension(505, 40));
 
-        jMenu3.setForeground(new java.awt.Color(255, 255, 255));
-        jMenu3.setText("Entidades");
+        Entidades.setForeground(new java.awt.Color(255, 255, 255));
+        Entidades.setText("Entidades");
 
         MenuAlumnos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         MenuAlumnos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cliente.png"))); // NOI18N
@@ -104,8 +108,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 MenuAlumnosActionPerformed(evt);
             }
         });
-        jMenu3.add(MenuAlumnos);
-        jMenu3.add(jSeparator2);
+        Entidades.add(MenuAlumnos);
+        Entidades.add(jSeparator2);
 
         menuTutores.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menuTutores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/equipo.png"))); // NOI18N
@@ -117,97 +121,82 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 menuTutoresActionPerformed(evt);
             }
         });
-        jMenu3.add(menuTutores);
-        jMenu3.add(jSeparator3);
+        Entidades.add(menuTutores);
+        Entidades.add(jSeparator3);
 
-        MenuVehiculos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        MenuVehiculos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cliente.png"))); // NOI18N
-        MenuVehiculos.setText("Docentes");
-        MenuVehiculos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        MenuVehiculos.setPreferredSize(new java.awt.Dimension(112, 36));
-        MenuVehiculos.addActionListener(new java.awt.event.ActionListener() {
+        MenuDocentes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        MenuDocentes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cliente.png"))); // NOI18N
+        MenuDocentes.setText("Docentes");
+        MenuDocentes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MenuDocentes.setName("MenuDocentes"); // NOI18N
+        MenuDocentes.setPreferredSize(new java.awt.Dimension(112, 36));
+        MenuDocentes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuVehiculosActionPerformed(evt);
+                MenuDocentesActionPerformed(evt);
             }
         });
-        jMenu3.add(MenuVehiculos);
-        jMenu3.add(jSeparator4);
+        Entidades.add(MenuDocentes);
+        Entidades.add(jSeparator4);
 
-        MenuServicios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        MenuServicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/entrega-de-paquetes.png"))); // NOI18N
-        MenuServicios.setText("Personal");
-        MenuServicios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        MenuServicios.setPreferredSize(new java.awt.Dimension(100, 36));
-        MenuServicios.addActionListener(new java.awt.event.ActionListener() {
+        MenuPersonal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        MenuPersonal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/entrega-de-paquetes.png"))); // NOI18N
+        MenuPersonal.setText("Personal");
+        MenuPersonal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MenuPersonal.setPreferredSize(new java.awt.Dimension(100, 36));
+        MenuPersonal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuServiciosActionPerformed(evt);
+                MenuPersonalActionPerformed(evt);
             }
         });
-        jMenu3.add(MenuServicios);
+        Entidades.add(MenuPersonal);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(Entidades);
 
-        jMenu4.setForeground(new java.awt.Color(255, 255, 255));
-        jMenu4.setText("Cuotas");
-        jMenuBar1.add(jMenu4);
-
-        jMenu5.setForeground(new java.awt.Color(255, 255, 255));
-        jMenu5.setText("Clases y Aulas");
-
-        MenuAlumnos2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        MenuAlumnos2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cliente.png"))); // NOI18N
-        MenuAlumnos2.setText("Horarios");
-        MenuAlumnos2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        MenuAlumnos2.setPreferredSize(new java.awt.Dimension(96, 36));
-        MenuAlumnos2.addActionListener(new java.awt.event.ActionListener() {
+        Cuotas.setForeground(new java.awt.Color(255, 255, 255));
+        Cuotas.setText("Cuotas");
+        Cuotas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuAlumnos2ActionPerformed(evt);
+                CuotasActionPerformed(evt);
             }
         });
-        jMenu5.add(MenuAlumnos2);
-        jMenu5.add(jSeparator6);
+        jMenuBar1.add(Cuotas);
 
-        menuTutores2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        menuTutores2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/equipo.png"))); // NOI18N
-        menuTutores2.setText("Asignacion Aulas");
-        menuTutores2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        menuTutores2.setPreferredSize(new java.awt.Dimension(142, 36));
-        menuTutores2.addActionListener(new java.awt.event.ActionListener() {
+        Horarios_Aulas.setForeground(new java.awt.Color(255, 255, 255));
+        Horarios_Aulas.setText("Clases y Aulas");
+        Horarios_Aulas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuTutores2ActionPerformed(evt);
+                Horarios_AulasActionPerformed(evt);
             }
         });
-        jMenu5.add(menuTutores2);
-
-        jMenuBar1.add(jMenu5);
+        jMenuBar1.add(Horarios_Aulas);
 
         jMenu6.setForeground(new java.awt.Color(255, 255, 255));
         jMenu6.setText("Notas");
 
-        MenuAlumnos3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        MenuAlumnos3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cliente.png"))); // NOI18N
-        MenuAlumnos3.setText("Cargar Notas");
-        MenuAlumnos3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        MenuAlumnos3.setPreferredSize(new java.awt.Dimension(96, 36));
-        MenuAlumnos3.addActionListener(new java.awt.event.ActionListener() {
+        CargarNotas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        CargarNotas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cliente.png"))); // NOI18N
+        CargarNotas.setText("Cargar Notas");
+        CargarNotas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CargarNotas.setPreferredSize(new java.awt.Dimension(96, 36));
+        CargarNotas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuAlumnos3ActionPerformed(evt);
+                CargarNotasActionPerformed(evt);
             }
         });
-        jMenu6.add(MenuAlumnos3);
+        jMenu6.add(CargarNotas);
         jMenu6.add(jSeparator7);
 
-        menuTutores3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        menuTutores3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/equipo.png"))); // NOI18N
-        menuTutores3.setText("Boletin");
-        menuTutores3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        menuTutores3.setPreferredSize(new java.awt.Dimension(142, 36));
-        menuTutores3.addActionListener(new java.awt.event.ActionListener() {
+        BoletinNotas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        BoletinNotas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/equipo.png"))); // NOI18N
+        BoletinNotas.setText("Boletin");
+        BoletinNotas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BoletinNotas.setPreferredSize(new java.awt.Dimension(142, 36));
+        BoletinNotas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuTutores3ActionPerformed(evt);
+                BoletinNotasActionPerformed(evt);
             }
         });
-        jMenu6.add(menuTutores3);
+        jMenu6.add(BoletinNotas);
 
         jMenuBar1.add(jMenu6);
 
@@ -227,6 +216,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private VerDatosAlumno ventanaAlumnos;
+    private VerDatosTutor ventanaTutor;
+    private VerDatosDocentes ventanaDocentes;
+    private VerDatosPersonal ventanaPersonal;
+    private PagoCuotas ventanaCuotas;
+    private Aulas_Materias ventanaHorarios;
+    private CargarNotas ventanaCarga_Notas;
+    private BoletinNotas ventanaVer_Notas;
+    
     private void MenuAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAlumnosActionPerformed
         // Verificar si la ventana ya está abierta
         if (ventanaAlumnos == null || !ventanaAlumnos.isVisible()) {
@@ -240,31 +237,86 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuAlumnosActionPerformed
     
     private void menuTutoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTutoresActionPerformed
-        
+        // Verificar si la ventana ya está abierta
+        if (ventanaTutor == null || !ventanaTutor.isVisible()) {
+            // Si la ventana no está abierta o está oculta, crea una nueva instancia
+            ventanaTutor = new VerDatosTutor();
+        }
+
+        // Mostrar la ventana y enfocarla (llevarla al frente)
+        ventanaTutor.setVisible(true);
+        ventanaTutor.toFront();
     }//GEN-LAST:event_menuTutoresActionPerformed
-    private void MenuServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuServiciosActionPerformed
-        
-    }//GEN-LAST:event_MenuServiciosActionPerformed
-    private void MenuVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuVehiculosActionPerformed
-       
+    private void MenuPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuPersonalActionPerformed
+        // Verificar si la ventana ya está abierta
+        if (ventanaPersonal == null || !ventanaPersonal.isVisible()) {
+            // Si la ventana no está abierta o está oculta, crea una nueva instancia
+            ventanaPersonal = new VerDatosPersonal();
+        }
 
-    }//GEN-LAST:event_MenuVehiculosActionPerformed
+        // Mostrar la ventana y enfocarla (llevarla al frente)
+        ventanaPersonal.setVisible(true);
+        ventanaPersonal.toFront();
+    }//GEN-LAST:event_MenuPersonalActionPerformed
+    private void MenuDocentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuDocentesActionPerformed
+       // Verificar si la ventana ya está abierta
+        if (ventanaDocentes == null || !ventanaDocentes.isVisible()) {
+            // Si la ventana no está abierta o está oculta, crea una nueva instancia
+            ventanaDocentes = new VerDatosDocentes();
+        }
 
-    private void MenuAlumnos2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAlumnos2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MenuAlumnos2ActionPerformed
+        // Mostrar la ventana y enfocarla (llevarla al frente)
+        ventanaDocentes.setVisible(true);
+        ventanaDocentes.toFront();
+    }//GEN-LAST:event_MenuDocentesActionPerformed
 
-    private void menuTutores2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTutores2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuTutores2ActionPerformed
+    private void CargarNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarNotasActionPerformed
+        // Verificar si la ventana ya está abierta
+        if (ventanaCarga_Notas == null || !ventanaCarga_Notas.isVisible()) {
+            // Si la ventana no está abierta o está oculta, crea una nueva instancia
+            ventanaCarga_Notas = new CargarNotas();
+        }
 
-    private void MenuAlumnos3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAlumnos3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MenuAlumnos3ActionPerformed
+        // Mostrar la ventana y enfocarla (llevarla al frente)
+        ventanaCarga_Notas.setVisible(true);
+        ventanaCarga_Notas.toFront();
+    }//GEN-LAST:event_CargarNotasActionPerformed
 
-    private void menuTutores3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTutores3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuTutores3ActionPerformed
+    private void BoletinNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoletinNotasActionPerformed
+        // Verificar si la ventana ya está abierta
+        if (ventanaVer_Notas == null || !ventanaVer_Notas.isVisible()) {
+            // Si la ventana no está abierta o está oculta, crea una nueva instancia
+            ventanaVer_Notas = new BoletinNotas();
+        }
+
+        // Mostrar la ventana y enfocarla (llevarla al frente)
+        ventanaVer_Notas.setVisible(true);
+        ventanaVer_Notas.toFront();
+    }//GEN-LAST:event_BoletinNotasActionPerformed
+
+    private void Horarios_AulasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Horarios_AulasActionPerformed
+        // Verificar si la ventana ya está abierta
+        if (ventanaHorarios == null || !ventanaHorarios.isVisible()) {
+            // Si la ventana no está abierta o está oculta, crea una nueva instancia
+            ventanaHorarios = new Aulas_Materias();
+        }
+
+        // Mostrar la ventana y enfocarla (llevarla al frente)
+        ventanaHorarios.setVisible(true);
+        ventanaHorarios.toFront();
+    }//GEN-LAST:event_Horarios_AulasActionPerformed
+
+    private void CuotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuotasActionPerformed
+        // Verificar si la ventana ya está abierta
+        if (ventanaCuotas == null || !ventanaCuotas.isVisible()) {
+            // Si la ventana no está abierta o está oculta, crea una nueva instancia
+            ventanaCuotas = new PagoCuotas();
+        }
+
+        // Mostrar la ventana y enfocarla (llevarla al frente)
+        ventanaCuotas.setVisible(true);
+        ventanaCuotas.toFront();
+    }//GEN-LAST:event_CuotasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -282,26 +334,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem BoletinNotas;
+    private javax.swing.JMenuItem CargarNotas;
+    private javax.swing.JMenu Cuotas;
+    private javax.swing.JMenu Entidades;
+    private javax.swing.JMenu Horarios_Aulas;
     private javax.swing.JMenuItem MenuAlumnos;
-    private javax.swing.JMenuItem MenuAlumnos2;
-    private javax.swing.JMenuItem MenuAlumnos3;
-    private javax.swing.JMenuItem MenuServicios;
-    private javax.swing.JMenuItem MenuVehiculos;
+    private javax.swing.JMenuItem MenuDocentes;
+    private javax.swing.JMenuItem MenuPersonal;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
-    private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JMenuItem menuTutores;
-    private javax.swing.JMenuItem menuTutores2;
-    private javax.swing.JMenuItem menuTutores3;
     // End of variables declaration//GEN-END:variables
 }

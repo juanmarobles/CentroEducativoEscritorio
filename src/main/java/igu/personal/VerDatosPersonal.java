@@ -8,12 +8,12 @@ package igu.personal;
  *
  * @author lucia
  */
-public class DatosPersonal extends javax.swing.JInternalFrame {
+public class VerDatosPersonal extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form DatosPersonal
      */
-    public DatosPersonal() {
+    public VerDatosPersonal() {
         initComponents();
     }
 

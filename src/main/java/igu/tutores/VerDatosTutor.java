@@ -40,6 +40,8 @@ public class VerDatosTutor extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaDocente = new javax.swing.JTable();
 
+        setName("VerDatosTutor"); // NOI18N
+
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel3.setBackground(new java.awt.Color(15, 80, 166));
