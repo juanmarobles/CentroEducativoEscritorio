@@ -151,4 +151,10 @@ public class Alumno implements Serializable {
         this.division = division;
     }
 
+    @Override
+    public String toString() {
+        return apellido +", "+ nombre;
+    }
+    
+
 }

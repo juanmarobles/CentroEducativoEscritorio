@@ -219,13 +219,11 @@ public class EntidadesController {
         return ctrl.traerMaterias();
     }
 
-    public void asignarMateriaAlumno(String aula, String materia, String dia, String docente) {
-        Materia m = new Materia();
-        m.setAula(aula);
-        m.setMateria(materia);
-        m.setDia(dia);
-        //m.setDocente(docente);
-        ctrl.asignarMateriaAlumno(m);
+    public void asignarMateriaAlumno(Materia materia, Alumno alumno) {
+        alumno.getMaterias().add(materia);
+        materia.getAlumnos().add(alumno);
+        
+        ctrl.asignarMateriaAlumno(materia,alumno);
     }
 
     public void asignarNotaAlumno(Alumno alumno, int valorNota, Materia materia) {

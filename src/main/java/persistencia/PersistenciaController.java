@@ -179,8 +179,8 @@ public class PersistenciaController {
         return matJPA.findMateriaEntities();
     }
 
-    public void asignarMateriaAlumno(Materia m) {
-        matJPA.create(m);
+    public void asignarMateriaAlumno(Materia m, Alumno alumno) {
+        matJPA.asignarMateriaAAlumno(m,alumno);
     }
 
     public void asignarNotaAlumno(Nota nuevaNota) {

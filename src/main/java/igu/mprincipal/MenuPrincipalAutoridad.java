@@ -2,6 +2,7 @@ package igu.mprincipal;
 
 //import com.mycompany.lestanitest.igu.PagoCuotas;
 import igu.alumnos.VerDatosAlumno;
+import igu.asignacion.AsignarMateriaAlumno;
 import igu.asignacion.AsignarMateriasDocente;
 import igu.docentes.VerDatosDocentes;
 import igu.login.Login;
@@ -69,11 +70,6 @@ public class MenuPrincipalAutoridad extends javax.swing.JFrame {
         AsignarMaterias2 = new javax.swing.JMenuItem();
         jSeparator12 = new javax.swing.JPopupMenu.Separator();
         jSeparator13 = new javax.swing.JPopupMenu.Separator();
-        Entidades4 = new javax.swing.JMenu();
-        jSeparator14 = new javax.swing.JPopupMenu.Separator();
-        AsignarMaterias4 = new javax.swing.JMenuItem();
-        jSeparator15 = new javax.swing.JPopupMenu.Separator();
-        jSeparator16 = new javax.swing.JPopupMenu.Separator();
         Entidades5 = new javax.swing.JMenu();
         jSeparator17 = new javax.swing.JPopupMenu.Separator();
         Salir = new javax.swing.JMenuItem();
@@ -278,26 +274,6 @@ public class MenuPrincipalAutoridad extends javax.swing.JFrame {
 
         jMenuBar1.add(Entidades3);
 
-        Entidades4.setForeground(new java.awt.Color(255, 255, 255));
-        Entidades4.setText("Lista");
-        Entidades4.add(jSeparator14);
-
-        AsignarMaterias4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        AsignarMaterias4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/equipo.png"))); // NOI18N
-        AsignarMaterias4.setText("Alumnos");
-        AsignarMaterias4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        AsignarMaterias4.setPreferredSize(new java.awt.Dimension(142, 36));
-        AsignarMaterias4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AsignarMaterias4ActionPerformed(evt);
-            }
-        });
-        Entidades4.add(AsignarMaterias4);
-        Entidades4.add(jSeparator15);
-        Entidades4.add(jSeparator16);
-
-        jMenuBar1.add(Entidades4);
-
         Entidades5.setForeground(new java.awt.Color(255, 255, 255));
         Entidades5.setText("Salir");
         Entidades5.add(jSeparator17);
@@ -338,6 +314,7 @@ public class MenuPrincipalAutoridad extends javax.swing.JFrame {
     private VerDatosPersonal ventanaPersonal;
     // private PagoCuotas ventanaCuotas;
     private AsignarMateriasDocente ventanaHorarios;
+    private AsignarMateriaAlumno ventanaAsignarMatAlumno;
     //private CargarNotas ventanaCarga_Notas;
     private BoletinNotas ventanaVer_Notas;
     private Login ventanaLogin;
@@ -397,12 +374,13 @@ public class MenuPrincipalAutoridad extends javax.swing.JFrame {
     }//GEN-LAST:event_AsignarMaterias3ActionPerformed
 
     private void AsignarMateriaAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignarMateriaAlumnoActionPerformed
+        if (ventanaAsignarMatAlumno == null || !ventanaAsignarMatAlumno.isVisible()) {
+            ventanaAsignarMatAlumno = new AsignarMateriaAlumno();
+        }
 
+        ventanaAsignarMatAlumno.setVisible(true);
+        ventanaAsignarMatAlumno.toFront();
     }//GEN-LAST:event_AsignarMateriaAlumnoActionPerformed
-
-    private void AsignarMaterias4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignarMaterias4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AsignarMaterias4ActionPerformed
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
         if (ventanaLogin == null || !ventanaLogin.isVisible()) {
@@ -438,12 +416,10 @@ public class MenuPrincipalAutoridad extends javax.swing.JFrame {
     private javax.swing.JMenuItem AsignarMaterias1;
     private javax.swing.JMenuItem AsignarMaterias2;
     private javax.swing.JMenuItem AsignarMaterias3;
-    private javax.swing.JMenuItem AsignarMaterias4;
     private javax.swing.JMenu Entidades;
     private javax.swing.JMenu Entidades1;
     private javax.swing.JMenu Entidades2;
     private javax.swing.JMenu Entidades3;
-    private javax.swing.JMenu Entidades4;
     private javax.swing.JMenu Entidades5;
     private javax.swing.JMenuItem MenuAlumnos;
     private javax.swing.JMenuItem MenuDocentes;
@@ -460,9 +436,6 @@ public class MenuPrincipalAutoridad extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
-    private javax.swing.JPopupMenu.Separator jSeparator14;
-    private javax.swing.JPopupMenu.Separator jSeparator15;
-    private javax.swing.JPopupMenu.Separator jSeparator16;
     private javax.swing.JPopupMenu.Separator jSeparator17;
     private javax.swing.JPopupMenu.Separator jSeparator18;
     private javax.swing.JPopupMenu.Separator jSeparator19;

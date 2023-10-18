@@ -143,7 +143,7 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
         jLabel9.setText("Materia:");
 
-        cmbAula.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1.1", "1.2", "2.1", "2.2", " " }));
+        cmbAula.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "C", "D", " " }));
 
         cmbDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lunes", "Martes", "Miercoles", "Jueves", "Viernes" }));
 

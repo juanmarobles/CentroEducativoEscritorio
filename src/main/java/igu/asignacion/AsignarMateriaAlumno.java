@@ -14,7 +14,9 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
@@ -22,9 +24,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import logica.EntidadesController;
 import logica.TextPrompt;
+import logica.entidades.Alumno;
 import logica.entidades.Docente;
 import logica.entidades.Materia;
+import logica.entidades.ModeloAlumno;
 import logica.entidades.ModeloDocente;
+import logica.entidades.ModeloMateria;
 import logica.entidades.Tutor;
 
 /**
@@ -53,7 +58,8 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
 
         // Establece la posición de la ventana en el centro
         setLocation(x, y);
-        cargarDocentes();
+        cargarMaterias();
+        cargarAlumnos();
     }
 
     /**
@@ -68,13 +74,9 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         btnAsignar = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        cmbDocente = new javax.swing.JComboBox<>();
-        cmbAula = new javax.swing.JComboBox<>();
+        cmbAlumno = new javax.swing.JComboBox<>();
         cmbMateria = new javax.swing.JComboBox<>();
-        cmbDia = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaMaterias = new javax.swing.JTable();
         txtBuscarMateria = new javax.swing.JTextField();
@@ -85,6 +87,11 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
 
         setTitle("ASIGNACION DE AULAS");
         setBackground(new java.awt.Color(255, 255, 255));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -92,8 +99,8 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel19.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
-        jLabel19.setText("Docente");
+        jLabel19.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 18)); // NOI18N
+        jLabel19.setText("Alumno");
 
         btnAsignar.setBackground(new java.awt.Color(15, 80, 166));
         btnAsignar.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
@@ -105,72 +112,43 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
-        jLabel10.setText("Aula:");
-
-        jLabel11.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
-        jLabel11.setText("Dia:");
-
-        jLabel9.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 18)); // NOI18N
         jLabel9.setText("Materia:");
-
-        cmbAula.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1.1", "1.2", "2.1", "2.2", " " }));
-
-        cmbDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lunes", "Martes", "Miercoles", "Jueves", "Viernes" }));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel19))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel19))
-                        .addGap(6, 6, 6)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(77, 77, 77)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cmbAula, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cmbMateria, 0, 322, Short.MAX_VALUE)))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(75, 75, 75)
-                                .addComponent(cmbDia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                                .addGap(75, 75, 75)
-                                .addComponent(cmbDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(180, 180, 180)
-                        .addComponent(btnAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                    .addComponent(cmbAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addComponent(btnAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(cmbAula, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cmbMateria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(cmbDia, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
-                .addComponent(btnAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(164, 164, 164))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(cmbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(btnAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(373, 373, 373))
         );
 
         tablaMaterias.setModel(new javax.swing.table.DefaultTableModel(
@@ -254,7 +232,7 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,104 +286,116 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
-        String aula = (cmbAula.getSelectedItem() != null) ? cmbAula.getSelectedItem().toString() : "";
-        String materia = (cmbMateria.getSelectedItem() != null) ? cmbMateria.getSelectedItem().toString() : "";
-        String dia = (cmbDia.getSelectedItem() != null) ? cmbDia.getSelectedItem().toString() : "";
-        //String desde = txtDesde.getText();
-        //String hasta = txtHasta.getText();
-        Docente docenteSeleccionado = (Docente) cmbDocente.getSelectedItem();
-        String docente = docenteSeleccionado.getNombre();
+        Materia materia = (Materia) cmbMateria.getSelectedItem();
+        Alumno alumno = (Alumno) cmbAlumno.getSelectedItem();
 
         // Verifica si algún campo está vacío
-        if (aula.isEmpty() || materia.isEmpty() || dia.isEmpty() || docente.isEmpty()) {
+        if (materia == null || alumno == null) {
             JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos antes de asignar la materia", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
         } else {
             // Todos los campos están completos, realiza la asignación de la materia
-            control.asignarMateriaAlumno(aula, materia, dia, docente);
+            control.asignarMateriaAlumno(materia, alumno);
             JOptionPane.showMessageDialog(this, "La materia se ha asignado correctamente", "Asignación Exitosa", JOptionPane.INFORMATION_MESSAGE);
             // Actualizar la tabla
-            DefaultTableModel modeloTabla = (DefaultTableModel) tablaMaterias.getModel();
-            modeloTabla.setRowCount(0);
-            List<Materia> materias = control.traerMaterias();
-            Collections.sort(materias, Comparator.comparingInt(Materia::getIdMateria).reversed());
-            for (Materia m : materias) {
-                Object[] objeto = {m.getIdMateria(), m.getAula(), m.getMateria(), m.getDia(), m.getDesde(), m.getHasta(), m.getDocentes()};
-                modeloTabla.addRow(objeto);
-            }
+            this.dispose();
+            AsignarMateriaAlumno ver = new AsignarMateriaAlumno();
+            ver.setVisible(true);
         }
 
 
     }//GEN-LAST:event_btnAsignarActionPerformed
 
-    private void cargarDocentes() {
-    ModeloDocente modDocentes = new ModeloDocente();
-    ArrayList<Docente> listaDocentes = modDocentes.getDocentes();
+    private void cargarAlumnos() {
+        ModeloAlumno modAlumno = new ModeloAlumno();
+        ArrayList<Alumno> listaAlumnos = modAlumno.getAlumnos();
 
-    cmbDocente.setEditable(true);
+        cmbAlumno.setEditable(true);
 
-    // Ordenar la lista de docentes alfabéticamente por el nombre
-    listaDocentes.sort((docente1, docente2) -> docente1.getNombre().compareToIgnoreCase(docente2.getNombre()));
+        // Crear una lista de materias únicas
+        ArrayList<Alumno> alumnosUnicos = new ArrayList<>();
 
-    // Limpiar el ComboBox de docentes
-    cmbDocente.removeAllItems();
-
-    // Agregar los nombres de los docentes al ComboBox de forma ordenada
-    for (Docente docente : listaDocentes) {
-        cmbDocente.addItem(docente);
-    }
-
-    // Eliminar la opción en blanco después de configurar el decorador
-    cmbDocente.removeItem("");
-    // Establecer el índice seleccionado a -1 para no mostrar ninguna selección
-    cmbDocente.setSelectedIndex(-1);
-
-    // Agregar ActionListener para capturar el evento de selección
-    cmbDocente.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // Verifica si hay un docente seleccionado
-            if (cmbDocente.getSelectedItem() != null) {
-                // Obtén el objeto Docente seleccionado
-                Docente docenteSeleccionado = (Docente) cmbDocente.getSelectedItem();
-
-                // Ahora puedes trabajar con el docenteSeleccionado
-                // Por ejemplo, obtener las materias asignadas a ese docente
-                List<Materia> materiasAsignadas = docenteSeleccionado.getMaterias();
-
-                // Limpia el ComboBox de materias
-                cmbMateria.removeAllItems();
-
-                // Agregar las materias al ComboBox de materias
-                for (Materia materia : materiasAsignadas) {
-                    cmbMateria.addItem(materia);
-                }
-
-                // Elimina la opción en blanco después de configurar el ComboBox de materias
-                cmbMateria.removeItem("");
-                // Establecer el índice seleccionado a -1 para no mostrar ninguna selección
-                cmbMateria.setSelectedIndex(-1);
-            } else {
-                mostrarMensaje("Por favor, selecciona un docente válido.", "Error", "Error de selección");
+        for (Alumno alumno : listaAlumnos) {
+            if (!alumnosUnicos.contains(alumno)) {
+                alumnosUnicos.add(alumno);
             }
         }
-    });
-}
 
+        // Limpiar el ComboBox
+        cmbAlumno.removeAllItems();
 
-    private void cargarMaterias(Docente docente) {
-        // Obtén las materias asociadas a este docente desde tu lógica (ModeloDocente)
-        List<Materia> materiasDocente = docente.getMaterias();
+        // Agregar las materias únicas al ComboBox de forma ordenada
+        for (Alumno alumno : alumnosUnicos) {
+            cmbAlumno.addItem(alumno);
+        }
 
-        // Limpia el ComboBox de Materias
+        // Eliminar la opción en blanco después de configurar el decorador
+        cmbAlumno.removeItem("");
+        // Establecer el índice seleccionado a -1 para no mostrar ninguna selección
+        cmbAlumno.setSelectedIndex(-1);
+
+        // Agregar ActionListener para capturar el evento "Enter"
+        cmbAlumno.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Verifica si hay una materia seleccionada
+                if (cmbAlumno.getSelectedItem() != null) {
+                    // Obtén el objeto Materia seleccionado
+                    Alumno alumnoseleccionado = alumnosUnicos.get(cmbAlumno.getSelectedIndex());
+
+                    // Ahora puedes trabajar con la materiaSeleccionada
+                } else {
+                    mostrarMensaje("Por favor, selecciona una materia válida.", "Error", "Error de selección");
+                }
+            }
+        });
+    }
+
+    private void cargarMaterias() {
+        ModeloMateria modMaterias = new ModeloMateria();
+        ArrayList<Materia> listaMaterias = modMaterias.getMaterias();
+
+        cmbMateria.setEditable(true);
+
+        // Crear una lista de materias únicas
+        ArrayList<Materia> materiasUnicas = new ArrayList<>();
+
+        for (Materia materia : listaMaterias) {
+            if (!materiasUnicas.contains(materia)) {
+                materiasUnicas.add(materia);
+            }
+        }
+
+        // Ordenar la lista de materias alfabéticamente por nombre
+        materiasUnicas.sort((materia1, materia2) -> materia1.getMateria().compareToIgnoreCase(materia2.getMateria()));
+
+        // Limpiar el ComboBox
         cmbMateria.removeAllItems();
 
-        // Agrega las materias al ComboBox
-        for (Materia materia : materiasDocente) {
+        // Agregar las materias únicas al ComboBox de forma ordenada
+        for (Materia materia : materiasUnicas) {
             cmbMateria.addItem(materia);
         }
 
-        // Elimina la opción en blanco, si es necesario
-        // cmbMateria.removeItem("");
+        // Eliminar la opción en blanco después de configurar el decorador
+        cmbMateria.removeItem("");
+        // Establecer el índice seleccionado a -1 para no mostrar ninguna selección
+        cmbMateria.setSelectedIndex(-1);
+
+        // Agregar ActionListener para capturar el evento "Enter"
+        cmbMateria.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Verifica si hay una materia seleccionada
+                if (cmbMateria.getSelectedItem() != null) {
+                    // Obtén el objeto Materia seleccionado
+                    Materia materiaSeleccionada = materiasUnicas.get(cmbMateria.getSelectedIndex());
+
+                    // Ahora puedes trabajar con la materiaSeleccionada
+                } else {
+                    mostrarMensaje("Por favor, selecciona una materia válida.", "Error", "Error de selección");
+                }
+            }
+        });
     }
 
     public void mostrarMensaje(String mensaje, String tipo, String titulo) {
@@ -436,6 +426,10 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
         tablaMaterias.setRowSorter(trs);
 
     }//GEN-LAST:event_txtBuscarMateriaKeyTyped
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        mostrarTablaMaterias();
+    }//GEN-LAST:event_formWindowOpened
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -474,12 +468,8 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignar;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JComboBox<String> cmbAula;
-    private javax.swing.JComboBox<String> cmbDia;
-    private javax.swing.JComboBox<Docente> cmbDocente;
+    private javax.swing.JComboBox<Alumno> cmbAlumno;
     private javax.swing.JComboBox<Materia> cmbMateria;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -496,8 +486,20 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
         // Carga de los datos desde la base de datos
         List<Materia> listaMateria = control.traerMaterias();
 
-        // Ordenar la lista de clientes alfabéticamente por el nombre
+        // Crear un mapa para agrupar las materias por su nombre
+        Map<String, List<Materia>> materiasAgrupadas = new HashMap<>();
+
+        // Ordenar la lista de materias alfabéticamente por el nombre de la materia
         listaMateria.sort((materia1, materia2) -> materia1.getMateria().compareToIgnoreCase(materia2.getMateria()));
+
+        // Agrupar las materias por su nombre
+        for (Materia m : listaMateria) {
+            String nombreMateria = m.getMateria();
+            if (!materiasAgrupadas.containsKey(nombreMateria)) {
+                materiasAgrupadas.put(nombreMateria, new ArrayList<>());
+            }
+            materiasAgrupadas.get(nombreMateria).add(m);
+        }
 
         // Filas y columnas no editables
         DefaultTableModel tabla = new DefaultTableModel() {
@@ -511,12 +513,26 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
         String titulos[] = {"idMateria", "AULA", "MATERIA", "DIA", "DESDE", "HASTA", "DOCENTE"};
         tabla.setColumnIdentifiers(titulos);
 
-        // Recorrer la lista ordenada y mostrar elementos en la tabla
-        if (listaMateria != null) {
-            for (Materia m : listaMateria) {
-                Object[] objeto = {m.getIdMateria(), m.getAula(), m.getMateria(), m.getDocentes()};
-                tabla.addRow(objeto);
-            }
+        // Recorrer las materias agrupadas y mostrar elementos en la tabla
+        for (String nombreMateria : materiasAgrupadas.keySet()) {
+            List<Materia> materias = materiasAgrupadas.get(nombreMateria);
+            // Aquí asignamos los atributos de una de las materias al resto de las columnas
+            Materia materia = materias.get(0);
+            System.out.println(materia.getAula());
+            System.out.println(materia.getDesde());
+            System.out.println(materia.getHasta());
+            System.out.println(materia.getDia());
+            Object[] objeto = {
+                materia.getIdMateria(),
+                materia.getAula(),
+                materia.getMateria(),
+                materia.getDia(),
+                materia.getDesde(),
+                materia.getHasta(),
+                obtenerNombresDocentes(materias) // Enumera los docentes de la materia
+            };
+            tabla.addRow(objeto);
+
         }
 
         // Configurar el TableRowSorter para habilitar el ordenamiento en la tabla
@@ -525,8 +541,15 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
         tablaMaterias.setRowSorter(sorter);
     }
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {
-        mostrarTablaMaterias();
+// Esta función obtiene los nombres de los docentes asociados a una lista de materias
+    private String obtenerNombresDocentes(List<Materia> materias) {
+        List<String> nombres = new ArrayList<>();
+        for (Materia materia : materias) {
+            for (Docente docente : materia.getDocentes()) {
+                nombres.add(docente.getApellido());
+            }
+        }
+        return String.join(", ", nombres);
     }
 
 }

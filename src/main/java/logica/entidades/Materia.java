@@ -33,10 +33,10 @@ public class Materia implements Serializable {
     @ManyToMany(mappedBy = "materias")
     private List<Docente> docentes = new ArrayList<>();
     @ManyToMany(mappedBy = "materias")
-    private List<Alumno> alumnos;
+    private List<Alumno> alumnos = new ArrayList<>();
 
     @OneToMany(mappedBy = "materia")
-    private List<Nota> notas;
+    private List<Nota> notas = new ArrayList<>();;
 
     public Materia() {
     }
