@@ -5,12 +5,14 @@
 package logica.entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -22,16 +24,33 @@ public class Docente extends Persona implements Serializable {
     private String turno;
     private String nivel;
 
-     private String materia;
+    @ManyToMany
+    @JoinTable(name = "docente_materia",
+            joinColumns = @JoinColumn(name = "docente_id"),
+            inverseJoinColumns = @JoinColumn(name = "materia_id")
+    )
+    List<Materia> materias = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "docente")
+    private List<Nota> notas;
 
     public Docente() {
     }
 
-    public Docente(String turno, String nivel, String materia, String nombre, String apellido, int idPersona, int dni, int telefono, String domicilio, String email) {
+    public Docente(String turno, String nivel, String nombre, String apellido, int idPersona, int dni, int telefono, String domicilio, String email) {
         super(nombre, apellido, idPersona, dni, telefono, domicilio, email);
         this.turno = turno;
         this.nivel = nivel;
-        this.materia = materia;
+        this.materias = new ArrayList<>();
+        notas = new ArrayList<>();
+    }
+
+    public List<Nota> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(List<Nota> notas) {
+        this.notas = notas;
     }
 
     public String getTurno() {
@@ -50,18 +69,17 @@ public class Docente extends Persona implements Serializable {
         this.nivel = nivel;
     }
 
-    public String getMateria() {
-        return materia;
+    public List<Materia> getMaterias() {
+        return materias;
     }
 
-    public void setMateria(String materia) {
-        this.materia = materia;
+    public void setMaterias(List<Materia> materias) {
+        this.materias = materias;
     }
 
-   
-
-   
-
-
+    @Override
+    public String toString() {
+        return getNombre() + " " + getApellido();
+    }
 
 }

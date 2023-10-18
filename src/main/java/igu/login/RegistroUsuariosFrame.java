@@ -43,7 +43,7 @@ public class RegistroUsuariosFrame extends javax.swing.JFrame {
         contrasenaField = new JPasswordField(20);
 
         JLabel rolesLabel = new JLabel("Rol:");
-        String[] roles = {"Tutor", "Docente"};
+        String[] roles = {"Tutor", "Docente", "Alumno"};
         rolesComboBox = new JComboBox<>(roles);
 
         JButton registrarButton = new JButton("Registrar");

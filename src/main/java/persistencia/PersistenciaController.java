@@ -9,6 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import logica.entidades.Alumno;
 import logica.entidades.Docente;
+import logica.entidades.Materia;
+import logica.entidades.Nota;
 import logica.entidades.Personal;
 import logica.entidades.Tutor;
 import logica.entidades.Usuario;
@@ -26,6 +28,8 @@ public class PersistenciaController {
     TutorJpaController tutorJPA = new TutorJpaController();
     DocenteJpaController docJPA = new DocenteJpaController();
     PersonalJpaController personalJPA = new PersonalJpaController();
+    MateriaJpaController matJPA = new  MateriaJpaController();
+    NotaJpaController notJPA = new NotaJpaController();
     
         /* ------------------------------------CRUD USUARIOS--------------------------------------------------------*/
 
@@ -163,11 +167,43 @@ public class PersistenciaController {
     public Personal traerPersonal(int idPersonal) {
         return personalJPA.findPersonal(idPersonal);
     }
-
-   
-
     
+            /* ------------------------------------CRUD MATERIA--------------------------------------------------------*/
+
+
+    public void asignarMateria(Materia m) {
+        matJPA.create(m);
+    }
+
+    public List<Materia> traerMaterias() {
+        return matJPA.findMateriaEntities();
+    }
+
+    public void asignarMateriaAlumno(Materia m) {
+        matJPA.create(m);
+    }
+
+    public void asignarNotaAlumno(Nota nuevaNota) {
+        notJPA.create(nuevaNota);        
+    }
+
+    public void asignarMateriaNueva(Materia m) {
+        matJPA.create(m);
+    }
+
+    public void eliminarMateria(int idMateria) {
+        try {
+            matJPA.destroy(idMateria);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Materia buscarMateriaPorNombre(String materia) {
+        return matJPA.buscarMateriaPorNombre(materia);
+    }
 
    
+
 
 }

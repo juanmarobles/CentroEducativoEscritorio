@@ -29,7 +29,7 @@ public class Conexion {
     public PreparedStatement pstm;
     public static Connection getConexion() {
     Connection con = null;
-    String url = "jdbc:mysql://localhost:3306/centroedu";
+    String url = "jdbc:mysql://localhost:3306/centroeduescritorio";
     String user = "root";
     String password = "";
     

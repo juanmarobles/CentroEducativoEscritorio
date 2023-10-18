@@ -35,7 +35,6 @@ public class TutorJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
     //CONTROLADOR
     public TutorJpaController() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
@@ -194,6 +193,7 @@ public class TutorJpaController implements Serializable {
             em.close();
         }
     }
+    
     public Tutor buscarTutorPorNombre(String nombreTutor) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("centroeducativoPU"); // Reemplaza "nombreUnidadPersistencia" con el nombre de tu unidad de persistencia
         EntityManager em = emf.createEntityManager();

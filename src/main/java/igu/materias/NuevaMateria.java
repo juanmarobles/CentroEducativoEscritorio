@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package igu.docentes;
+package igu.materias;
 
+import igu.docentes.*;
 import igu.alumnos.VerDatosAlumno;
 import igu.personal.VerDatosPersonal;
 import java.awt.Dimension;
@@ -22,11 +23,11 @@ import persistencia.MateriaJpaController;
  *
  * @author lucia
  */
-public class NuevoDocente extends javax.swing.JFrame {
+public class NuevaMateria extends javax.swing.JFrame {
 
     EntidadesController control = new EntidadesController();
 
-    public NuevoDocente() {
+    public NuevaMateria() {
         initComponents();
         // Obtiene el tamaño de la pantalla
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -47,20 +48,10 @@ public class NuevoDocente extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        txtApellido = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtDni = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JTextField();
+        txtMateria = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnCargar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
-        txtDomicilio = new javax.swing.JTextField();
-        txtTelefono = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -70,24 +61,12 @@ public class NuevoDocente extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/agregar-usuario_24px.png"))); // NOI18N
-        jLabel8.setText("Nuevo Docente");
+        jLabel8.setText("Nueva Materia");
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 16)); // NOI18N
-        jLabel3.setText("Apellido");
-
-        txtApellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtApellidoActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 16)); // NOI18N
-        jLabel4.setText("DNI");
-
         jLabel1.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 16)); // NOI18N
-        jLabel1.setText("Nombre");
+        jLabel1.setText("Materia");
 
         btnCargar.setBackground(new java.awt.Color(15, 80, 166));
         btnCargar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -111,15 +90,6 @@ public class NuevoDocente extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 16)); // NOI18N
-        jLabel10.setText("Domicilio");
-
-        jLabel7.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 16)); // NOI18N
-        jLabel7.setText("Telefono");
-
-        jLabel11.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 16)); // NOI18N
-        jLabel11.setText("Email");
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -131,33 +101,11 @@ public class NuevoDocente extends javax.swing.JFrame {
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addGap(17, 17, 17))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(26, 26, 26)
-                                .addComponent(txtDomicilio))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7))
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtDni, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
-                                            .addComponent(txtNombre)
-                                            .addComponent(txtApellido)))
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addGap(31, 31, 31)
-                                        .addComponent(txtTelefono))))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addComponent(txtMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30))))
         );
         jPanel5Layout.setVerticalGroup(
@@ -165,33 +113,13 @@ public class NuevoDocente extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(txtDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
-                .addGap(72, 72, 72)
+                .addGap(73, 73, 73)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -218,7 +146,7 @@ public class NuevoDocente extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 7, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,57 +158,35 @@ public class NuevoDocente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtApellidoActionPerformed
-
-    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
-        String nombre = txtNombre.getText();
-        String apellido = txtApellido.getText();
-        String dniText = txtDni.getText();
-        int dni = Integer.parseInt(dniText);
-        String domicilio = txtDomicilio.getText();
-        String tel = txtTelefono.getText();
-        String email = txtEmail.getText();
-        //String turno = (cmbTurno.getSelectedItem() != null) ? cmbTurno.getSelectedItem().toString() : "";
-        //String nivel = (cmbNivel.getSelectedItem() != null) ? cmbNivel.getSelectedItem().toString() : "";
-        // Obtiene el nombre de la materia seleccionada
-        //String materia = (String) cmbMateria.getSelectedItem();
-        control.cargarDocente(nombre, apellido, dni, domicilio, tel, email);
-
-        mostrarMensaje("Docente agregado correctamente", "Info", "Agregado con exito!");
-
-        VerDatosDocentes verAnterior = new VerDatosDocentes();
-        verAnterior.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnCargarActionPerformed
-
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        VerDatosDocentes verAnterior = new VerDatosDocentes();
+        VerDatosMaterias verAnterior = new VerDatosMaterias();
         verAnterior.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        String nombre = txtMateria.getText();
+        
+        
+        control.crearMateria(nombre);
+
+        mostrarMensaje("Materia agregada correctamente", "Info", "Agregado con exito!");
+
+        VerDatosMaterias verAnterior = new VerDatosMaterias();
+        verAnterior.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCargarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCargar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JTextField txtApellido;
-    private javax.swing.JTextField txtDni;
-    private javax.swing.JTextField txtDomicilio;
-    private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtMateria;
     // End of variables declaration//GEN-END:variables
 
     public void mostrarMensaje(String mensaje, String tipo, String titulo) {
@@ -326,7 +232,7 @@ public class NuevoDocente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NuevoDocente().setVisible(true);
+                new NuevaMateria().setVisible(true);
 
             }
         });

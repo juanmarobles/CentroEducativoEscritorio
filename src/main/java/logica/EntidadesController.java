@@ -9,6 +9,7 @@ import java.util.List;
 import logica.entidades.Alumno;
 import logica.entidades.Docente;
 import logica.entidades.Materia;
+import logica.entidades.Nota;
 import logica.entidades.Personal;
 import logica.entidades.Tutor;
 import logica.entidades.Usuario;
@@ -120,7 +121,7 @@ public class EntidadesController {
         return ctrl.traerDocentes();
     }
 
-    public void cargarDocente(String nombre, String apellido, int dni, String domicilio, String tel, String email, String turno, String nivel, String materia) {
+    public void cargarDocente(String nombre, String apellido, int dni, String domicilio, String tel, String email) {
         Docente d = new Docente();
         d.setNombre(nombre);
         d.setApellido(apellido);
@@ -128,22 +129,16 @@ public class EntidadesController {
         d.setDomicilio(domicilio);
         d.setTelefono(dni);
         d.setEmail(email);
-        d.setTurno(turno);
-        d.setMateria(materia); // Utiliza la materia pasada como argumento.
-        d.setNivel(nivel);
-
         ctrl.crearDocente(d);
     }
 
-    public void editarDocente(Docente docente, String nombre, String apellido, int dni, String domicilio, int telefono, String email, String nivel, String turno) {
+    public void editarDocente(Docente docente, String nombre, String apellido, int dni, String domicilio, int telefono, String email) {
         docente.setNombre(nombre);
         docente.setApellido(apellido);
         docente.setDni(dni);
         docente.setDomicilio(domicilio);
         docente.setTelefono(telefono);
         docente.setEmail(email);
-        docente.setNivel(nivel);
-        docente.setTurno(turno);
         ctrl.editarDocente(docente);
     }
 
@@ -203,6 +198,48 @@ public class EntidadesController {
 
     public Personal traerPersonal(int idPersonal) {
         return ctrl.traerPersonal(idPersonal);
+    }
+
+    /* ------------------------------------CRUD MATERIAS--------------------------------------------------------*/
+    public void asignarMateriaDocente(String aula, Materia materia, String dia, String desde, String hasta, Docente docente) {
+        // Asigna la materia al docente
+        materia.setAula(aula);
+        materia.setDia(dia);
+        materia.setDesde(desde);
+        materia.setHasta(hasta);
+        docente.getMaterias().add(materia);
+        ctrl.asignarMateria(materia);
+    }
+
+    public List<Materia> traerMaterias() {
+        return ctrl.traerMaterias();
+    }
+
+    public void asignarMateriaAlumno(String aula, String materia, String dia, String docente) {
+        Materia m = new Materia();
+        m.setAula(aula);
+        m.setMateria(materia);
+        m.setDia(dia);
+        //m.setDocente(docente);
+        ctrl.asignarMateriaAlumno(m);
+    }
+
+    public void asignarNotaAlumno(Alumno alumno, int valorNota, Materia materia) {
+        Nota nuevaNota = new Nota();
+        nuevaNota.setAlumno(alumno);
+        nuevaNota.setMateria(materia);
+        nuevaNota.setValor(valorNota);
+        ctrl.asignarNotaAlumno(nuevaNota);
+    }
+
+    public void crearMateria(String nombre) {
+        Materia m = new Materia();
+        m.setMateria(nombre);
+        ctrl.asignarMateriaNueva(m);
+    }
+
+    public void borrarMateria(int idMateria) {
+        ctrl.eliminarMateria(idMateria);
     }
 
 }

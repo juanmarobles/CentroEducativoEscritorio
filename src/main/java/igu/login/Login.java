@@ -4,7 +4,8 @@
  */
 package igu.login;
 
-import igu.mprincipal.VentanaPrincipal;
+import igu.mprincipal.MenuPrincipalAlumno;
+import igu.mprincipal.MenuPrincipalAutoridad;
 import javax.swing.JOptionPane;
 import logica.EntidadesController;
 import logica.entidades.Usuario;
@@ -165,30 +166,39 @@ public class Login extends javax.swing.JFrame {
 
     private void btnAccederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccederActionPerformed
         String usuario = txtUsuario.getText();
-        String password = txtPassword.getText();
+    String password = txtPassword.getText();
 
-        // Utiliza el controlador de JPA para buscar el usuario en la base de datos
-        UsuarioJpaController usuarioController = new UsuarioJpaController();
-        Usuario usuarioEntity = usuarioController.findUsuarioPorCredenciales(usuario, password);
-        if (usuarioEntity != null) {
-            String rol = usuarioEntity.getRol();
+    UsuarioJpaController usuarioController = new UsuarioJpaController();
+    Usuario usuarioEntity = usuarioController.findUsuarioPorCredenciales(usuario, password);
 
-            if ("autoridad".equals(rol)) {
-                // Abre la VentanaPrincipal si el rol es "autoridad"
-                VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
-                ventanaPrincipal.setVisible(true);
-                this.dispose(); // Cierra la ventana de registro de usuarios
-            } else {
-                // Si el rol no es "autoridad", puedes mostrar un mensaje de error o realizar otras acciones.
-                JOptionPane.showMessageDialog(this, "No tiene permiso para acceder como autoridad.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            // Si no se encontró un usuario con las credenciales proporcionadas, muestra un mensaje de error.
-            JOptionPane.showMessageDialog(this, "Credenciales incorrectas.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+    if (usuarioEntity != null) {
+        String rol = usuarioEntity.getRol();
+        abrirVentanaPrincipalSegunRol(rol);
+    } else {
+        JOptionPane.showMessageDialog(this, "Credenciales incorrectas.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
 
     }//GEN-LAST:event_btnAccederActionPerformed
-
+private void abrirVentanaPrincipalSegunRol(String rol) {
+    if (rol == null) {
+        JOptionPane.showMessageDialog(this, "No tiene permiso para acceder como autoridad.", "Error", JOptionPane.ERROR_MESSAGE);
+    } else {
+        switch (rol) {
+            case "autoridad":
+                MenuPrincipalAutoridad ventanaPrincipalAutoridad = new MenuPrincipalAutoridad();
+                ventanaPrincipalAutoridad.setVisible(true);
+                this.dispose();
+                break;
+            case "Alumno":
+                MenuPrincipalAlumno ventanaPrincipalAlumno = new MenuPrincipalAlumno();
+                ventanaPrincipalAlumno.setVisible(true);
+                this.dispose();
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Rol desconocido: " + rol, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         RegistroUsuariosFrame r = new RegistroUsuariosFrame();
         r.setVisible(true); // Hacer visible la ventana de RegistroUsuariosFrame

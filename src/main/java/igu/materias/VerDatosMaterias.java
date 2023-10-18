@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package igu.docentes;
+package igu.materias;
 
+import igu.docentes.*;
 import igu.alumnos.VerDatosAlumno;
 import igu.personal.VerDatosPersonal;
 import java.awt.event.KeyAdapter;
@@ -16,12 +17,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import logica.EntidadesController;
 import logica.entidades.Docente;
+import logica.entidades.Materia;
 
 /**
  *
  * @author lucia
  */
-public class VerDatosDocentes extends javax.swing.JFrame  {
+public class VerDatosMaterias extends javax.swing.JFrame  {
 
     TableRowSorter trs;
     EntidadesController control = new EntidadesController();
@@ -29,9 +31,9 @@ public class VerDatosDocentes extends javax.swing.JFrame  {
     /**
      * Creates new form VerDatosDocentes
      */
-    public VerDatosDocentes() {
+    public VerDatosMaterias() {
         initComponents();
-        mostrarTablaDocentes();
+        mostrarTablaMaterias();
     }
     
 
@@ -51,11 +53,10 @@ public class VerDatosDocentes extends javax.swing.JFrame  {
         jSeparator4 = new javax.swing.JSeparator();
         txtFiltroDocente = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
-        btnAgregarDocente = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
+        btnAgregarMaterias = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaDocente = new javax.swing.JTable();
+        tablaMaterias = new javax.swing.JTable();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -113,25 +114,14 @@ public class VerDatosDocentes extends javax.swing.JFrame  {
             }
         });
 
-        btnAgregarDocente.setBackground(new java.awt.Color(15, 80, 166));
-        btnAgregarDocente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnAgregarDocente.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregarDocente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/agregar-usuario_24px.png"))); // NOI18N
-        btnAgregarDocente.setText("Agregar");
-        btnAgregarDocente.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarMaterias.setBackground(new java.awt.Color(15, 80, 166));
+        btnAgregarMaterias.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAgregarMaterias.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregarMaterias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/agregar-usuario_24px.png"))); // NOI18N
+        btnAgregarMaterias.setText("Agregar");
+        btnAgregarMaterias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarDocenteActionPerformed(evt);
-            }
-        });
-
-        btnEditar.setBackground(new java.awt.Color(15, 80, 166));
-        btnEditar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnEditar.setForeground(new java.awt.Color(255, 255, 255));
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/editar_24px.png"))); // NOI18N
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
+                btnAgregarMateriasActionPerformed(evt);
             }
         });
 
@@ -146,8 +136,8 @@ public class VerDatosDocentes extends javax.swing.JFrame  {
             }
         });
 
-        tablaDocente.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        tablaDocente.setModel(new javax.swing.table.DefaultTableModel(
+        tablaMaterias.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tablaMaterias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -158,7 +148,7 @@ public class VerDatosDocentes extends javax.swing.JFrame  {
 
             }
         ));
-        jScrollPane1.setViewportView(tablaDocente);
+        jScrollPane1.setViewportView(tablaMaterias);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -179,10 +169,8 @@ public class VerDatosDocentes extends javax.swing.JFrame  {
                         .addComponent(txtFiltroDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(206, 206, 206)
-                        .addComponent(btnAgregarDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(351, 351, 351)
+                        .addComponent(btnAgregarMaterias, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -206,8 +194,7 @@ public class VerDatosDocentes extends javax.swing.JFrame  {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtFiltroDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAgregarDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAgregarMaterias, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
@@ -249,62 +236,45 @@ public class VerDatosDocentes extends javax.swing.JFrame  {
             }
 
         });
-        trs = new TableRowSorter(tablaDocente.getModel());
-        tablaDocente.setRowSorter(trs);
+        trs = new TableRowSorter(tablaMaterias.getModel());
+        tablaMaterias.setRowSorter(trs);
     }//GEN-LAST:event_txtFiltroDocenteKeyTyped
+    
 
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        if (tablaDocente.getRowCount() > 0) {
-            //validar q se haya seleccionado un registro
-            if (tablaDocente.getSelectedRow() != -1) {
-                //obtener la id de lo q quiero editar
-                int idDocente = Integer.parseInt(String.valueOf(tablaDocente.getValueAt(tablaDocente.getSelectedRow(), 0)));
-                EditarDocente editar = new EditarDocente(idDocente);
-                editar.setVisible(true);
-                this.dispose();
-            } else {
-                mostrarMensaje("No seleccinó un Registro para editar", "Error", "Error al editar");
-            }
-        } else {
-            mostrarMensaje("La tabla esta vacia, no se puede editar", "Error", "Error al editar");
-    }//GEN-LAST:event_btnEditarActionPerformed
-    }
+    
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void btnAgregarMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMateriasActionPerformed
+        NuevaMateria agregar = new NuevaMateria();
+        agregar.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAgregarMateriasActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // Control de q la tabla no este vacia
-        if (tablaDocente.getRowCount() > 0) {
+        if (tablaMaterias.getRowCount() > 0) {
             //validar q se haya seleccionado un registro
-            if (tablaDocente.getSelectedRow() != -1) {
+            if (tablaMaterias.getSelectedRow() != -1) {
                 //obtener la id de lo q quiero borrar
-                int idDocente = Integer.parseInt(String.valueOf(tablaDocente.getValueAt(tablaDocente.getSelectedRow(), 0)));
+                int idMateria = Integer.parseInt(String.valueOf(tablaMaterias.getValueAt(tablaMaterias.getSelectedRow(), 0)));
 
-                control.borrarDocente(idDocente);
-                mostrarMensaje("Docente borrado correctamente", "Info", "Borrado con exito!");
+                control.borrarMateria(idMateria);
+                mostrarMensaje("Materia borrada correctamente", "Info", "Borrado con exito!");
 
-                mostrarTablaDocentes();
+                mostrarTablaMaterias();
             } else {
                 mostrarMensaje("No seleccinó un Registro para eliminar", "Error", "Error al eliminar");
             }
         } else {
             mostrarMensaje("La tabla esta vacia, no se puede eliminar", "Error", "Error al eliminar");
     }//GEN-LAST:event_btnEliminarActionPerformed
-    }
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void btnAgregarDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDocenteActionPerformed
-        NuevoDocente agregar = new NuevoDocente();
-        agregar.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnAgregarDocenteActionPerformed
-
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarDocente;
+    private javax.swing.JButton btnAgregarMaterias;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -314,7 +284,7 @@ public class VerDatosDocentes extends javax.swing.JFrame  {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTable tablaDocente;
+    private javax.swing.JTable tablaMaterias;
     private javax.swing.JTextField txtFiltroDocente;
     // End of variables declaration//GEN-END:variables
 
@@ -331,12 +301,11 @@ public class VerDatosDocentes extends javax.swing.JFrame  {
         dialog.setVisible(true);
     }
 
-    private void mostrarTablaDocentes() {
+    private void mostrarTablaMaterias() {
         // Carga de los datos desde la base de datos
-        List<Docente> listaDocentes = control.traerDocentes();
+        List<Materia> listaMaterias = control.traerMaterias();
 
-        // Ordenar la lista de clientes alfabéticamente por el nombre
-        listaDocentes.sort((docente1, docente2) -> docente1.getNombre().compareToIgnoreCase(docente2.getNombre()));
+       
 
         // Filas y columnas no editables
         DefaultTableModel tabla = new DefaultTableModel() {
@@ -347,24 +316,24 @@ public class VerDatosDocentes extends javax.swing.JFrame  {
         };
 
         // Nombres de columnas
-        String titulos[] = {"Id_Docente", "Nombre", "Apellido", "Telefono", "Domicilio", "Email", "Dni"};
+        String titulos[] = {"idMateria", "Materia"};
         tabla.setColumnIdentifiers(titulos);
 
         // Recorrer la lista ordenada y mostrar elementos en la tabla
-        if (listaDocentes != null) {
-            for (Docente d : listaDocentes) {
-                Object[] objeto = {d.getIdPersona(), d.getNombre(), d.getApellido(), d.getTelefono(), d.getDomicilio(), d.getEmail(), d.getDni()};
+        if (listaMaterias != null) {
+            for (Materia m : listaMaterias) {
+                Object[] objeto = {m.getIdMateria(), m.getMateria()};
                 tabla.addRow(objeto);
             }
         }
 
         // Configurar el TableRowSorter para habilitar el ordenamiento en la tabla
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabla);
-        tablaDocente.setModel(tabla);
-        tablaDocente.setRowSorter(sorter);
+        tablaMaterias.setModel(tabla);
+        tablaMaterias.setRowSorter(sorter);
     }
      private void formWindowOpened(java.awt.event.WindowEvent evt) {                                  
-        mostrarTablaDocentes();
+        mostrarTablaMaterias();
     }
      
      public static void main(String args[]) {
@@ -397,9 +366,10 @@ public class VerDatosDocentes extends javax.swing.JFrame  {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VerDatosDocentes().setVisible(true);
+                new VerDatosMaterias().setVisible(true);
 
             }
         });
     }
 }
+

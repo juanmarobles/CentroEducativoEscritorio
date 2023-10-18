@@ -6,7 +6,9 @@ package logica.entidades;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -30,7 +32,7 @@ public class Alumno implements Serializable {
     private int dni;
 
     @ManyToOne
-    @JoinColumn(name = "tutor_id") 
+    @JoinColumn(name = "tutor_id")
     private Tutor tutor;
 
     @Column(name = "nivel")
@@ -41,6 +43,17 @@ public class Alumno implements Serializable {
 
     @Column(name = "fecha_nac")
     private String fechaNac;
+
+    @ManyToMany
+    @JoinTable(
+            name = "alumno_materia",
+            joinColumns = @JoinColumn(name = "alumno_id"),
+            inverseJoinColumns = @JoinColumn(name = "materia_id")
+    )
+    private List<Materia> materias = new ArrayList<>(); // Inicializa la lista
+
+    @OneToMany(mappedBy = "alumno")
+    private List<Nota> notas;
 
     public Alumno() {
 
@@ -55,6 +68,23 @@ public class Alumno implements Serializable {
         this.nivel = nivel;
         this.division = division;
         this.fechaNac = fechaNac;
+        notas = new ArrayList<>();
+    }
+
+    public List<Nota> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(List<Nota> notas) {
+        this.notas = notas;
+    }
+
+    public List<Materia> getMaterias() {
+        return materias;
+    }
+
+    public void setMaterias(List<Materia> materias) {
+        this.materias = materias;
     }
 
     public String getFechaNac() {
