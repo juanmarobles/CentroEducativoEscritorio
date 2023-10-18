@@ -292,4 +292,29 @@ public class MateriaJpaController implements Serializable {
         }
     }
 
+    public void asignarMateriaADocente(Materia materia, Docente docente) {
+        EntityManager em = null;
+
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+
+            // Agregar la materia al docente
+            docente.getMaterias().add(materia);
+            // Actualizar el docente en la base de datos
+            docente = em.merge(docente);
+
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            if (em != null && em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw new RuntimeException("Error al asignar la materia al docente", ex);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
 }

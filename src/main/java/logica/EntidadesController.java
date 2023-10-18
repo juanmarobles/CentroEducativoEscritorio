@@ -208,7 +208,11 @@ public class EntidadesController {
         materia.setDesde(desde);
         materia.setHasta(hasta);
         docente.getMaterias().add(materia);
-        ctrl.asignarMateria(materia);
+
+        // Asigna el docente a la materia
+        materia.getDocentes().add(docente);
+
+        ctrl.asignarMateria(materia, docente);
     }
 
     public List<Materia> traerMaterias() {

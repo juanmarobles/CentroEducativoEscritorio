@@ -171,8 +171,8 @@ public class PersistenciaController {
             /* ------------------------------------CRUD MATERIA--------------------------------------------------------*/
 
 
-    public void asignarMateria(Materia m) {
-        matJPA.create(m);
+    public void asignarMateria(Materia m, Docente docente) {
+        matJPA.asignarMateriaADocente(m, docente);
     }
 
     public List<Materia> traerMaterias() {
@@ -203,7 +203,7 @@ public class PersistenciaController {
         return matJPA.buscarMateriaPorNombre(materia);
     }
 
-   
+     
 
 
 }
