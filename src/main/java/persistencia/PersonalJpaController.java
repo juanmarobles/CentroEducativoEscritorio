@@ -31,7 +31,6 @@ public class PersonalJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
     //CONTROLADOR
     public PersonalJpaController() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
@@ -61,7 +60,7 @@ public class PersonalJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = personal.getIdPersona();
+                int id = personal.getId();
                 if (findPersonal(id) == null) {
                     throw new NonexistentEntityException("The personal with id " + id + " no longer exists.");
                 }
@@ -82,7 +81,7 @@ public class PersonalJpaController implements Serializable {
             Personal personal;
             try {
                 personal = em.getReference(Personal.class, id);
-                personal.getIdPersona();
+                personal.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The personal with id " + id + " no longer exists.", enfe);
             }

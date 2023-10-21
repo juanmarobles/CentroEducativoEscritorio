@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
@@ -26,6 +27,7 @@ import logica.TextPrompt;
 import logica.entidades.Alumno;
 import logica.entidades.Docente;
 import logica.entidades.Materia;
+import logica.entidades.ModeloAlumno;
 import logica.entidades.ModeloDocente;
 import logica.entidades.Nota;
 import logica.entidades.Tutor;
@@ -38,25 +40,45 @@ public class CargarNotaDocente extends javax.swing.JFrame {
 
     EntidadesController control = new EntidadesController();
     TableRowSorter trs;
+    private final Docente docenteActual;
 
     /**
      * Creates new form Aulas_Materias
      */
-    public CargarNotaDocente() {
+    public CargarNotaDocente(Docente docenteActual) {
         initComponents();
-        TextPrompt FiltroBusqueda = new TextPrompt("Buscar por Materia", txtBuscarMateria);
-
-        mostrarTablaMaterias();
-        // Obtiene el tamaño de la pantalla
+        TextPrompt FiltroBusqueda = new TextPrompt("Buscar por Alumno", txtBuscarMateria);
+        this.docenteActual = docenteActual; // Inicializa docenteActual
+ 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
-        // Calcula las coordenadas (x, y) para centrar la ventana
         int x = (int) ((screenSize.getWidth() - getWidth()) / 2);
         int y = (int) ((screenSize.getHeight() - getHeight()) / 2);
-
-        // Establece la posición de la ventana en el centro
         setLocation(x, y);
-        //cargarAlumnos();
+        
+        cargarAlumnos();
+    }
+
+    private void cargarAlumnos() {
+        List<Alumno> alumnosAsignados = getAlumnosAsignados();
+
+        // Llena el ComboBox con los alumnos asignados
+        cmbAlumno.removeAllItems();
+        for (Alumno alumno : alumnosAsignados) {
+            cmbAlumno.addItem(alumno);
+        }
+        cmbAlumno.setSelectedIndex(-1);
+    }
+
+    public List<Alumno> getAlumnosAsignados() {
+        List<Alumno> alumnosAsignados = new ArrayList<>();
+
+        // Itera a través de las materias del docente
+        for (Materia materia : docenteActual.getMaterias()) {
+            // Agrega los alumnos de cada materia a la lista de alumnos asignados
+            alumnosAsignados.addAll(materia.getAlumnos());
+        }
+
+        return alumnosAsignados;
     }
 
     /**
@@ -74,18 +96,20 @@ public class CargarNotaDocente extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         cmbAlumno = new javax.swing.JComboBox<>();
         cmbNota = new javax.swing.JComboBox<>();
-        cmbMateria = new javax.swing.JComboBox<>();
-        jLabel20 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaMaterias = new javax.swing.JTable();
         txtBuscarMateria = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        btnBuscar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
         setTitle("ASIGNACION DE AULAS");
         setBackground(new java.awt.Color(255, 255, 255));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -111,9 +135,6 @@ public class CargarNotaDocente extends javax.swing.JFrame {
 
         cmbNota.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
 
-        jLabel20.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 14)); // NOI18N
-        jLabel20.setText("Materia");
-
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -124,21 +145,15 @@ public class CargarNotaDocente extends javax.swing.JFrame {
                 .addGap(166, 166, 166))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(69, 69, 69)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel20)
-                        .addGap(33, 33, 33)
-                        .addComponent(cmbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(cmbNota, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cmbAlumno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(2, 2, 2)
+                        .addComponent(cmbNota, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbAlumno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -152,11 +167,7 @@ public class CargarNotaDocente extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(cmbNota, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addGap(80, 80, 80)
                 .addComponent(btnAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(230, Short.MAX_VALUE))
         );
@@ -184,18 +195,6 @@ public class CargarNotaDocente extends javax.swing.JFrame {
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("Asignar nota");
 
-        btnBuscar.setBackground(new java.awt.Color(15, 80, 166));
-        btnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/busqueda-de-lupa.png"))); // NOI18N
-        btnBuscar.setText("Buscar");
-        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -210,10 +209,7 @@ public class CargarNotaDocente extends javax.swing.JFrame {
                         .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(txtBuscarMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBuscarMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 818, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -223,9 +219,7 @@ public class CargarNotaDocente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtBuscarMateria, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(90, 90, 90))
@@ -298,29 +292,16 @@ public class CargarNotaDocente extends javax.swing.JFrame {
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
         Alumno alumno = (Alumno) cmbAlumno.getSelectedItem();
         int nota = cmbNota.getSelectedIndex() + 1;
-        Materia materia = (Materia) cmbMateria.getSelectedItem();
         // Verifica si algún campo está vacío
-        if (alumno == null || nota < 1 || nota > 10 || materia == null)  {
+        if (alumno == null || nota < 1 || nota > 10) {
             JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos antes de asignar la materia", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
         } else {
             // Todos los campos están completos, realiza la asignación de la materia
-            control.asignarNotaAlumno(alumno, nota, materia);
+            control.asignarNotaAlumno(alumno, nota);
             JOptionPane.showMessageDialog(this, "La materia se ha asignado correctamente", "Asignación Exitosa", JOptionPane.INFORMATION_MESSAGE);
-            // Actualizar la tabla
-            DefaultTableModel modeloTabla = (DefaultTableModel) tablaMaterias.getModel();
-            modeloTabla.setRowCount(0);
-            List<Materia> materias = control.traerMaterias();
-            Collections.sort(materias, Comparator.comparingInt(Materia::getIdMateria).reversed());
-            for (Materia m : materias) {
-                Object[] objeto = {m.getIdMateria(), m.getAula(), m.getMateria(), m.getDia(), m.getDesde(), m.getHasta(), m.getDocentes()};
-                modeloTabla.addRow(objeto);
-            }
+
         }
     }//GEN-LAST:event_btnAsignarActionPerformed
-
-    private void cargarDocentes() {
-        
-    }
 
     public void mostrarMensaje(String mensaje, String tipo, String titulo) {
         JOptionPane optionPane = new JOptionPane(mensaje);
@@ -334,10 +315,6 @@ public class CargarNotaDocente extends javax.swing.JFrame {
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
     }
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
     private void txtBuscarMateriaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarMateriaKeyTyped
         txtBuscarMateria.addKeyListener(new KeyAdapter() {
             @Override
@@ -350,6 +327,11 @@ public class CargarNotaDocente extends javax.swing.JFrame {
         tablaMaterias.setRowSorter(trs);
 
     }//GEN-LAST:event_txtBuscarMateriaKeyTyped
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        mostrarTablaAlumnos(docenteActual);
+
+    }//GEN-LAST:event_formWindowOpened
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -380,22 +362,19 @@ public class CargarNotaDocente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CargarNotaDocente().setVisible(true);
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignar;
-    private javax.swing.JButton btnBuscar;
     private javax.swing.JComboBox<Alumno> cmbAlumno;
-    private javax.swing.JComboBox<Materia> cmbMateria;
     private javax.swing.JComboBox<String> cmbNota;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
@@ -404,41 +383,8 @@ public class CargarNotaDocente extends javax.swing.JFrame {
     private javax.swing.JTable tablaMaterias;
     private javax.swing.JTextField txtBuscarMateria;
     // End of variables declaration//GEN-END:variables
- private void mostrarTablaMaterias() {
-        // Carga de los datos desde la base de datos
-        List<Materia> listaMateria = control.traerMaterias();
+private void mostrarTablaAlumnos(Docente docente) {
 
-        // Ordenar la lista de clientes alfabéticamente por el nombre
-        listaMateria.sort((materia1, materia2) -> materia1.getMateria().compareToIgnoreCase(materia2.getMateria()));
-
-        // Filas y columnas no editables
-        DefaultTableModel tabla = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-
-        // Nombres de columnas
-        String titulos[] = {"idMateria", "AULA", "MATERIA", "DIA", "DESDE", "HASTA", "DOCENTE"};
-        tabla.setColumnIdentifiers(titulos);
-
-        // Recorrer la lista ordenada y mostrar elementos en la tabla
-        if (listaMateria != null) {
-            for (Materia m : listaMateria) {
-                Object[] objeto = {m.getIdMateria(), m.getAula(), m.getMateria(), m.getDocentes()};
-                tabla.addRow(objeto);
-            }
-        }
-
-        // Configurar el TableRowSorter para habilitar el ordenamiento en la tabla
-        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabla);
-        tablaMaterias.setModel(tabla);
-        tablaMaterias.setRowSorter(sorter);
-    }
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {
-        mostrarTablaMaterias();
     }
 
 }

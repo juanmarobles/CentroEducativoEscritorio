@@ -6,8 +6,15 @@ package igu.login;
 
 import igu.mprincipal.MenuPrincipalAlumno;
 import igu.mprincipal.MenuPrincipalAutoridad;
+import igu.mprincipal.MenuPrincipalDocente;
+import igu.mprincipal.MenuPrincipalPersonal;
+import igu.mprincipal.MenuPrincipalTutor;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 import logica.EntidadesController;
+import logica.entidades.Docente;
 import logica.entidades.Usuario;
 import persistencia.UsuarioJpaController;
 
@@ -166,39 +173,14 @@ public class Login extends javax.swing.JFrame {
 
     private void btnAccederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccederActionPerformed
         String usuario = txtUsuario.getText();
-    String password = txtPassword.getText();
+        String password = txtPassword.getText();
 
-    UsuarioJpaController usuarioController = new UsuarioJpaController();
-    Usuario usuarioEntity = usuarioController.findUsuarioPorCredenciales(usuario, password);
-
-    if (usuarioEntity != null) {
-        String rol = usuarioEntity.getRol();
-        abrirVentanaPrincipalSegunRol(rol);
-    } else {
-        JOptionPane.showMessageDialog(this, "Credenciales incorrectas.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
+       
     }//GEN-LAST:event_btnAccederActionPerformed
-private void abrirVentanaPrincipalSegunRol(String rol) {
-    if (rol == null) {
-        JOptionPane.showMessageDialog(this, "No tiene permiso para acceder como autoridad.", "Error", JOptionPane.ERROR_MESSAGE);
-    } else {
-        switch (rol) {
-            case "autoridad":
-                MenuPrincipalAutoridad ventanaPrincipalAutoridad = new MenuPrincipalAutoridad();
-                ventanaPrincipalAutoridad.setVisible(true);
-                this.dispose();
-                break;
-            case "Alumno":
-                MenuPrincipalAlumno ventanaPrincipalAlumno = new MenuPrincipalAlumno();
-                ventanaPrincipalAlumno.setVisible(true);
-                this.dispose();
-                break;
-            default:
-                JOptionPane.showMessageDialog(this, "Rol desconocido: " + rol, "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-}
+  
+    
+
+
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         RegistroUsuariosFrame r = new RegistroUsuariosFrame();
         r.setVisible(true); // Hacer visible la ventana de RegistroUsuariosFrame

@@ -5,11 +5,13 @@
 package logica.entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -20,36 +22,38 @@ public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_USUARIO", nullable = false, unique = true)
-    private Long id;
-    @Column(name = "USUARIO")
+    private int id;
     private String usuario;
-    @Column(name = "PASSWORD")
     private String contrasena;
-    @Column(name = "NOMBRE")
     private String nombre;
-    @Column(name = "APELLIDO")
     private String apellido;
-    @Column(name = "ROL")
+    private int dni;
+    private int telefono;
+    private String domicilio;
+    private String email;
     private String rol;
 
     public Usuario() {
     }
 
-    public Usuario(Long id, String usuario, String contrasena, String nombre, String apellido, String rol) {
+    public Usuario(int id, String usuario, String contrasena, String nombre, String apellido, int dni, int telefono, String domicilio, String email, String rol) {
         this.id = id;
         this.usuario = usuario;
         this.contrasena = contrasena;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.dni = dni;
+        this.telefono = telefono;
+        this.domicilio = domicilio;
+        this.email = email;
         this.rol = rol;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -85,6 +89,38 @@ public class Usuario implements Serializable {
         this.apellido = apellido;
     }
 
+    public int getDni() {
+        return dni;
+    }
+
+    public void setDni(int dni) {
+        this.dni = dni;
+    }
+
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getDomicilio() {
+        return domicilio;
+    }
+
+    public void setDomicilio(String domicilio) {
+        this.domicilio = domicilio;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getRol() {
         return rol;
     }
@@ -93,5 +129,6 @@ public class Usuario implements Serializable {
         this.rol = rol;
     }
 
-   
+    
+
 }

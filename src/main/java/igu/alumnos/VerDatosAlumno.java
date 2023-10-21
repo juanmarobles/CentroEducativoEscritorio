@@ -43,7 +43,7 @@ public class VerDatosAlumno extends javax.swing.JFrame {
                 if (e.getClickCount() == 2) {
                     // Acción a realizar cuando se haga doble clic en un elemento de la tabla
                     int filaSeleccionada = tablaAlumnos.getSelectedRow();
-                    Long id = (Long) tablaAlumnos.getValueAt(filaSeleccionada, 0);
+                    int id = (Integer) tablaAlumnos.getValueAt(filaSeleccionada, 0);
                     // Realizar la acción deseada con el ID obtenido
                     System.out.println("ID seleccionado: " + id);
                     EditarAlumno editar = new EditarAlumno(id);
@@ -276,7 +276,7 @@ public class VerDatosAlumno extends javax.swing.JFrame {
             //validar q se haya seleccionado un registro
             if (tablaAlumnos.getSelectedRow() != -1) {
                 //obtener la id de lo q quiero editar
-                Long idAlumno = Long.parseLong(String.valueOf(tablaAlumnos.getValueAt(tablaAlumnos.getSelectedRow(), 0)));
+                int idAlumno = Integer.parseInt(String.valueOf(tablaAlumnos.getValueAt(tablaAlumnos.getSelectedRow(), 0)));
                 EditarAlumno editar = new EditarAlumno(idAlumno);
                 editar.setVisible(true);
                 editar.setLocationRelativeTo(null);
@@ -294,7 +294,7 @@ public class VerDatosAlumno extends javax.swing.JFrame {
             //validar q se haya seleccionado un registro
             if (tablaAlumnos.getSelectedRow() != -1) {
                 //obtener la id de lo q quiero borrar
-                Long idAlumno = Long.parseLong(String.valueOf(tablaAlumnos.getValueAt(tablaAlumnos.getSelectedRow(), 0)));
+                int idAlumno = Integer.parseInt(String.valueOf(tablaAlumnos.getValueAt(tablaAlumnos.getSelectedRow(), 0)));
 
                 control.borrarAlumno(idAlumno);
                 mostrarMensaje("Alumno borrado correctamente", "Info", "Borrado con exito!");

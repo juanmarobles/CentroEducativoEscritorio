@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package persistencia;
 
 import java.io.Serializable;
@@ -11,14 +10,14 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import logica.entidades.Tutor;
-import logica.entidades.Nota;
+import logica.entidades.Materia;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import logica.entidades.Alumno;
-import logica.entidades.Materia;
+import logica.entidades.Nota;
 import persistencia.exceptions.NonexistentEntityException;
 
 /**
@@ -35,18 +34,18 @@ public class AlumnoJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
-     //CONTROLADOR
+
+    //CONTROLADOR
     public AlumnoJpaController() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
     }
 
     public void create(Alumno alumno) {
-        if (alumno.getNotas() == null) {
-            alumno.setNotas(new ArrayList<Nota>());
-        }
         if (alumno.getMaterias() == null) {
             alumno.setMaterias(new ArrayList<Materia>());
+        }
+        if (alumno.getNotas() == null) {
+            alumno.setNotas(new ArrayList<Nota>());
         }
         EntityManager em = null;
         try {
@@ -57,22 +56,26 @@ public class AlumnoJpaController implements Serializable {
                 tutor = em.getReference(tutor.getClass(), tutor.getId());
                 alumno.setTutor(tutor);
             }
-            List<Nota> attachedNotas = new ArrayList<Nota>();
-            for (Nota notasNotaToAttach : alumno.getNotas()) {
-                notasNotaToAttach = em.getReference(notasNotaToAttach.getClass(), notasNotaToAttach.getIdNota());
-                attachedNotas.add(notasNotaToAttach);
-            }
-            alumno.setNotas(attachedNotas);
             List<Materia> attachedMaterias = new ArrayList<Materia>();
             for (Materia materiasMateriaToAttach : alumno.getMaterias()) {
                 materiasMateriaToAttach = em.getReference(materiasMateriaToAttach.getClass(), materiasMateriaToAttach.getIdMateria());
                 attachedMaterias.add(materiasMateriaToAttach);
             }
             alumno.setMaterias(attachedMaterias);
+            List<Nota> attachedNotas = new ArrayList<Nota>();
+            for (Nota notasNotaToAttach : alumno.getNotas()) {
+                notasNotaToAttach = em.getReference(notasNotaToAttach.getClass(), notasNotaToAttach.getIdNota());
+                attachedNotas.add(notasNotaToAttach);
+            }
+            alumno.setNotas(attachedNotas);
             em.persist(alumno);
             if (tutor != null) {
                 tutor.getAlumnos().add(alumno);
                 tutor = em.merge(tutor);
+            }
+            for (Materia materiasMateria : alumno.getMaterias()) {
+                materiasMateria.getAlumnos().add(alumno);
+                materiasMateria = em.merge(materiasMateria);
             }
             for (Nota notasNota : alumno.getNotas()) {
                 Alumno oldAlumnoOfNotasNota = notasNota.getAlumno();
@@ -82,10 +85,6 @@ public class AlumnoJpaController implements Serializable {
                     oldAlumnoOfNotasNota.getNotas().remove(notasNota);
                     oldAlumnoOfNotasNota = em.merge(oldAlumnoOfNotasNota);
                 }
-            }
-            for (Materia materiasMateria : alumno.getMaterias()) {
-                materiasMateria.getAlumnos().add(alumno);
-                materiasMateria = em.merge(materiasMateria);
             }
             em.getTransaction().commit();
         } finally {
@@ -103,21 +102,14 @@ public class AlumnoJpaController implements Serializable {
             Alumno persistentAlumno = em.find(Alumno.class, alumno.getId());
             Tutor tutorOld = persistentAlumno.getTutor();
             Tutor tutorNew = alumno.getTutor();
-            List<Nota> notasOld = persistentAlumno.getNotas();
-            List<Nota> notasNew = alumno.getNotas();
             List<Materia> materiasOld = persistentAlumno.getMaterias();
             List<Materia> materiasNew = alumno.getMaterias();
+            List<Nota> notasOld = persistentAlumno.getNotas();
+            List<Nota> notasNew = alumno.getNotas();
             if (tutorNew != null) {
                 tutorNew = em.getReference(tutorNew.getClass(), tutorNew.getId());
                 alumno.setTutor(tutorNew);
             }
-            List<Nota> attachedNotasNew = new ArrayList<Nota>();
-            for (Nota notasNewNotaToAttach : notasNew) {
-                notasNewNotaToAttach = em.getReference(notasNewNotaToAttach.getClass(), notasNewNotaToAttach.getIdNota());
-                attachedNotasNew.add(notasNewNotaToAttach);
-            }
-            notasNew = attachedNotasNew;
-            alumno.setNotas(notasNew);
             List<Materia> attachedMateriasNew = new ArrayList<Materia>();
             for (Materia materiasNewMateriaToAttach : materiasNew) {
                 materiasNewMateriaToAttach = em.getReference(materiasNewMateriaToAttach.getClass(), materiasNewMateriaToAttach.getIdMateria());
@@ -125,6 +117,13 @@ public class AlumnoJpaController implements Serializable {
             }
             materiasNew = attachedMateriasNew;
             alumno.setMaterias(materiasNew);
+            List<Nota> attachedNotasNew = new ArrayList<Nota>();
+            for (Nota notasNewNotaToAttach : notasNew) {
+                notasNewNotaToAttach = em.getReference(notasNewNotaToAttach.getClass(), notasNewNotaToAttach.getIdNota());
+                attachedNotasNew.add(notasNewNotaToAttach);
+            }
+            notasNew = attachedNotasNew;
+            alumno.setNotas(notasNew);
             alumno = em.merge(alumno);
             if (tutorOld != null && !tutorOld.equals(tutorNew)) {
                 tutorOld.getAlumnos().remove(alumno);
@@ -133,6 +132,18 @@ public class AlumnoJpaController implements Serializable {
             if (tutorNew != null && !tutorNew.equals(tutorOld)) {
                 tutorNew.getAlumnos().add(alumno);
                 tutorNew = em.merge(tutorNew);
+            }
+            for (Materia materiasOldMateria : materiasOld) {
+                if (!materiasNew.contains(materiasOldMateria)) {
+                    materiasOldMateria.getAlumnos().remove(alumno);
+                    materiasOldMateria = em.merge(materiasOldMateria);
+                }
+            }
+            for (Materia materiasNewMateria : materiasNew) {
+                if (!materiasOld.contains(materiasNewMateria)) {
+                    materiasNewMateria.getAlumnos().add(alumno);
+                    materiasNewMateria = em.merge(materiasNewMateria);
+                }
             }
             for (Nota notasOldNota : notasOld) {
                 if (!notasNew.contains(notasOldNota)) {
@@ -151,23 +162,11 @@ public class AlumnoJpaController implements Serializable {
                     }
                 }
             }
-            for (Materia materiasOldMateria : materiasOld) {
-                if (!materiasNew.contains(materiasOldMateria)) {
-                    materiasOldMateria.getAlumnos().remove(alumno);
-                    materiasOldMateria = em.merge(materiasOldMateria);
-                }
-            }
-            for (Materia materiasNewMateria : materiasNew) {
-                if (!materiasOld.contains(materiasNewMateria)) {
-                    materiasNewMateria.getAlumnos().add(alumno);
-                    materiasNewMateria = em.merge(materiasNewMateria);
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = alumno.getId();
+                int id = alumno.getId();
                 if (findAlumno(id) == null) {
                     throw new NonexistentEntityException("The alumno with id " + id + " no longer exists.");
                 }
@@ -180,7 +179,7 @@ public class AlumnoJpaController implements Serializable {
         }
     }
 
-    public void destroy(Long id) throws NonexistentEntityException {
+    public void destroy(int id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -197,15 +196,15 @@ public class AlumnoJpaController implements Serializable {
                 tutor.getAlumnos().remove(alumno);
                 tutor = em.merge(tutor);
             }
-            List<Nota> notas = alumno.getNotas();
-            for (Nota notasNota : notas) {
-                notasNota.setAlumno(null);
-                notasNota = em.merge(notasNota);
-            }
             List<Materia> materias = alumno.getMaterias();
             for (Materia materiasMateria : materias) {
                 materiasMateria.getAlumnos().remove(alumno);
                 materiasMateria = em.merge(materiasMateria);
+            }
+            List<Nota> notas = alumno.getNotas();
+            for (Nota notasNota : notas) {
+                notasNota.setAlumno(null);
+                notasNota = em.merge(notasNota);
             }
             em.remove(alumno);
             em.getTransaction().commit();
@@ -240,7 +239,7 @@ public class AlumnoJpaController implements Serializable {
         }
     }
 
-    public Alumno findAlumno(Long id) {
+    public Alumno findAlumno(int id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(Alumno.class, id);

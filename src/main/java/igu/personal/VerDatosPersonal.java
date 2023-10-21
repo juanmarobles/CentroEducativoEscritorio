@@ -383,7 +383,7 @@ public class VerDatosPersonal extends javax.swing.JFrame {
         // Recorrer la lista ordenada y mostrar elementos en la tabla
         if (listaPersonal != null) {
             for (Personal personal : listaPersonal) {
-                Object[] objeto = {personal.getIdPersona(), personal.getNombre(), personal.getApellido(), personal.getDni(), personal.getCuit(), personal.getEmail(),
+                Object[] objeto = {personal.getId(), personal.getNombre(), personal.getApellido(), personal.getDni(), personal.getCuit(), personal.getEmail(),
                     personal.getTelefono(), personal.getArea(), personal.getTurno()
                 };
                 tabla.addRow(objeto);

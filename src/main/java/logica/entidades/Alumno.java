@@ -16,21 +16,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "alumnos")
-public class Alumno implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(name = "nombre")
-    private String nombre;
-
-    @Column(name = "apellido")
-    private String apellido;
-
-    @Column(name = "dni")
-    private int dni;
-
+public class Alumno extends Usuario implements Serializable {
     @ManyToOne
     @JoinColumn(name = "tutor_id")
     private Tutor tutor;
@@ -59,76 +45,13 @@ public class Alumno implements Serializable {
 
     }
 
-    public Alumno(Long id, String nombre, String apellido, int dni, Tutor tutor, String nivel, int telefono, String fechaNac, String division) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dni = dni;
+    public Alumno(Tutor tutor, String nivel, String division, String fechaNac, List<Nota> notas, int id, String usuario, String contrasena, String nombre, String apellido, int dni, int telefono, String domicilio, String email, String rol) {
+        super(id, usuario, contrasena, nombre, apellido, dni, telefono, domicilio, email, rol);
         this.tutor = tutor;
         this.nivel = nivel;
         this.division = division;
         this.fechaNac = fechaNac;
-        notas = new ArrayList<>();
-    }
-
-    public List<Nota> getNotas() {
-        return notas;
-    }
-
-    public void setNotas(List<Nota> notas) {
         this.notas = notas;
-    }
-
-    public List<Materia> getMaterias() {
-        return materias;
-    }
-
-    public void setMaterias(List<Materia> materias) {
-        this.materias = materias;
-    }
-
-    public String getFechaNac() {
-        return fechaNac;
-    }
-
-    public void setFechaNac(String fechaNac) {
-        this.fechaNac = fechaNac;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public int getDni() {
-        return dni;
-    }
-
-    public void setDni(int dni) {
-        this.dni = dni;
-    }
-
-    public String getNivel() {
-        return nivel;
     }
 
     public Tutor getTutor() {
@@ -137,6 +60,10 @@ public class Alumno implements Serializable {
 
     public void setTutor(Tutor tutor) {
         this.tutor = tutor;
+    }
+
+    public String getNivel() {
+        return nivel;
     }
 
     public void setNivel(String nivel) {
@@ -151,10 +78,35 @@ public class Alumno implements Serializable {
         this.division = division;
     }
 
+    public String getFechaNac() {
+        return fechaNac;
+    }
+
+    public void setFechaNac(String fechaNac) {
+        this.fechaNac = fechaNac;
+    }
+
+    public List<Materia> getMaterias() {
+        return materias;
+    }
+
+    public void setMaterias(List<Materia> materias) {
+        this.materias = materias;
+    }
+
+    public List<Nota> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(List<Nota> notas) {
+        this.notas = notas;
+    }
+
     @Override
     public String toString() {
-        return apellido +", "+ nombre;
+        return getNombre();
     }
     
+
 
 }

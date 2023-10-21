@@ -21,6 +21,9 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.plaf.synth.SynthLookAndFeel;
+import logica.entidades.Docente;
+import logica.entidades.Usuario;
+import persistencia.DocenteJpaController;
 
 /**
  *
@@ -29,14 +32,28 @@ import javax.swing.plaf.synth.SynthLookAndFeel;
 public class MenuPrincipalDocente extends javax.swing.JFrame {
 
     private static MenuPrincipalDocente instancia;
+    private Docente docenteActual;
 
-    public MenuPrincipalDocente() {
+    public MenuPrincipalDocente(Usuario usuario) {
         initComponents();
+        System.out.println("Debug: Valor de docenteActual en MenuPrincipal = " + docenteActual);
+
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         instancia = this;
+        if (usuario != null) {
+            String rol = usuario.getRol();
+            lblRol.setText("Ingreso como: " + rol);
 
+            // Si el rol es "Docente", busca y asigna el docente actual
+            if (rol.equals("Docente")) {
+                //docenteActual = obtenerDocenteAsociadoAUsuario(usuario);
+            }
+        } else {
+            lblRol.setText("Rol no especificado");
+        }
         //labelRol.setText("Rol del usuario: " + rolUsuario);
     }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -46,6 +63,8 @@ public class MenuPrincipalDocente extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         labelRol = new javax.swing.JLabel();
+        lbl = new javax.swing.JLabel();
+        lblRol = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         Entidades1 = new javax.swing.JMenu();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
@@ -79,6 +98,11 @@ public class MenuPrincipalDocente extends javax.swing.JFrame {
 
         labelRol.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
+        lbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbl.setText("Bienvenido");
+
+        lblRol.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -89,16 +113,27 @@ public class MenuPrincipalDocente extends javax.swing.JFrame {
                         .addGap(772, 772, 772)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(677, 677, 677)
+                        .addGap(521, 521, 521)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelRol, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(620, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(labelRol, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(210, 210, 210)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(labelRol, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(156, 156, 156)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(372, Short.MAX_VALUE))
         );
@@ -214,8 +249,9 @@ public class MenuPrincipalDocente extends javax.swing.JFrame {
     private VerHorariosMateriaDocente ventanaHorarios;
     private CargarNotaDocente ventanaCargarNotas;
     private void asignarNotaAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asignarNotaAlumnoActionPerformed
+        System.out.println("Debug: Valor de docenteActual = " + docenteActual);
         if (ventanaCargarNotas == null || !ventanaCargarNotas.isVisible()) {
-            ventanaCargarNotas = new CargarNotaDocente();
+            ventanaCargarNotas = new CargarNotaDocente(docenteActual);
         }
 
         ventanaCargarNotas.setVisible(true);
@@ -263,9 +299,6 @@ public class MenuPrincipalDocente extends javax.swing.JFrame {
             @Override
             public void run() {
 
-                // Crear la instancia de VentanaPrincipal y mostrarla
-                MenuPrincipalDocente ventanaPrincipal = new MenuPrincipalDocente();
-                ventanaPrincipal.setVisible(true);
             }
         });
     }
@@ -290,6 +323,8 @@ public class MenuPrincipalDocente extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
     private javax.swing.JLabel labelRol;
+    private javax.swing.JLabel lbl;
+    private javax.swing.JLabel lblRol;
     private javax.swing.JMenuItem verAlumnos;
     private javax.swing.JMenuItem verHorarios;
     private javax.swing.JMenuItem verHorarios1;

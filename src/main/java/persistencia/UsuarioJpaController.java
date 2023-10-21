@@ -12,11 +12,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import logica.entidades.Usuario;
-import static logica.entidades.Usuario_.contrasena;
 import persistencia.exceptions.NonexistentEntityException;
 
 /**
@@ -33,7 +31,6 @@ public class UsuarioJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
      //CONTROLADOR
     public UsuarioJpaController() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
@@ -64,7 +61,7 @@ public class UsuarioJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = usuario.getId();
+                int id = usuario.getId();
                 if (findUsuario(id) == null) {
                     throw new NonexistentEntityException("The usuario with id " + id + " no longer exists.");
                 }
@@ -77,7 +74,7 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public void destroy(Long id) throws NonexistentEntityException {
+    public void destroy(int id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -122,7 +119,7 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public Usuario findUsuario(Long id) {
+    public Usuario findUsuario(int id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(Usuario.class, id);
@@ -143,27 +140,5 @@ public class UsuarioJpaController implements Serializable {
             em.close();
         }
     }
-
-    public Usuario findUsuarioPorCredenciales(String usuario, String contrasena) {
-    EntityManager em = getEntityManager();
-    try {
-        // Consulta para buscar un usuario por nombre de usuario y contraseña
-        String jpql = "SELECT u FROM Usuario u WHERE u.usuario = :usuario AND u.contrasena = :contrasena";
-        TypedQuery<Usuario> query = em.createQuery(jpql, Usuario.class);
-        query.setParameter("usuario", usuario);
-        query.setParameter("contrasena", contrasena);
-        
-        List<Usuario> result = query.getResultList();
-        if (!result.isEmpty()) {
-            // Devuelve el primer usuario encontrado (debería ser único en este caso)
-            return result.get(0);
-        }
-        return null; // No se encontró ningún usuario con las credenciales proporcionadas
-    } finally {
-        em.close();
-    }
-}
-   
-    
 
 }

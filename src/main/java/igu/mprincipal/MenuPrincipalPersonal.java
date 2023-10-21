@@ -29,12 +29,12 @@ public class MenuPrincipalPersonal extends javax.swing.JFrame {
     
     private static MenuPrincipalPersonal instancia;
   
- public MenuPrincipalPersonal() {
+ public MenuPrincipalPersonal(String rol) {
         initComponents();
        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         instancia = this;
         
-      
+        lblRol.setText("Ingreso como: " + rol);
         //labelRol.setText("Rol del usuario: " + rolUsuario);
     }
     
@@ -47,6 +47,8 @@ public class MenuPrincipalPersonal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         labelRol = new javax.swing.JLabel();
+        lbl = new javax.swing.JLabel();
+        lblRol = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         Entidades1 = new javax.swing.JMenu();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
@@ -78,6 +80,11 @@ public class MenuPrincipalPersonal extends javax.swing.JFrame {
 
         labelRol.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
+        lbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbl.setText("Bienvenido");
+
+        lblRol.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -88,7 +95,11 @@ public class MenuPrincipalPersonal extends javax.swing.JFrame {
                         .addGap(772, 772, 772)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(677, 677, 677)
+                        .addGap(63, 63, 63)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(343, 343, 343)
                         .addComponent(labelRol, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(620, Short.MAX_VALUE))
         );
@@ -96,8 +107,13 @@ public class MenuPrincipalPersonal extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(labelRol, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(210, 210, 210)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelRol, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(148, 148, 148)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(372, Short.MAX_VALUE))
         );
@@ -223,9 +239,9 @@ public class MenuPrincipalPersonal extends javax.swing.JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                
+                    String rol = "personal";
                 // Crear la instancia de VentanaPrincipal y mostrarla
-                MenuPrincipalPersonal ventanaPrincipal = new MenuPrincipalPersonal();
+                MenuPrincipalPersonal ventanaPrincipal = new MenuPrincipalPersonal(rol);
                 ventanaPrincipal.setVisible(true);
             }
         });
@@ -252,5 +268,7 @@ public class MenuPrincipalPersonal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JLabel labelRol;
+    private javax.swing.JLabel lbl;
+    private javax.swing.JLabel lblRol;
     // End of variables declaration//GEN-END:variables
 }

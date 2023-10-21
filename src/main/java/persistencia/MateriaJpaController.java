@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
 package persistencia;
 
 import java.io.Serializable;
@@ -35,12 +36,10 @@ public class MateriaJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    //CONTROLADOR
-
+//CONTROLADOR
     public MateriaJpaController() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
     }
-
     public void create(Materia materia) {
         if (materia.getNotas() == null) {
             materia.setNotas(new ArrayList<Nota>());
@@ -63,7 +62,7 @@ public class MateriaJpaController implements Serializable {
             materia.setNotas(attachedNotas);
             List<Docente> attachedDocentes = new ArrayList<Docente>();
             for (Docente docentesDocenteToAttach : materia.getDocentes()) {
-                docentesDocenteToAttach = em.getReference(docentesDocenteToAttach.getClass(), docentesDocenteToAttach.getIdPersona());
+                docentesDocenteToAttach = em.getReference(docentesDocenteToAttach.getClass(), docentesDocenteToAttach.getId());
                 attachedDocentes.add(docentesDocenteToAttach);
             }
             materia.setDocentes(attachedDocentes);
@@ -120,7 +119,7 @@ public class MateriaJpaController implements Serializable {
             materia.setNotas(notasNew);
             List<Docente> attachedDocentesNew = new ArrayList<Docente>();
             for (Docente docentesNewDocenteToAttach : docentesNew) {
-                docentesNewDocenteToAttach = em.getReference(docentesNewDocenteToAttach.getClass(), docentesNewDocenteToAttach.getIdPersona());
+                docentesNewDocenteToAttach = em.getReference(docentesNewDocenteToAttach.getClass(), docentesNewDocenteToAttach.getId());
                 attachedDocentesNew.add(docentesNewDocenteToAttach);
             }
             docentesNew = attachedDocentesNew;
@@ -272,27 +271,8 @@ public class MateriaJpaController implements Serializable {
             em.close();
         }
     }
-
-    // Método para buscar una materia existente por su nombre
-    public Materia buscarMateriaPorNombre(String nombreMateria) {
-        EntityManager em = getEntityManager();
-        try {
-            // Utiliza una consulta para buscar la materia por nombre
-            TypedQuery<Materia> query = em.createQuery("SELECT m FROM Materia m WHERE m.materia = :nombre", Materia.class);
-            query.setParameter("nombre", nombreMateria);
-            List<Materia> result = query.getResultList();
-
-            if (!result.isEmpty()) {
-                return result.get(0); // Devuelve la primera materia encontrada
-            } else {
-                return null; // La materia no existe
-            }
-        } finally {
-            em.close();
-        }
-    }
-
-    public void asignarMateriaADocente(Materia materia, Docente docente) {
+    
+     public void asignarMateriaADocente(Materia materia, Docente docente) {
         EntityManager em = null;
 
         try {
@@ -316,8 +296,7 @@ public class MateriaJpaController implements Serializable {
             }
         }
     }
-    
-     public void asignarMateriaAAlumno(Materia materia, Alumno alumno) {
+      public void asignarMateriaAAlumno(Materia materia, Alumno alumno) {
         EntityManager em = null;
 
         try {
@@ -339,6 +318,24 @@ public class MateriaJpaController implements Serializable {
             if (em != null) {
                 em.close();
             }
+        }
+    }
+  // Método para buscar una materia existente por su nombre
+    public Materia buscarMateriaPorNombre(String nombreMateria) {
+        EntityManager em = getEntityManager();
+        try {
+            // Utiliza una consulta para buscar la materia por nombre
+            TypedQuery<Materia> query = em.createQuery("SELECT m FROM Materia m WHERE m.materia = :nombre", Materia.class);
+            query.setParameter("nombre", nombreMateria);
+            List<Materia> result = query.getResultList();
+
+            if (!result.isEmpty()) {
+                return result.get(0); // Devuelve la primera materia encontrada
+            } else {
+                return null; // La materia no existe
+            }
+        } finally {
+            em.close();
         }
     }
 

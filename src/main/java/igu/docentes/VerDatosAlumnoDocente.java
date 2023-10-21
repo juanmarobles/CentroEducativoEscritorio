@@ -44,7 +44,7 @@ public class VerDatosAlumnoDocente extends javax.swing.JFrame {
                 if (e.getClickCount() == 2) {
                     // Acción a realizar cuando se haga doble clic en un elemento de la tabla
                     int filaSeleccionada = tablaAlumnos.getSelectedRow();
-                    Long id = (Long) tablaAlumnos.getValueAt(filaSeleccionada, 0);
+                    int id = (Integer) tablaAlumnos.getValueAt(filaSeleccionada, 0);
                     // Realizar la acción deseada con el ID obtenido
                     System.out.println("ID seleccionado: " + id);
                     EditarAlumno editar = new EditarAlumno(id);

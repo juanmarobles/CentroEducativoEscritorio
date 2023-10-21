@@ -558,7 +558,7 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
                     materiasStr.setLength(materiasStr.length() - 2);
                 }
 
-                Object[] objeto = {d.getIdPersona(), d.getNombre(), d.getApellido(), d.getTelefono(), d.getDomicilio(), d.getEmail(), d.getDni(), materiasStr.toString()};
+                Object[] objeto = {d.getId(), d.getNombre(), d.getApellido(), d.getTelefono(), d.getDomicilio(), d.getEmail(), d.getDni(), materiasStr.toString()};
                 tabla.addRow(objeto);
             }
         }

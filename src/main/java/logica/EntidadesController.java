@@ -51,11 +51,19 @@ public class EntidadesController {
         u.setContrasena(contrasena);
         u.setRol(rol);
         ctrl.crearUsuario(u);
+
+        Docente docente = new Docente();
+        docente.setNombre(nombre);
+        docente.setApellido(apellido);
+
+        ctrl.crearUsuario(u);
+        ctrl.crearDocente(docente);
+
     }
 
 
     /* ------------------------------------CRUD ALUMNOS--------------------------------------------------------*/
-    public void borrarAlumno(Long idAlumno) {
+    public void borrarAlumno(int idAlumno) {
         ctrl.borrarAlumno(idAlumno);
     }
 
@@ -86,7 +94,7 @@ public class EntidadesController {
         ctrl.editarAlumno(alumno);
     }
 
-    public Alumno traerAlumno(Long idAlumno) {
+    public Alumno traerAlumno(int idAlumno) {
         return ctrl.traerAlumno(idAlumno);
     }
 
@@ -222,14 +230,13 @@ public class EntidadesController {
     public void asignarMateriaAlumno(Materia materia, Alumno alumno) {
         alumno.getMaterias().add(materia);
         materia.getAlumnos().add(alumno);
-        
-        ctrl.asignarMateriaAlumno(materia,alumno);
+
+        ctrl.asignarMateriaAlumno(materia, alumno);
     }
 
-    public void asignarNotaAlumno(Alumno alumno, int valorNota, Materia materia) {
+    public void asignarNotaAlumno(Alumno alumno, int valorNota) {
         Nota nuevaNota = new Nota();
         nuevaNota.setAlumno(alumno);
-        nuevaNota.setMateria(materia);
         nuevaNota.setValor(valorNota);
         ctrl.asignarNotaAlumno(nuevaNota);
     }

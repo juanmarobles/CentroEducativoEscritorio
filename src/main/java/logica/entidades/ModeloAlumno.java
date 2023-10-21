@@ -26,11 +26,11 @@ public class ModeloAlumno {
         
         try {
             stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM alumnos");
+            rs = stmt.executeQuery("SELECT * FROM usuario");
             
             while (rs.next()) {
                 Alumno alumno = new Alumno();
-                alumno.setId(rs.getLong("ID")); // Ajusta según la estructura de tu tabla
+                alumno.setId(rs.getInt("id")); // Ajusta según la estructura de tu tabla
                 alumno.setNombre(rs.getString("NOMBRE"));
                 alumno.setApellido(rs.getString("APELLIDO"));
                 // Asigna otros atributos del alumno si los tienes en tu base de datos

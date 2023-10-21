@@ -28,18 +28,17 @@ public class PersistenciaController {
     TutorJpaController tutorJPA = new TutorJpaController();
     DocenteJpaController docJPA = new DocenteJpaController();
     PersonalJpaController personalJPA = new PersonalJpaController();
-    MateriaJpaController matJPA = new  MateriaJpaController();
+    MateriaJpaController matJPA = new MateriaJpaController();
     NotaJpaController notJPA = new NotaJpaController();
-    
-        /* ------------------------------------CRUD USUARIOS--------------------------------------------------------*/
 
-     public void crearUsuario(Usuario usuario) {
-         usuJPA.create(usuario);     
-     }
-    
+    /* ------------------------------------CRUD USUARIOS--------------------------------------------------------*/
+    public void crearUsuario(Usuario usuario) {
+        usuJPA.create(usuario);
+    }
+
 
     /* ------------------------------------CRUD ALUMNOS--------------------------------------------------------*/
-        //save
+    //save
     public void guardarAlumno(Alumno alumno) {
         aluJPA.create(alumno);
     }
@@ -50,12 +49,12 @@ public class PersistenciaController {
     }
     //listar x id
 
-    public Alumno traerAlumno(Long idAlumno) {
+    public Alumno traerAlumno(int idAlumno) {
         return aluJPA.findAlumno(idAlumno);
     }
     //delete
 
-    public void borrarAlumno(Long idAlumno) {
+    public void borrarAlumno(int idAlumno) {
         try {
             aluJPA.destroy(idAlumno);
         } catch (NonexistentEntityException ex) {
@@ -81,17 +80,17 @@ public class PersistenciaController {
     public Tutor buscarTutorPornombre(String tutorNombre) {
         return tutorJPA.buscarTutorPorNombre(tutorNombre);
     }
+
     //edit
-     public void EditarTutor(Tutor tutor) {
+    public void EditarTutor(Tutor tutor) {
         try {
             tutorJPA.edit(tutor);
         } catch (Exception ex) {
             Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        }
+    }
 
     /* ------------------------------------CRUD DOCENTES--------------------------------------------------------*/
-
     public List<Docente> traerDocentes() {
         return docJPA.findDocenteEntities();
     }
@@ -119,6 +118,7 @@ public class PersistenciaController {
             Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /* ------------------------------------CRUD TUTORES--------------------------------------------------------*/
 
     public void borrarTutor(int idTutor) {
@@ -127,7 +127,7 @@ public class PersistenciaController {
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     public List<Tutor> traerTutores() {
@@ -137,9 +137,8 @@ public class PersistenciaController {
     public Tutor traerTutor(int idTutor) {
         return tutorJPA.findTutor(idTutor);
     }
-    
-        /* ------------------------------------CRUD PERSONAL--------------------------------------------------------*/
 
+    /* ------------------------------------CRUD PERSONAL--------------------------------------------------------*/
     public void borrarPersonal(int idPersonal) {
         try {
             personalJPA.destroy(idPersonal);
@@ -153,7 +152,7 @@ public class PersistenciaController {
     }
 
     public List<Personal> traerPersonal() {
-       return  personalJPA.findPersonalEntities();
+        return personalJPA.findPersonalEntities();
     }
 
     public void editarPersonal(Personal personal) {
@@ -167,10 +166,8 @@ public class PersistenciaController {
     public Personal traerPersonal(int idPersonal) {
         return personalJPA.findPersonal(idPersonal);
     }
-    
-            /* ------------------------------------CRUD MATERIA--------------------------------------------------------*/
 
-
+    /* ------------------------------------CRUD MATERIA--------------------------------------------------------*/
     public void asignarMateria(Materia m, Docente docente) {
         matJPA.asignarMateriaADocente(m, docente);
     }
@@ -180,11 +177,11 @@ public class PersistenciaController {
     }
 
     public void asignarMateriaAlumno(Materia m, Alumno alumno) {
-        matJPA.asignarMateriaAAlumno(m,alumno);
+        matJPA.asignarMateriaAAlumno(m, alumno);
     }
 
     public void asignarNotaAlumno(Nota nuevaNota) {
-        notJPA.create(nuevaNota);        
+        notJPA.create(nuevaNota);
     }
 
     public void asignarMateriaNueva(Materia m) {
@@ -202,8 +199,5 @@ public class PersistenciaController {
     public Materia buscarMateriaPorNombre(String materia) {
         return matJPA.buscarMateriaPorNombre(materia);
     }
-
-     
-
 
 }

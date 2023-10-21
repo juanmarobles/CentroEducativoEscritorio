@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
 package persistencia;
 
 import java.io.Serializable;
@@ -27,13 +28,12 @@ public class CuotaJpaController implements Serializable {
     }
     private EntityManagerFactory emf = null;
 
+    public EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
     //CONTROLADOR
     public CuotaJpaController() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
-    }
-
-    public EntityManager getEntityManager() {
-        return emf.createEntityManager();
     }
 
     public void create(Cuota cuota) {

@@ -31,7 +31,6 @@ public class AutoridadJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
     //CONTROLADOR
     public AutoridadJpaController() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
@@ -61,7 +60,7 @@ public class AutoridadJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = autoridad.getIdAutoridad();
+                int id = autoridad.getId();
                 if (findAutoridad(id) == null) {
                     throw new NonexistentEntityException("The autoridad with id " + id + " no longer exists.");
                 }
@@ -82,7 +81,7 @@ public class AutoridadJpaController implements Serializable {
             Autoridad autoridad;
             try {
                 autoridad = em.getReference(Autoridad.class, id);
-                autoridad.getIdAutoridad();
+                autoridad.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The autoridad with id " + id + " no longer exists.", enfe);
             }

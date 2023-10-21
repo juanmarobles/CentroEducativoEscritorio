@@ -29,7 +29,7 @@ public class EditarAlumno extends javax.swing.JFrame {
     EntidadesController control = null;
     Alumno alumno = new Alumno();
 
-    public EditarAlumno(Long idAlumno) {
+    public EditarAlumno(int idAlumno) {
         control = new EntidadesController();
         initComponents();
         txtNombre.addActionListener(createActionListener(btnEditar));
@@ -353,7 +353,7 @@ public class EditarAlumno extends javax.swing.JFrame {
     private javax.swing.JTextField txtTutor;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarDatosAlumno(Long idAlumno) {
+    private void cargarDatosAlumno(int idAlumno) {
         //busco id en la bd
         alumno = control.traerAlumno(idAlumno);
         txtNombre.setText(alumno.getNombre());

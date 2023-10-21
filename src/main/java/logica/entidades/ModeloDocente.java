@@ -30,11 +30,11 @@ public class ModeloDocente {
 
         try {
             stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM persona");
+            rs = stmt.executeQuery("SELECT * FROM usuario");
 
             while (rs.next()) {
                 Docente docente = new Docente();
-                docente.setIdPersona(rs.getInt("IDPERSONA"));
+                docente.setId(rs.getInt("IDPERSONA"));
                 docente.setNombre(rs.getString("NOMBRE"));
                 docente.setApellido(rs.getString("APELLIDO"));
                 docente.setDni(rs.getInt("DNI"));
@@ -44,7 +44,7 @@ public class ModeloDocente {
                 docente.setNivel(rs.getString("NIVEL"));
                 docente.setTurno(rs.getString("TURNO"));
 
-                List<Materia> materiasDocente = obtenerMateriasDocente(docente.getIdPersona());
+                List<Materia> materiasDocente = obtenerMateriasDocente(docente.getId());
                 docente.setMaterias(materiasDocente);
 
                 listaDocentes.add(docente);

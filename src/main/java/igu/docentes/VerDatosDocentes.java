@@ -353,7 +353,7 @@ public class VerDatosDocentes extends javax.swing.JFrame  {
         // Recorrer la lista ordenada y mostrar elementos en la tabla
         if (listaDocentes != null) {
             for (Docente d : listaDocentes) {
-                Object[] objeto = {d.getIdPersona(), d.getNombre(), d.getApellido(), d.getTelefono(), d.getDomicilio(), d.getEmail(), d.getDni()};
+                Object[] objeto = {d.getId(), d.getNombre(), d.getApellido(), d.getTelefono(), d.getDomicilio(), d.getEmail(), d.getDni()};
                 tabla.addRow(objeto);
             }
         }

@@ -12,7 +12,7 @@ import javax.persistence.Entity;
  * @author juanmarobles
  */
 @Entity
-public class Personal extends Persona {
+public class Personal extends Usuario {
   private int cuit;
   private String area;
   private String turno;
@@ -20,8 +20,8 @@ public class Personal extends Persona {
     public Personal() {
     }
 
-    public Personal(int cuit, String area, String turno, String nombre, String apellido, int idPersona, int dni, int telefono, String domicilio, String email) {
-        super(nombre, apellido, idPersona, dni, telefono, domicilio, email);
+    public Personal(int cuit, String area, String turno, int id, String usuario, String contrasena, String nombre, String apellido, int dni, int telefono, String domicilio, String email, String rol) {
+        super(id, usuario, contrasena, nombre, apellido, dni, telefono, domicilio, email, rol);
         this.cuit = cuit;
         this.area = area;
         this.turno = turno;
@@ -50,6 +50,7 @@ public class Personal extends Persona {
     public void setTurno(String turno) {
         this.turno = turno;
     }
+
   
     
 }

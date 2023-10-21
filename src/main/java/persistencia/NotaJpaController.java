@@ -34,10 +34,12 @@ public class NotaJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
+        
 //CONTROLADOR
     public NotaJpaController() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
     }
+
     public void create(Nota nota) {
         EntityManager em = null;
         try {
@@ -55,7 +57,7 @@ public class NotaJpaController implements Serializable {
             }
             Docente docente = nota.getDocente();
             if (docente != null) {
-                docente = em.getReference(docente.getClass(), docente.getIdPersona());
+                docente = em.getReference(docente.getClass(), docente.getId());
                 nota.setDocente(docente);
             }
             em.persist(nota);
@@ -100,7 +102,7 @@ public class NotaJpaController implements Serializable {
                 nota.setMateria(materiaNew);
             }
             if (docenteNew != null) {
-                docenteNew = em.getReference(docenteNew.getClass(), docenteNew.getIdPersona());
+                docenteNew = em.getReference(docenteNew.getClass(), docenteNew.getId());
                 nota.setDocente(docenteNew);
             }
             nota = em.merge(nota);
