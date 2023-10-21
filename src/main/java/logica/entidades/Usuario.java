@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
 /**
@@ -18,8 +20,8 @@ import javax.persistence.OneToMany;
  * @author juanmarobles
  */
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED) // Cambia a la estrategia JOINED
 public class Usuario implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -32,6 +34,13 @@ public class Usuario implements Serializable {
     private String domicilio;
     private String email;
     private String rol;
+    private Docente docente;
+
+    private Alumno alumno;
+
+    private Tutor tutor;
+
+    private Personal personal;
 
     public Usuario() {
     }
@@ -48,6 +57,40 @@ public class Usuario implements Serializable {
         this.email = email;
         this.rol = rol;
     }
+
+    public Docente getDocente() {
+        return docente;
+    }
+
+    public void setDocente(Docente docente) {
+        this.docente = docente;
+    }
+
+    public Alumno getAlumno() {
+        return alumno;
+    }
+
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
+    }
+
+    public Tutor getTutor() {
+        return tutor;
+    }
+
+    public void setTutor(Tutor tutor) {
+        this.tutor = tutor;
+    }
+
+    public Personal getPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(Personal personal) {
+        this.personal = personal;
+    }
+    
+    
 
     public int getId() {
         return id;
@@ -128,7 +171,5 @@ public class Usuario implements Serializable {
     public void setRol(String rol) {
         this.rol = rol;
     }
-
-    
 
 }

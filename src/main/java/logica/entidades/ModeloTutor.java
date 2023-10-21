@@ -28,18 +28,18 @@ public class ModeloTutor {
 
         try {
             stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM usuario ");
+            rs = stmt.executeQuery("SELECT * FROM usuario WHERE DTYPE = 'Tutor'");
 
             while (rs.next()) {
                 Tutor tutor = new Tutor();
-
-                tutor.setId(rs.getInt("id"));
-                tutor.setNombre(rs.getString("nombre"));
-                tutor.setApellido(rs.getString("apellido"));
-                tutor.setDni(rs.getInt("dni"));
-                tutor.setEmail(rs.getString("email"));
-                tutor.setDomicilio(rs.getString("domicilio"));
-                tutor.setTelefono(rs.getInt("telefono"));
+                tutor.setId(rs.getInt("ID"));
+                tutor.setNombre(rs.getString("NOMBRE"));
+                tutor.setApellido(rs.getString("APELLIDO"));
+                tutor.setDni(rs.getInt("DNI"));
+                tutor.setEmail(rs.getString("EMAIL"));
+                tutor.setDomicilio(rs.getString("DOMICILIO"));
+                tutor.setTelefono(rs.getInt("TELEFONO"));
+                tutor.setRol(rs.getString("ROL"));
                 listaTutores.add(tutor);
 
             }

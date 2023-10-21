@@ -17,6 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "alumnos")
 public class Alumno extends Usuario implements Serializable {
+
     @ManyToOne
     @JoinColumn(name = "tutor_id")
     private Tutor tutor;
@@ -32,11 +33,19 @@ public class Alumno extends Usuario implements Serializable {
 
     @ManyToMany
     @JoinTable(
+            name = "alumno_curso",
+            joinColumns = @JoinColumn(name = "alumno_id"),
+            inverseJoinColumns = @JoinColumn(name = "curso_id")
+    )
+    private List<Aula> aulas = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
             name = "alumno_materia",
             joinColumns = @JoinColumn(name = "alumno_id"),
             inverseJoinColumns = @JoinColumn(name = "materia_id")
     )
-    private List<Materia> materias = new ArrayList<>(); // Inicializa la lista
+    private List<Materia> materias = new ArrayList<>();
 
     @OneToMany(mappedBy = "alumno")
     private List<Nota> notas;
@@ -106,7 +115,5 @@ public class Alumno extends Usuario implements Serializable {
     public String toString() {
         return getNombre();
     }
-    
-
 
 }

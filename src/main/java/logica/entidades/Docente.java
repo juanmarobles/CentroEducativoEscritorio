@@ -7,6 +7,7 @@ package logica.entidades;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -44,6 +45,7 @@ public class Docente extends Usuario implements Serializable {
         this.notas = notas;
     }
 
+
     public String getTurno() {
         return turno;
     }
@@ -75,12 +77,11 @@ public class Docente extends Usuario implements Serializable {
     public void setNotas(List<Nota> notas) {
         this.notas = notas;
     }
-
   
 
     @Override
     public String toString() {
-        return getNombre() + " " + getApellido();
+        return getNombre() + " " + getApellido()+"\n";
     }
 
 }

@@ -354,16 +354,25 @@ public class EditarAlumno extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cargarDatosAlumno(int idAlumno) {
-        //busco id en la bd
+        // Busco el alumno en la base de datos
         alumno = control.traerAlumno(idAlumno);
-        txtNombre.setText(alumno.getNombre());
-        txtApellido.setText(alumno.getApellido());
-        int dni = alumno.getDni();
-        txtDni.setText(Integer.toString(dni));
-        Tutor tutor = alumno.getTutor();
-        String nombreTutor = tutor.getNombre();
-        txtFecha.setText(alumno.getFechaNac());
 
+        if (alumno != null) {
+            txtNombre.setText(alumno.getNombre());
+            txtApellido.setText(alumno.getApellido());
+            int dni = alumno.getDni();
+            txtDni.setText(Integer.toString(dni));
+            Tutor tutor = alumno.getTutor();
+
+            if (tutor != null) {
+                String nombreTutor = tutor.getNombre();
+                txtFecha.setText(alumno.getFechaNac());
+            } else {
+                txtFecha.setText(""); // Si el tutor es nulo, borra el campo de fecha o establece un valor predeterminado
+            }
+        } else {
+            mostrarMensaje("No se pudo encontrar el alumno con ID: " + idAlumno, "Error", "Error al cargar datos del alumno");
+        }
     }
 
 }

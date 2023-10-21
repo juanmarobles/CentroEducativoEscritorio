@@ -1,8 +1,7 @@
-    /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package logica.entidades;
 
 import java.io.Serializable;
@@ -14,12 +13,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author juanmarobles
  */
 @Entity
+@Table(name = "tutores")
 public class Tutor extends Usuario implements Serializable {
 
     @OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -42,11 +43,7 @@ public class Tutor extends Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return getNombre() + ", " +getApellido();
+        return getNombre() + ", " + getApellido() + "\n";
     }
 
-  
-    
-    
-    
 }

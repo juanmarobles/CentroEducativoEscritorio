@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package persistencia;
 
 import java.io.Serializable;
@@ -19,6 +18,7 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import logica.entidades.Docente;
 import logica.entidades.Alumno;
+import logica.entidades.Aula;
 import logica.entidades.Materia;
 import persistencia.exceptions.NonexistentEntityException;
 
@@ -37,9 +37,11 @@ public class MateriaJpaController implements Serializable {
         return emf.createEntityManager();
     }
 //CONTROLADOR
+
     public MateriaJpaController() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
     }
+
     public void create(Materia materia) {
         if (materia.getNotas() == null) {
             materia.setNotas(new ArrayList<Nota>());
@@ -271,18 +273,23 @@ public class MateriaJpaController implements Serializable {
             em.close();
         }
     }
-    
-     public void asignarMateriaADocente(Materia materia, Docente docente) {
+
+    public void asignarMateriaADocente(Materia materia, Docente docente, Aula aula) {
         EntityManager em = null;
 
         try {
             em = getEntityManager();
             em.getTransaction().begin();
 
+            // Asignar el aula a la materia
+            materia.setAula(aula);
+
             // Agregar la materia al docente
             docente.getMaterias().add(materia);
-            // Actualizar el docente en la base de datos
+
+            // Actualizar el docente y la materia en la base de datos
             docente = em.merge(docente);
+            materia = em.merge(materia);
 
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -296,7 +303,8 @@ public class MateriaJpaController implements Serializable {
             }
         }
     }
-      public void asignarMateriaAAlumno(Materia materia, Alumno alumno) {
+
+    public void asignarMateriaAAlumno(Materia materia, Alumno alumno) {
         EntityManager em = null;
 
         try {
@@ -320,7 +328,8 @@ public class MateriaJpaController implements Serializable {
             }
         }
     }
-  // Método para buscar una materia existente por su nombre
+    // Método para buscar una materia existente por su nombre
+
     public Materia buscarMateriaPorNombre(String nombreMateria) {
         EntityManager em = getEntityManager();
         try {

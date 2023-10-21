@@ -7,6 +7,7 @@ package logica;
 import java.util.Date;
 import java.util.List;
 import logica.entidades.Alumno;
+import logica.entidades.Aula;
 import logica.entidades.Docente;
 import logica.entidades.Materia;
 import logica.entidades.Nota;
@@ -50,15 +51,39 @@ public class EntidadesController {
         u.setUsuario(usuario);
         u.setContrasena(contrasena);
         u.setRol(rol);
+
+        // Crear un objeto de entidad correspondiente al rol
+        if ("Docente".equals(rol)) {
+            Docente docente = new Docente();
+            docente.setNombre(nombre);
+            docente.setApellido(apellido);
+            // Configurar otras propiedades específicas de Docente
+            u.setDocente(docente);
+            ctrl.crearDocente(docente);
+        } else if ("Alumno".equals(rol)) {
+            Alumno alumno = new Alumno();
+            alumno.setNombre(nombre);
+            alumno.setApellido(apellido);
+            // Configurar otras propiedades específicas de Alumno
+            u.setAlumno(alumno);
+            ctrl.guardarAlumno(alumno);
+        } else if ("Tutor".equals(rol)) {
+            Tutor tutor = new Tutor();
+            tutor.setNombre(nombre);
+            tutor.setApellido(apellido);
+            // Configurar otras propiedades específicas de Tutor
+            u.setTutor(tutor);
+            ctrl.guardarTutor(tutor);
+        } else if ("Personal".equals(rol)) {
+            Personal personal = new Personal();
+            personal.setNombre(nombre);
+            personal.setApellido(apellido);
+            // Configurar otras propiedades específicas de Personal
+            u.setPersonal(personal);
+            ctrl.crearPersonal(personal);
+        }
+
         ctrl.crearUsuario(u);
-
-        Docente docente = new Docente();
-        docente.setNombre(nombre);
-        docente.setApellido(apellido);
-
-        ctrl.crearUsuario(u);
-        ctrl.crearDocente(docente);
-
     }
 
 
@@ -77,9 +102,11 @@ public class EntidadesController {
         alumno.setApellido(apellido);
         alumno.setDni(dni);
         alumno.setTutor(tutor);
+        tutor.getAlumnos().add(alumno);
         alumno.setNivel(nivel);
         alumno.setDivision(division);
         alumno.setFechaNac(fecha);
+        alumno.setRol("Alumno");
         ctrl.guardarAlumno(alumno);
     }
 
@@ -88,10 +115,13 @@ public class EntidadesController {
         alumno.setApellido(apellido);
         alumno.setDni(dni);
         alumno.setTutor(tutor);
+        tutor.getAlumnos().add(alumno);
         alumno.setNivel(nivel);
         alumno.setDivision(division);
         alumno.setFechaNac(fecha);
+        alumno.setRol("Alumno");
         ctrl.editarAlumno(alumno);
+        ctrl.EditarTutor(tutor);
     }
 
     public Alumno traerAlumno(int idAlumno) {
@@ -107,6 +137,7 @@ public class EntidadesController {
         tutor.setDomicilio(domicilio);
         tutor.setEmail(email);
         tutor.setTelefono(dni);
+        tutor.setRol("Tutor");
         ctrl.guardarTutor(tutor);
     }
 
@@ -117,6 +148,7 @@ public class EntidadesController {
         tutor.setDomicilio(domicilio);
         tutor.setEmail(email);
         tutor.setTelefono(dni);
+        tutor.setRol("Tutor");
         ctrl.EditarTutor(tutor);
     }
 
@@ -137,6 +169,7 @@ public class EntidadesController {
         d.setDomicilio(domicilio);
         d.setTelefono(dni);
         d.setEmail(email);
+        d.setRol("Docente");
         ctrl.crearDocente(d);
     }
 
@@ -147,6 +180,7 @@ public class EntidadesController {
         docente.setDomicilio(domicilio);
         docente.setTelefono(telefono);
         docente.setEmail(email);
+        docente.setRol("Docente");
         ctrl.editarDocente(docente);
     }
 
@@ -184,6 +218,7 @@ public class EntidadesController {
         p.setEmail(email);
         p.setArea(area);
         p.setTurno(turno);
+        p.setRol("Personal");
         ctrl.crearPersonal(p);
     }
 
@@ -196,6 +231,7 @@ public class EntidadesController {
         personal.setEmail(email);
         personal.setArea(area);
         personal.setTurno(turno);
+        personal.setRol("Personal");
         ctrl.editarPersonal(personal);
     }
 
@@ -209,7 +245,7 @@ public class EntidadesController {
     }
 
     /* ------------------------------------CRUD MATERIAS--------------------------------------------------------*/
-    public void asignarMateriaDocente(String aula, Materia materia, String dia, String desde, String hasta, Docente docente) {
+    public void asignarMateriaDocente(Aula aula, Materia materia, String dia, String desde, String hasta, Docente docente) {
         // Asigna la materia al docente
         materia.setAula(aula);
         materia.setDia(dia);
@@ -220,7 +256,7 @@ public class EntidadesController {
         // Asigna el docente a la materia
         materia.getDocentes().add(docente);
 
-        ctrl.asignarMateria(materia, docente);
+        ctrl.asignarMateria(materia, docente, aula);
     }
 
     public List<Materia> traerMaterias() {

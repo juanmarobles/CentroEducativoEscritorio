@@ -11,18 +11,19 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import logica.entidades.Curso;
+import logica.entidades.Aula;
 import persistencia.exceptions.NonexistentEntityException;
 
 /**
  *
  * @author juanmarobles
  */
-public class CursoJpaController implements Serializable {
+public class AulaJpaController implements Serializable {
 
-    public CursoJpaController(EntityManagerFactory emf) {
+    public AulaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -30,13 +31,18 @@ public class CursoJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
+    
+     //CONTROLADOR
+    public AulaJpaController() {
+        emf = Persistence.createEntityManagerFactory("centroeducativoPU");
+    }
 
-    public void create(Curso curso) {
+    public void create(Aula aula) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(curso);
+            em.persist(aula);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -45,19 +51,19 @@ public class CursoJpaController implements Serializable {
         }
     }
 
-    public void edit(Curso curso) throws NonexistentEntityException, Exception {
+    public void edit(Aula aula) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            curso = em.merge(curso);
+            aula = em.merge(aula);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = curso.getCursoId();
-                if (findCurso(id) == null) {
-                    throw new NonexistentEntityException("The curso with id " + id + " no longer exists.");
+                int id = aula.getAulaId();
+                if (findAula(id) == null) {
+                    throw new NonexistentEntityException("The aula with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -73,14 +79,14 @@ public class CursoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Curso curso;
+            Aula aula;
             try {
-                curso = em.getReference(Curso.class, id);
-                curso.getCursoId();
+                aula = em.getReference(Aula.class, id);
+                aula.getAulaId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The curso with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The aula with id " + id + " no longer exists.", enfe);
             }
-            em.remove(curso);
+            em.remove(aula);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -89,19 +95,19 @@ public class CursoJpaController implements Serializable {
         }
     }
 
-    public List<Curso> findCursoEntities() {
-        return findCursoEntities(true, -1, -1);
+    public List<Aula> findAulaEntities() {
+        return findAulaEntities(true, -1, -1);
     }
 
-    public List<Curso> findCursoEntities(int maxResults, int firstResult) {
-        return findCursoEntities(false, maxResults, firstResult);
+    public List<Aula> findAulaEntities(int maxResults, int firstResult) {
+        return findAulaEntities(false, maxResults, firstResult);
     }
 
-    private List<Curso> findCursoEntities(boolean all, int maxResults, int firstResult) {
+    private List<Aula> findAulaEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Curso.class));
+            cq.select(cq.from(Aula.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -113,20 +119,20 @@ public class CursoJpaController implements Serializable {
         }
     }
 
-    public Curso findCurso(int id) {
+    public Aula findAula(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Curso.class, id);
+            return em.find(Aula.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getCursoCount() {
+    public int getAulaCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Curso> rt = cq.from(Curso.class);
+            Root<Aula> rt = cq.from(Aula.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

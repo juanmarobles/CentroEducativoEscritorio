@@ -17,7 +17,6 @@ import logica.entidades.Tutor;
 public class NuevoAlumno extends javax.swing.JFrame {
 
     EntidadesController control = new EntidadesController();
-    private Tutor tutor;
 
     public NuevoAlumno() {
         initComponents();
@@ -260,11 +259,11 @@ public class NuevoAlumno extends javax.swing.JFrame {
         String apellido = txtApellido.getText();
         String dniText = txtDni.getText();
         int dni = Integer.parseInt(dniText);
-        Tutor tutorSeleccionado = (Tutor) cbTutor.getSelectedItem();
+        Tutor tutor = (Tutor) cbTutor.getSelectedItem();
         String nivel = (cmbNivel.getSelectedItem() != null) ? cmbNivel.getSelectedItem().toString() : "";
         String division = (cmbDivision.getSelectedItem() != null) ? cmbDivision.getSelectedItem().toString() : "";
         String fecha = txtFecha.getText();
-        control.cargarAlumno(nombre, apellido, dni, tutorSeleccionado, nivel, division, fecha);
+        control.cargarAlumno(nombre, apellido, dni, tutor, nivel, division, fecha);
         mostrarMensaje("Alumno agregado correctamente", "Info", "Agregado con éxito!");
         VerDatosAlumno verAnterior = new VerDatosAlumno();
         verAnterior.setVisible(true);
@@ -279,9 +278,6 @@ public class NuevoAlumno extends javax.swing.JFrame {
 
         cbTutor.setEditable(true);
 
-        // Ordenar la lista de clientes alfabéticamente por el nombre
-        listaTutores.sort((tutor1, tutor2) -> tutor1.getNombre().compareToIgnoreCase(tutor2.getNombre()));
-
         // Limpiar el ComboBox
         cbTutor.removeAllItems();
 
@@ -292,66 +288,7 @@ public class NuevoAlumno extends javax.swing.JFrame {
             cbTutor.addItem(tutor);
         }
 
-        // Eliminar la opción en blanco después de configurar el decorador
-        cbTutor.removeItem("");
-        // Establecer el índice seleccionado a -1 para no mostrar ninguna selección
-        cbTutor.setSelectedIndex(-1);
 
-        // Agregar ActionListener para capturar el evento "Enter"
-        cbTutor.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Verifica si hay un tutor seleccionado
-                if (cbTutor.getSelectedItem() != null) {
-                    // Obtén el objeto Tutor seleccionado
-                    Tutor tutorSeleccionado = listaTutores.get(cbTutor.getSelectedIndex());
-
-                    // Ahora puedes trabajar con el tutorSeleccionado
-                } else {
-                    mostrarMensaje("Por favor, selecciona un tutor válido.", "Error", "Error de selección");
-                }
-            }
-        });
-
-    }
-
-    //METODO BUSQUEDA COMBOBOX
-    private static void mostrarResultadosBusqueda(JComboBox<String> combobox, String textoBusqueda) {
-        // Limpiar selección previa
-        combobox.setSelectedIndex(-1);
-
-        // Buscar resultados de búsqueda exacta
-        boolean encontradoExacta = false;
-
-        for (int i = 0; i < combobox.getItemCount(); i++) {
-            String item = combobox.getItemAt(i).toString();
-            if (item.equalsIgnoreCase(textoBusqueda)) {
-                combobox.setSelectedItem(item);
-                combobox.getEditor().setItem(item);
-                encontradoExacta = true;
-                break; // Terminar la búsqueda cuando se encuentra una coincidencia exacta
-            }
-        }
-
-        // Si no se encontró una coincidencia exacta, buscar coincidencias parciales
-        if (!encontradoExacta) {
-            boolean encontradoParcial = false;
-            for (int i = 0; i < combobox.getItemCount(); i++) {
-                String item = combobox.getItemAt(i).toString();
-                if (item.toLowerCase().contains(textoBusqueda.toLowerCase())) {
-                    combobox.setSelectedIndex(i);
-                    combobox.getEditor().setItem(item);
-                    encontradoParcial = true;
-                    break; // Terminar la búsqueda cuando se encuentra una coincidencia parcial
-                }
-            }
-
-            // Si no se encontró ninguna coincidencia parcial, mantener el texto de búsqueda tal como lo ingresó el usuario
-            if (!encontradoParcial) {
-                combobox.getEditor().setItem(textoBusqueda);
-                combobox.setPopupVisible(true);
-            }
-        }
     }
 
 

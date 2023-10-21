@@ -25,7 +25,6 @@ public class Materia implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idMateria;
-    private String aula;
     private String dia;
     private String desde;
     private String hasta;
@@ -36,14 +35,18 @@ public class Materia implements Serializable {
     private List<Alumno> alumnos = new ArrayList<>();
 
     @OneToMany(mappedBy = "materia")
-    private List<Nota> notas = new ArrayList<>();;
+    private List<Nota> notas = new ArrayList<>();
+    ;
+    
+    @ManyToOne
+    @JoinColumn(name = "curso_id")
+    private Aula aula; // Representa el curso o aula en el que se imparte la materia
 
     public Materia() {
     }
 
-    public Materia(int idMateria, String aula, String dia, String desde, String hasta, String materia, List<Docente> docentes, List<Alumno> alumnos) {
+    public Materia(int idMateria, String dia, String desde, String hasta, String materia, List<Docente> docentes, List<Alumno> alumnos) {
         this.idMateria = idMateria;
-        this.aula = aula;
         this.dia = dia;
         this.desde = desde;
         this.hasta = hasta;
@@ -52,6 +55,15 @@ public class Materia implements Serializable {
         this.materia = materia;
         notas = new ArrayList<>();
     }
+
+    public Aula getAula() {
+        return aula;
+    }
+
+    public void setAula(Aula aula) {
+        this.aula = aula;
+    }
+    
 
     public List<Nota> getNotas() {
         return notas;
@@ -77,13 +89,7 @@ public class Materia implements Serializable {
         this.idMateria = idMateria;
     }
 
-    public String getAula() {
-        return aula;
-    }
 
-    public void setAula(String aula) {
-        this.aula = aula;
-    }
 
     public String getDia() {
         return dia;

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import logica.entidades.Alumno;
+import logica.entidades.Aula;
 import logica.entidades.Docente;
 import logica.entidades.Materia;
 import logica.entidades.Nota;
@@ -168,8 +169,8 @@ public class PersistenciaController {
     }
 
     /* ------------------------------------CRUD MATERIA--------------------------------------------------------*/
-    public void asignarMateria(Materia m, Docente docente) {
-        matJPA.asignarMateriaADocente(m, docente);
+    public void asignarMateria(Materia m, Docente docente, Aula aula) {
+        matJPA.asignarMateriaADocente(m, docente, aula);
     }
 
     public List<Materia> traerMaterias() {
