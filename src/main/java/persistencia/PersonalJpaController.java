@@ -31,7 +31,7 @@ public class PersonalJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    //CONTROLADOR
+     //CONTROLADOR
     public PersonalJpaController() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
     }

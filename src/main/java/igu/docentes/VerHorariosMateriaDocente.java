@@ -248,38 +248,7 @@ public class VerHorariosMateriaDocente extends javax.swing.JFrame {
     private javax.swing.JTextField txtBuscarDocente;
     // End of variables declaration//GEN-END:variables
  private void mostrarTablaMaterias(String apellidoDocente) {
-        // Carga de los datos desde la base de datos
-        List<Materia> listaMateria = control.traerMaterias();
-
-        // Ordenar la lista de clientes alfabéticamente por el nombre
-        listaMateria.sort((materia1, materia2) -> materia1.getMateria().compareToIgnoreCase(materia2.getMateria()));
-
-        // Filas y columnas no editables
-        DefaultTableModel tabla = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-
-        // Nombres de columnas
-        String titulos[] = {"idMateria", "AULA", "MATERIA", "DIA", "DESDE", "HASTA", "DOCENTE"};
-        tabla.setColumnIdentifiers(titulos);
-
-        List<Materia> materiasAsignadas = new ArrayList<>();
-        for (Materia materia : listaMateria) {
-            for (Docente docente : materia.getDocentes()) {
-                if (docente.getApellido().equals(apellidoDocente)) {
-                    materiasAsignadas.add(materia);
-                    break;  // No es necesario verificar el mismo docente más de una vez
-                }
-            }
-        }
-
-        // Configurar el TableRowSorter para habilitar el ordenamiento en la tabla
-        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabla);
-        tablaMaterias.setModel(tabla);
-        tablaMaterias.setRowSorter(sorter);
+       
     }
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {

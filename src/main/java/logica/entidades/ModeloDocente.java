@@ -28,7 +28,7 @@ public class ModeloDocente {
         List<Docente> listaDocentes = new ArrayList<>();
 
         try {
-            String sql = "SELECT ID, NOMBRE, APELLIDO FROM usuario WHERE DTYPE = 'Docente'";
+            String sql = "SELECT * FROM docente";
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
 

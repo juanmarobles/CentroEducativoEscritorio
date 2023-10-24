@@ -7,6 +7,9 @@ package logica.entidades;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,8 +22,7 @@ import javax.persistence.OneToMany;
  *
  * @author juanmarobles
  */
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED) // Cambia a la estrategia JOINED
+@Entity// Cambia a la estrategia JOINED
 public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +47,7 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(int id, String usuario, String contrasena, String nombre, String apellido, int dni, int telefono, String domicilio, String email, String rol) {
+    public Usuario(int id, String usuario, String contrasena, String nombre, String apellido, int dni, int telefono, String domicilio, String email, String rol, Docente docente, Alumno alumno, Tutor tutor, Personal personal) {
         this.id = id;
         this.usuario = usuario;
         this.contrasena = contrasena;
@@ -56,41 +58,11 @@ public class Usuario implements Serializable {
         this.domicilio = domicilio;
         this.email = email;
         this.rol = rol;
-    }
-
-    public Docente getDocente() {
-        return docente;
-    }
-
-    public void setDocente(Docente docente) {
         this.docente = docente;
-    }
-
-    public Alumno getAlumno() {
-        return alumno;
-    }
-
-    public void setAlumno(Alumno alumno) {
         this.alumno = alumno;
-    }
-
-    public Tutor getTutor() {
-        return tutor;
-    }
-
-    public void setTutor(Tutor tutor) {
         this.tutor = tutor;
-    }
-
-    public Personal getPersonal() {
-        return personal;
-    }
-
-    public void setPersonal(Personal personal) {
         this.personal = personal;
     }
-    
-    
 
     public int getId() {
         return id;
@@ -171,5 +143,39 @@ public class Usuario implements Serializable {
     public void setRol(String rol) {
         this.rol = rol;
     }
+
+    public Docente getDocente() {
+        return docente;
+    }
+
+    public void setDocente(Docente docente) {
+        this.docente = docente;
+    }
+
+    public Alumno getAlumno() {
+        return alumno;
+    }
+
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
+    }
+
+    public Tutor getTutor() {
+        return tutor;
+    }
+
+    public void setTutor(Tutor tutor) {
+        this.tutor = tutor;
+    }
+
+    public Personal getPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(Personal personal) {
+        this.personal = personal;
+    }
+
+   
 
 }

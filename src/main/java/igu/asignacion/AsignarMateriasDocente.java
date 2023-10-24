@@ -26,6 +26,7 @@ import logica.TextPrompt;
 import logica.entidades.Aula;
 import logica.entidades.Docente;
 import logica.entidades.Materia;
+import logica.entidades.ModeloAula;
 import logica.entidades.ModeloDocente;
 import logica.entidades.ModeloMateria;
 import logica.entidades.Tutor;
@@ -45,7 +46,6 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
      */
     public AsignarMateriasDocente() {
         initComponents();
-        mostrarTablaDocentes();
         TextPrompt FiltroBusqueda = new TextPrompt("Buscar por Apellido", txtBuscarMateria);
 
         // Obtiene el tamaño de la pantalla
@@ -59,13 +59,8 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
         setLocation(x, y);
         cargarDocentes();
         cargarMaterias();
-        cmbAula.setModel(new DefaultComboBoxModel<>()); // Limpia el ComboBox
-
-// Crea instancias de Aula y agrégalas al ComboBox
-        cmbAula.addItem(new Aula("A"));
-        cmbAula.addItem(new Aula("B"));
-        cmbAula.addItem(new Aula("C"));
-        cmbAula.addItem(new Aula("D"));
+        cargarAulas();
+        mostrarTablaDocentes();
 
     }
 
@@ -369,18 +364,62 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAsignarActionPerformed
 
     private void cargarDocentes() {
-        ModeloDocente modMaterias = new ModeloDocente();
-        List<Docente> listaMaterias = modMaterias.getDocentes();
+        ModeloDocente modDocentes = new ModeloDocente();
+        List<Docente> listaDocentes = modDocentes.getDocentes();
 
         // Limpiar el ComboBox
         cmbDocente.removeAllItems();
 
-        // Agregar los nombres de los clientes al ComboBox de forma ordenada
-        for (Docente docente : listaMaterias) {
-            // Añadir salidas de depuración para verificar el contenido de los objetos Tutor
-            System.out.println("docente: " + docente);
-            cmbDocente.addItem(docente);
+        // Crear una lista de materias únicas
+        ArrayList<Docente> docentesUnicos = new ArrayList<>();
+
+        for (Docente docente : listaDocentes) {
+            if (!docentesUnicos.contains(docente)) {
+                docentesUnicos.add(docente);
+            }
         }
+
+        // Limpiar el ComboBox
+        cmbDocente.removeAllItems();
+
+        // Agregar las materias únicas al ComboBox de forma ordenada
+        for (Docente Docente : docentesUnicos) {
+            cmbDocente.addItem(Docente);
+        }
+
+        cmbDocente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Docente docSeleccionado = (Docente) cmbDocente.getSelectedItem();
+            }
+        });
+
+    }
+
+    private void cargarAulas() {
+
+        ModeloAula modAula = new ModeloAula();
+        ArrayList<Aula> listaAulas = modAula.getAulas();
+
+        cmbAula.setEditable(false);
+
+        // Limpiar el ComboBox
+        cmbAula.removeAllItems();
+
+        // Agregar los nombres de los clientes al ComboBox de forma ordenada
+        for (Aula aula : listaAulas) {
+            // Añadir salidas de depuración para verificar el contenido de los objetos Tutor
+            cmbAula.addItem(aula);
+        }
+
+        cmbAula.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Aula tutorSeleccionado = (Aula) cmbAula.getSelectedItem();
+                if (tutorSeleccionado != null) {
+                }
+            }
+        });
 
     }
 
@@ -446,7 +485,7 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
         txtBuscarMateria.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                trs.setRowFilter(RowFilter.regexFilter("(?i)" + txtBuscarMateria.getText(), 2));
+                trs.setRowFilter(RowFilter.regexFilter("(?i)" + txtBuscarMateria.getText(), 4));
             }
 
         });
@@ -517,7 +556,8 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtDesde;
     private javax.swing.JFormattedTextField txtHasta;
     // End of variables declaration//GEN-END:variables
-   private void mostrarTablaDocentes() {
+
+    private void mostrarTablaDocentes() {
         // Carga de los datos desde la base de datos
         List<Docente> listaDocentes = control.traerDocentes();
 
@@ -530,25 +570,17 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
         };
 
         // Nombres de columnas
-        String titulos[] = {"idDocente", "Nombre", "Apellido", "Telefono", "Domicilio", "Email", "Dni", "Materias"};
+        String titulos[] = {"Id_Docente", "Nombre", "Apellido", "Telefono", "Materia", "Desde", "Hasta","Dia"};
         tabla.setColumnIdentifiers(titulos);
 
-        // Recorrer la lista de docentes y mostrar elementos en la tabla
+        // Recorrer la lista ordenada y mostrar elementos en la tabla
         if (listaDocentes != null) {
             for (Docente d : listaDocentes) {
-                StringBuilder materiasStr = new StringBuilder();
-
-                for (Materia materia : d.getMaterias()) {
-                    materiasStr.append(materia.getMateria()).append(", "); // Usar el método getMateria() para obtener el nombre de la materia.
-
-                }
-
-                // Eliminar la última coma y espacio en las cadenas
-                if (materiasStr.length() > 0) {
-                    materiasStr.setLength(materiasStr.length() - 2);
-                }
-
-                Object[] objeto = {d.getId(), d.getNombre(), d.getApellido(), d.getTelefono(), d.getDomicilio(), d.getEmail(), d.getDni(), materiasStr.toString()};
+                String nombreMateria = (d.getMateria()!= null) ? d.getMateria().getMateria() : "Sin Materia";
+                String materiaDesde = (d.getMateria()!= null) ? d.getMateria().getDesde(): "Sin Hora";
+                String materiaHasta = (d.getMateria()!= null) ? d.getMateria().getHasta(): "Sin Hora";
+                String dia = (d.getMateria()!= null) ? d.getMateria().getDia(): "Sin dia";
+                Object[] objeto = {d.getId(), d.getNombre(), d.getApellido(), d.getTelefono(),nombreMateria, materiaDesde,materiaHasta,dia};
                 tabla.addRow(objeto);
             }
         }
@@ -558,5 +590,4 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
         tablaMaterias.setModel(tabla);
         tablaMaterias.setRowSorter(sorter);
     }
-
 }

@@ -26,7 +26,7 @@ public class ModeloAlumno {
         
         try {
             stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM usuario WHERE DTYPE = 'Alumno'");
+            rs = stmt.executeQuery("SELECT * FROM alumno");
             
             while (rs.next()) {
                 Alumno alumno = new Alumno();

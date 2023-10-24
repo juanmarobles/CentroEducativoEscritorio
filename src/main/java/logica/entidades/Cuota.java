@@ -27,7 +27,6 @@ public class Cuota implements Serializable {
     
     private Date fechaPago;
     
-    @ManyToOne
     private Alumno alumno;
     
     private Boolean pagado = false;

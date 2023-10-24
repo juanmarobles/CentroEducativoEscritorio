@@ -377,14 +377,14 @@ public class VerDatosPersonal extends javax.swing.JFrame {
         };
 
         // Nombres de columnas
-        String titulos[] = {"id_personal", "NOMBRE", "APELLIDO", "DNI", "CUIT", "EMAIL", "TELEFONO", "AREA", "TURNO"};
+        String titulos[] = {"id_personal", "NOMBRE", "APELLIDO", "DNI", "CUIT", "EMAIL", "TELEFONO"};
         tabla.setColumnIdentifiers(titulos);
 
         // Recorrer la lista ordenada y mostrar elementos en la tabla
         if (listaPersonal != null) {
             for (Personal personal : listaPersonal) {
                 Object[] objeto = {personal.getId(), personal.getNombre(), personal.getApellido(), personal.getDni(), personal.getCuit(), personal.getEmail(),
-                    personal.getTelefono(), personal.getArea(), personal.getTurno()
+                    personal.getTelefono(),
                 };
                 tabla.addRow(objeto);
             }

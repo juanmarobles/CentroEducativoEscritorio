@@ -6,6 +6,9 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -272,23 +275,37 @@ public class NuevoAlumno extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnCargarActionPerformed
     private void cargarTutores() {
-
         ModeloTutor modTutores = new ModeloTutor();
         ArrayList<Tutor> listaTutores = modTutores.getTutores();
 
-        cbTutor.setEditable(true);
+        cbTutor.setEditable(false);
+
+        // Limpiar el ComboBox
+        cbTutor.removeAllItems();
+        // Crear una lista de materias únicas
+        ArrayList<Tutor> tutoresUnicos = new ArrayList<>();
+
+        for (Tutor tutor : listaTutores) {
+            if (!tutoresUnicos.contains(tutor)) {
+                tutoresUnicos.add(tutor);
+            }
+        }
 
         // Limpiar el ComboBox
         cbTutor.removeAllItems();
 
-        // Agregar los nombres de los clientes al ComboBox de forma ordenada
-        for (Tutor tutor : listaTutores) {
-            // Añadir salidas de depuración para verificar el contenido de los objetos Tutor
-            System.out.println("Tutor: " + tutor);
+        // Agregar las materias Tutor al ComboBox de forma ordenada
+        for (Tutor tutor : tutoresUnicos) {
             cbTutor.addItem(tutor);
         }
 
-
+        cbTutor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Tutor docSeleccionado = (Tutor) cbTutor.getSelectedItem();
+                // Realizar acciones relacionadas con la selección del tutor si es necesario
+            }
+        });
     }
 
 

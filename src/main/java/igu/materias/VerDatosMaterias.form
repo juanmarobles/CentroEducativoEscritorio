@@ -177,7 +177,7 @@
                   <Color blue="a6" green="50" red="f" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="DOCENTE"/>
+                <Property name="text" type="java.lang.String" value="MATERIAS"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator3">

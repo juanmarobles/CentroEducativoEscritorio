@@ -31,6 +31,7 @@ public class PersistenciaController {
     PersonalJpaController personalJPA = new PersonalJpaController();
     MateriaJpaController matJPA = new MateriaJpaController();
     NotaJpaController notJPA = new NotaJpaController();
+    AulaJpaController1 aulaJPA = new AulaJpaController1();
 
     /* ------------------------------------CRUD USUARIOS--------------------------------------------------------*/
     public void crearUsuario(Usuario usuario) {
@@ -43,8 +44,9 @@ public class PersistenciaController {
     public void guardarAlumno(Alumno alumno) {
         aluJPA.create(alumno);
     }
-    //listar
 
+
+    //listar
     public List<Alumno> traerAlumnos() {
         return aluJPA.findAlumnoEntities();
     }
@@ -78,9 +80,7 @@ public class PersistenciaController {
         tutorJPA.create(tutor);
     }
 
-    public Tutor buscarTutorPornombre(String tutorNombre) {
-        return tutorJPA.buscarTutorPorNombre(tutorNombre);
-    }
+ 
 
     //edit
     public void EditarTutor(Tutor tutor) {
@@ -121,7 +121,6 @@ public class PersistenciaController {
     }
 
     /* ------------------------------------CRUD TUTORES--------------------------------------------------------*/
-
     public void borrarTutor(int idTutor) {
         try {
             tutorJPA.destroy(idTutor);
@@ -169,18 +168,13 @@ public class PersistenciaController {
     }
 
     /* ------------------------------------CRUD MATERIA--------------------------------------------------------*/
-    public void asignarMateria(Materia m, Docente docente, Aula aula) {
-        matJPA.asignarMateriaADocente(m, docente, aula);
-    }
+   
 
     public List<Materia> traerMaterias() {
         return matJPA.findMateriaEntities();
     }
 
-    public void asignarMateriaAlumno(Materia m, Alumno alumno) {
-        matJPA.asignarMateriaAAlumno(m, alumno);
-    }
-
+   
     public void asignarNotaAlumno(Nota nuevaNota) {
         notJPA.create(nuevaNota);
     }
@@ -197,8 +191,25 @@ public class PersistenciaController {
         }
     }
 
-    public Materia buscarMateriaPorNombre(String materia) {
-        return matJPA.buscarMateriaPorNombre(materia);
+    public void asignarMateriaDocente(Materia materia, Docente docente, Aula aula) {
+        matJPA.create(materia);
+        docJPA.create(docente);
+        aulaJPA.create(aula);
     }
+
+    public void asignarMateriaAlumno(Alumno alumno, Materia materia) {
+        matJPA.create(materia);
+        //aluJPA.create(alumno, materia);
+        
+    }
+
+    public void crearUsuario(Alumno alumno, Tutor tutor) {
+        usuJPA.create(alumno,tutor);
+    }
+
+    public List<Usuario> traerUsuarios() {
+         return usuJPA.findUsuarioEntities();
+    }
+
 
 }

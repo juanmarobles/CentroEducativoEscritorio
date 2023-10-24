@@ -20,6 +20,8 @@ import javax.swing.table.TableRowSorter;
 import logica.EntidadesController;
 import logica.TextPrompt;
 import logica.entidades.Alumno;
+import logica.entidades.Tutor;
+import logica.entidades.Usuario;
 
 /**
  *
@@ -403,10 +405,7 @@ public class VerDatosAlumno extends javax.swing.JFrame {
 
     private void mostrarTablaAlumnos() {
         // Carga de los datos desde la base de datos
-        List<Alumno> listaAlumnos = control.traerAlumnos();
-
-        // Ordenar la lista de clientes alfabéticamente por el nombre
-        listaAlumnos.sort((alumno1, alumno2) -> alumno1.getNombre().compareToIgnoreCase(alumno2.getNombre()));
+        List<Alumno> listaAlumno = control.traerAlumnos();
 
         // Filas y columnas no editables
         DefaultTableModel tabla = new DefaultTableModel() {
@@ -417,24 +416,19 @@ public class VerDatosAlumno extends javax.swing.JFrame {
         };
 
         // Nombres de columnas
-        String titulos[] = {"LEGAJO", "NOMBRE", "APELLIDO", "DNI", "TUTOR", "NIVEL", "DIVISION", "FECHA_NAC"};
+        String titulos[] = {"id_Alumno", "Nombre", "Apellido", "Tutor", "Telefono", "Email", "Domicilio"};
         tabla.setColumnIdentifiers(titulos);
 
         // Recorrer la lista ordenada y mostrar elementos en la tabla
-        if (listaAlumnos != null) {
-            for (Alumno alumno : listaAlumnos) {
-                Object[] objeto = {alumno.getId(), alumno.getNombre(), alumno.getApellido(), alumno.getDni(),
-                    (alumno.getTutor() != null) ? alumno.getTutor().getNombre() : "", 
-                    alumno.getNivel(), alumno.getDivision(), alumno.getFechaNac()};
+        if (listaAlumno != null) {
+            for (Alumno a : listaAlumno) {
+                String nombreTutor = (a.getTutor() != null) ? a.getTutor().getNombre() + " " + a.getTutor().getApellido() : "Sin Tutor";
+                Object[] objeto = {a.getId(), a.getNombre(), a.getApellido(), nombreTutor, a.getTelefono(), a.getEmail(), a.getDomicilio()};
                 tabla.addRow(objeto);
             }
-
         }
 
-        // Configurar el TableRowSorter para habilitar el ordenamiento en la tabla
-        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabla);
         tablaAlumnos.setModel(tabla);
-        tablaAlumnos.setRowSorter(sorter);
     }
 
 }

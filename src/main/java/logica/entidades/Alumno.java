@@ -9,66 +9,73 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author juanmarobles
  */
 @Entity
-@Table(name = "alumnos")
-public class Alumno extends Usuario implements Serializable {
+public class Alumno implements Serializable {
 
-    @ManyToOne
-    @JoinColumn(name = "tutor_id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String nivel;
+    private String division;
+    private String fechaNac;
+    private Aula aula;
+    
+    private String nombre;
+    private String apellido;
+    private int dni;
+    private int telefono;
+    private String domicilio;
+    private String email;
+    private String rol;
+
+    private Materia materia;
+
     private Tutor tutor;
 
-    @Column(name = "nivel")
-    private String nivel;
-
-    @Column(name = "division")
-    private String division;
-
-    @Column(name = "fecha_nac")
-    private String fechaNac;
-
-    @ManyToMany
-    @JoinTable(
-            name = "alumno_curso",
-            joinColumns = @JoinColumn(name = "alumno_id"),
-            inverseJoinColumns = @JoinColumn(name = "curso_id")
-    )
-    private List<Aula> aulas = new ArrayList<>();
-
-    @ManyToMany
-    @JoinTable(
-            name = "alumno_materia",
-            joinColumns = @JoinColumn(name = "alumno_id"),
-            inverseJoinColumns = @JoinColumn(name = "materia_id")
-    )
-    private List<Materia> materias = new ArrayList<>();
-
-    @OneToMany(mappedBy = "alumno")
-    private List<Nota> notas;
+    private Nota nota;
 
     public Alumno() {
 
     }
 
-    public Alumno(Tutor tutor, String nivel, String division, String fechaNac, List<Nota> notas, int id, String usuario, String contrasena, String nombre, String apellido, int dni, int telefono, String domicilio, String email, String rol) {
-        super(id, usuario, contrasena, nombre, apellido, dni, telefono, domicilio, email, rol);
-        this.tutor = tutor;
+    public Alumno(int id, String nivel, String rol, String division, String fechaNac, Aula aula, String nombre, String apellido, int dni, int telefono, String domicilio, String email, Materia materia, Tutor tutor, Nota nota) {
+        this.id = id;
         this.nivel = nivel;
         this.division = division;
         this.fechaNac = fechaNac;
-        this.notas = notas;
-    }
-
-    public Tutor getTutor() {
-        return tutor;
-    }
-
-    public void setTutor(Tutor tutor) {
+        this.aula = aula;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.telefono = telefono;
+        this.domicilio = domicilio;
+        this.email = email;
+        this.materia = materia;
         this.tutor = tutor;
+        this.nota = nota;
+        this.rol = rol;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNivel() {
@@ -95,25 +102,91 @@ public class Alumno extends Usuario implements Serializable {
         this.fechaNac = fechaNac;
     }
 
-    public List<Materia> getMaterias() {
-        return materias;
+    public Aula getAula() {
+        return aula;
     }
 
-    public void setMaterias(List<Materia> materias) {
-        this.materias = materias;
+    public void setAula(Aula aula) {
+        this.aula = aula;
     }
 
-    public List<Nota> getNotas() {
-        return notas;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNotas(List<Nota> notas) {
-        this.notas = notas;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public int getDni() {
+        return dni;
+    }
+
+    public void setDni(int dni) {
+        this.dni = dni;
+    }
+
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getDomicilio() {
+        return domicilio;
+    }
+
+    public void setDomicilio(String domicilio) {
+        this.domicilio = domicilio;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Materia getMateria() {
+        return materia;
+    }
+
+    public void setMateria(Materia materia) {
+        this.materia = materia;
+    }
+
+    public Tutor getTutor() {
+        return tutor;
+    }
+
+    public void setTutor(Tutor tutor) {
+        this.tutor = tutor;
+    }
+
+    public Nota getNota() {
+        return nota;
+    }
+
+    public void setNota(Nota nota) {
+        this.nota = nota;
+    }
+
+    
 
     @Override
     public String toString() {
-        return getNombre();
+        return nombre;
     }
 
 }

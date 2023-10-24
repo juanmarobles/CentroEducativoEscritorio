@@ -89,7 +89,7 @@ public class VerDatosMaterias extends javax.swing.JFrame  {
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(15, 80, 166));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("DOCENTE");
+        jLabel3.setText("MATERIAS");
 
         txtFiltroDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -305,8 +305,6 @@ public class VerDatosMaterias extends javax.swing.JFrame  {
         // Carga de los datos desde la base de datos
         List<Materia> listaMaterias = control.traerMaterias();
 
-       
-
         // Filas y columnas no editables
         DefaultTableModel tabla = new DefaultTableModel() {
             @Override
@@ -316,13 +314,13 @@ public class VerDatosMaterias extends javax.swing.JFrame  {
         };
 
         // Nombres de columnas
-        String titulos[] = {"idMateria", "Materia"};
+        String titulos[] = {"idMateria", "Materia","DIA","DESDE","HASTA"};
         tabla.setColumnIdentifiers(titulos);
 
         // Recorrer la lista ordenada y mostrar elementos en la tabla
         if (listaMaterias != null) {
             for (Materia m : listaMaterias) {
-                Object[] objeto = {m.getIdMateria(), m.getMateria()};
+                Object[] objeto = {m.getIdMateria(), m.getMateria(),m.getDia(),m.getDesde(),m.getHasta()};
                 tabla.addRow(objeto);
             }
         }

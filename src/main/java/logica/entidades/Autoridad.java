@@ -18,12 +18,12 @@ import javax.persistence.Id;
 @Entity
 public class Autoridad extends Usuario implements Serializable {
 
-    
-    
-    public Autoridad(int id, String usuario, String contrasena, String nombre, String apellido, int dni, int telefono, String domicilio, String email, String rol) {
-        super(id, usuario, contrasena, nombre, apellido, dni, telefono, domicilio, email, rol);
+    public Autoridad(int id, String usuario, String contrasena, String nombre, String apellido, int dni, int telefono, String domicilio, String email, String rol, Docente docente, Alumno alumno, Tutor tutor, Personal personal) {
+        super(id, usuario, contrasena, nombre, apellido, dni, telefono, domicilio, email, rol, docente, alumno, tutor, personal);
     }
 
+    
+   
     public Autoridad() {
     }
 

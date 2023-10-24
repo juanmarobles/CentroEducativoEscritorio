@@ -28,7 +28,7 @@ public class ModeloTutor {
 
         try {
             stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM usuario WHERE DTYPE = 'Tutor'");
+            rs = stmt.executeQuery("SELECT * FROM tutor");
 
             while (rs.next()) {
                 Tutor tutor = new Tutor();
@@ -39,7 +39,7 @@ public class ModeloTutor {
                 tutor.setEmail(rs.getString("EMAIL"));
                 tutor.setDomicilio(rs.getString("DOMICILIO"));
                 tutor.setTelefono(rs.getInt("TELEFONO"));
-                tutor.setRol(rs.getString("ROL"));
+
                 listaTutores.add(tutor);
 
             }

@@ -29,56 +29,25 @@ public class Materia implements Serializable {
     private String desde;
     private String hasta;
     private String materia;
-    @ManyToMany(mappedBy = "materias")
-    private List<Docente> docentes = new ArrayList<>();
-    @ManyToMany(mappedBy = "materias")
-    private List<Alumno> alumnos = new ArrayList<>();
+    private Docente docente;
+    private Alumno alumno;
 
-    @OneToMany(mappedBy = "materia")
-    private List<Nota> notas = new ArrayList<>();
-    ;
-    
-    @ManyToOne
-    @JoinColumn(name = "curso_id")
+    private Nota nota;
     private Aula aula; // Representa el curso o aula en el que se imparte la materia
 
     public Materia() {
     }
 
-    public Materia(int idMateria, String dia, String desde, String hasta, String materia, List<Docente> docentes, List<Alumno> alumnos) {
+    public Materia(int idMateria, String dia, String desde, String hasta, String materia, Docente docente, Alumno alumno, Nota nota, Aula aula) {
         this.idMateria = idMateria;
         this.dia = dia;
         this.desde = desde;
         this.hasta = hasta;
-        this.docentes = docentes;
-        this.alumnos = alumnos;
         this.materia = materia;
-        notas = new ArrayList<>();
-    }
-
-    public Aula getAula() {
-        return aula;
-    }
-
-    public void setAula(Aula aula) {
+        this.docente = docente;
+        this.alumno = alumno;
+        this.nota = nota;
         this.aula = aula;
-    }
-    
-
-    public List<Nota> getNotas() {
-        return notas;
-    }
-
-    public void setNotas(List<Nota> notas) {
-        this.notas = notas;
-    }
-
-    public String getMateria() {
-        return materia;
-    }
-
-    public void setMateria(String materia) {
-        this.materia = materia;
     }
 
     public int getIdMateria() {
@@ -88,8 +57,6 @@ public class Materia implements Serializable {
     public void setIdMateria(int idMateria) {
         this.idMateria = idMateria;
     }
-
-
 
     public String getDia() {
         return dia;
@@ -115,25 +82,44 @@ public class Materia implements Serializable {
         this.hasta = hasta;
     }
 
-    public List<Docente> getDocentes() {
-        return docentes;
-    }
-
-    public void setDocentes(List<Docente> docentes) {
-        this.docentes = docentes;
-    }
-
-    public List<Alumno> getAlumnos() {
-        return alumnos;
-    }
-
-    public void setAlumnos(List<Alumno> alumnos) {
-        this.alumnos = alumnos;
-    }
-
-    @Override
-    public String toString() {
+    public String getMateria() {
         return materia;
+    }
+
+    public void setMateria(String materia) {
+        this.materia = materia;
+    }
+
+    public Docente getDocente() {
+        return docente;
+    }
+
+    public void setDocente(Docente docente) {
+        this.docente = docente;
+    }
+
+    public Alumno getAlumno() {
+        return alumno;
+    }
+
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
+    }
+
+    public Nota getNota() {
+        return nota;
+    }
+
+    public void setNota(Nota nota) {
+        this.nota = nota;
+    }
+
+    public Aula getAula() {
+        return aula;
+    }
+
+    public void setAula(Aula aula) {
+        this.aula = aula;
     }
 
     @Override
@@ -153,5 +139,12 @@ public class Materia implements Serializable {
     public int hashCode() {
         return Objects.hash(this.materia);
     }
+
+    @Override
+    public String toString() {
+        return getMateria();
+    }
+    
+    
 
 }

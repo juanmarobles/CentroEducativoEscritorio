@@ -31,7 +31,7 @@ public class ModeloAula {
 
             while (rs.next()) {
                 Aula aula = new Aula();
-                aula.setAulaId(rs.getInt("CURSOID")); 
+                aula.setAulaId(rs.getInt("AULAID")); 
                 aula.setAula(rs.getString("AULA"));
                 listaAulas.add(aula);
             }

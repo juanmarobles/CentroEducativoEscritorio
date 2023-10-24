@@ -335,8 +335,6 @@ public class VerDatosDocentes extends javax.swing.JFrame  {
         // Carga de los datos desde la base de datos
         List<Docente> listaDocentes = control.traerDocentes();
 
-        // Ordenar la lista de clientes alfabéticamente por el nombre
-        listaDocentes.sort((docente1, docente2) -> docente1.getNombre().compareToIgnoreCase(docente2.getNombre()));
 
         // Filas y columnas no editables
         DefaultTableModel tabla = new DefaultTableModel() {

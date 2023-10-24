@@ -14,16 +14,16 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import logica.entidades.Autoridad;
+import logica.entidades.Aula;
 import persistencia.exceptions.NonexistentEntityException;
 
 /**
  *
  * @author juanmarobles
  */
-public class AutoridadJpaController implements Serializable {
+public class AulaJpaController1 implements Serializable {
 
-    public AutoridadJpaController(EntityManagerFactory emf) {
+    public AulaJpaController1(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -31,17 +31,16 @@ public class AutoridadJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    //CONTROLADOR
-    public AutoridadJpaController() {
+//CONTROLADOR
+    public AulaJpaController1() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
     }
-
-    public void create(Autoridad autoridad) {
+    public void create(Aula aula) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(autoridad);
+            em.persist(aula);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -50,19 +49,19 @@ public class AutoridadJpaController implements Serializable {
         }
     }
 
-    public void edit(Autoridad autoridad) throws NonexistentEntityException, Exception {
+    public void edit(Aula aula) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            autoridad = em.merge(autoridad);
+            aula = em.merge(aula);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = autoridad.getId();
-                if (findAutoridad(id) == null) {
-                    throw new NonexistentEntityException("The autoridad with id " + id + " no longer exists.");
+                int id = aula.getAulaId();
+                if (findAula(id) == null) {
+                    throw new NonexistentEntityException("The aula with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -78,14 +77,14 @@ public class AutoridadJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Autoridad autoridad;
+            Aula aula;
             try {
-                autoridad = em.getReference(Autoridad.class, id);
-                autoridad.getId();
+                aula = em.getReference(Aula.class, id);
+                aula.getAulaId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The autoridad with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The aula with id " + id + " no longer exists.", enfe);
             }
-            em.remove(autoridad);
+            em.remove(aula);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -94,19 +93,19 @@ public class AutoridadJpaController implements Serializable {
         }
     }
 
-    public List<Autoridad> findAutoridadEntities() {
-        return findAutoridadEntities(true, -1, -1);
+    public List<Aula> findAulaEntities() {
+        return findAulaEntities(true, -1, -1);
     }
 
-    public List<Autoridad> findAutoridadEntities(int maxResults, int firstResult) {
-        return findAutoridadEntities(false, maxResults, firstResult);
+    public List<Aula> findAulaEntities(int maxResults, int firstResult) {
+        return findAulaEntities(false, maxResults, firstResult);
     }
 
-    private List<Autoridad> findAutoridadEntities(boolean all, int maxResults, int firstResult) {
+    private List<Aula> findAulaEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Autoridad.class));
+            cq.select(cq.from(Aula.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -118,20 +117,20 @@ public class AutoridadJpaController implements Serializable {
         }
     }
 
-    public Autoridad findAutoridad(int id) {
+    public Aula findAula(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Autoridad.class, id);
+            return em.find(Aula.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getAutoridadCount() {
+    public int getAulaCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Autoridad> rt = cq.from(Autoridad.class);
+            Root<Aula> rt = cq.from(Aula.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

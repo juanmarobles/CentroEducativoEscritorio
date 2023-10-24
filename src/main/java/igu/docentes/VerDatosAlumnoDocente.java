@@ -55,7 +55,7 @@ public class VerDatosAlumnoDocente extends javax.swing.JFrame {
                 }
             }
         });
-        mostrarTablaAlumnos();
+        //mostrarTablaAlumnos();
 
     }
 
@@ -216,7 +216,7 @@ public class VerDatosAlumnoDocente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        mostrarTablaAlumnos();
+        //mostrarTablaAlumnos();
     }//GEN-LAST:event_formWindowOpened
 
     private void txtFiltroAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltroAlumnoActionPerformed
@@ -307,7 +307,7 @@ public class VerDatosAlumnoDocente extends javax.swing.JFrame {
     private javax.swing.JTable tablaAlumnos;
     private javax.swing.JTextField txtFiltroAlumno;
     // End of variables declaration//GEN-END:variables
-
+/*
     private void mostrarTablaAlumnos() {
         // Carga de los datos desde la base de datos
         List<Alumno> listaAlumnos = control.traerAlumnos();
@@ -341,5 +341,5 @@ public class VerDatosAlumnoDocente extends javax.swing.JFrame {
         tablaAlumnos.setModel(tabla);
         tablaAlumnos.setRowSorter(sorter);
     }
-
+*/
 }

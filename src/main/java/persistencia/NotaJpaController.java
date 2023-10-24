@@ -14,9 +14,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import logica.entidades.Alumno;
-import logica.entidades.Materia;
-import logica.entidades.Docente;
 import logica.entidades.Nota;
 import persistencia.exceptions.NonexistentEntityException;
 
@@ -34,45 +31,17 @@ public class NotaJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-        
-//CONTROLADOR
+    //CONTROLADOR
+
     public NotaJpaController() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
     }
-
     public void create(Nota nota) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Alumno alumno = nota.getAlumno();
-            if (alumno != null) {
-                alumno = em.getReference(alumno.getClass(), alumno.getId());
-                nota.setAlumno(alumno);
-            }
-            Materia materia = nota.getMateria();
-            if (materia != null) {
-                materia = em.getReference(materia.getClass(), materia.getIdMateria());
-                nota.setMateria(materia);
-            }
-            Docente docente = nota.getDocente();
-            if (docente != null) {
-                docente = em.getReference(docente.getClass(), docente.getId());
-                nota.setDocente(docente);
-            }
             em.persist(nota);
-            if (alumno != null) {
-                alumno.getNotas().add(nota);
-                alumno = em.merge(alumno);
-            }
-            if (materia != null) {
-                materia.getNotas().add(nota);
-                materia = em.merge(materia);
-            }
-            if (docente != null) {
-                docente.getNotas().add(nota);
-                docente = em.merge(docente);
-            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -86,50 +55,7 @@ public class NotaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Nota persistentNota = em.find(Nota.class, nota.getIdNota());
-            Alumno alumnoOld = persistentNota.getAlumno();
-            Alumno alumnoNew = nota.getAlumno();
-            Materia materiaOld = persistentNota.getMateria();
-            Materia materiaNew = nota.getMateria();
-            Docente docenteOld = persistentNota.getDocente();
-            Docente docenteNew = nota.getDocente();
-            if (alumnoNew != null) {
-                alumnoNew = em.getReference(alumnoNew.getClass(), alumnoNew.getId());
-                nota.setAlumno(alumnoNew);
-            }
-            if (materiaNew != null) {
-                materiaNew = em.getReference(materiaNew.getClass(), materiaNew.getIdMateria());
-                nota.setMateria(materiaNew);
-            }
-            if (docenteNew != null) {
-                docenteNew = em.getReference(docenteNew.getClass(), docenteNew.getId());
-                nota.setDocente(docenteNew);
-            }
             nota = em.merge(nota);
-            if (alumnoOld != null && !alumnoOld.equals(alumnoNew)) {
-                alumnoOld.getNotas().remove(nota);
-                alumnoOld = em.merge(alumnoOld);
-            }
-            if (alumnoNew != null && !alumnoNew.equals(alumnoOld)) {
-                alumnoNew.getNotas().add(nota);
-                alumnoNew = em.merge(alumnoNew);
-            }
-            if (materiaOld != null && !materiaOld.equals(materiaNew)) {
-                materiaOld.getNotas().remove(nota);
-                materiaOld = em.merge(materiaOld);
-            }
-            if (materiaNew != null && !materiaNew.equals(materiaOld)) {
-                materiaNew.getNotas().add(nota);
-                materiaNew = em.merge(materiaNew);
-            }
-            if (docenteOld != null && !docenteOld.equals(docenteNew)) {
-                docenteOld.getNotas().remove(nota);
-                docenteOld = em.merge(docenteOld);
-            }
-            if (docenteNew != null && !docenteNew.equals(docenteOld)) {
-                docenteNew.getNotas().add(nota);
-                docenteNew = em.merge(docenteNew);
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -158,21 +84,6 @@ public class NotaJpaController implements Serializable {
                 nota.getIdNota();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The nota with id " + id + " no longer exists.", enfe);
-            }
-            Alumno alumno = nota.getAlumno();
-            if (alumno != null) {
-                alumno.getNotas().remove(nota);
-                alumno = em.merge(alumno);
-            }
-            Materia materia = nota.getMateria();
-            if (materia != null) {
-                materia.getNotas().remove(nota);
-                materia = em.merge(materia);
-            }
-            Docente docente = nota.getDocente();
-            if (docente != null) {
-                docente.getNotas().remove(nota);
-                docente = em.merge(docente);
             }
             em.remove(nota);
             em.getTransaction().commit();

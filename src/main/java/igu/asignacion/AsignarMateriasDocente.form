@@ -151,15 +151,10 @@
                                               <Component id="jLabel20" min="-2" pref="56" max="-2" attributes="0"/>
                                               <Component id="jLabel18" min="-2" pref="56" max="-2" attributes="0"/>
                                           </Group>
+                                          <EmptySpace min="75" pref="75" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
-                                                  <Component id="txtDesde" min="-2" pref="55" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="75" pref="75" max="-2" attributes="0"/>
-                                                  <Component id="txtHasta" min="-2" pref="55" max="-2" attributes="0"/>
-                                              </Group>
+                                              <Component id="txtDesde" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
+                                              <Component id="txtHasta" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">

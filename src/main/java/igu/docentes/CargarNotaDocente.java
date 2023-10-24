@@ -59,26 +59,7 @@ public class CargarNotaDocente extends javax.swing.JFrame {
     }
 
     private void cargarAlumnos() {
-        List<Alumno> alumnosAsignados = getAlumnosAsignados();
-
-        // Llena el ComboBox con los alumnos asignados
-        cmbAlumno.removeAllItems();
-        for (Alumno alumno : alumnosAsignados) {
-            cmbAlumno.addItem(alumno);
-        }
-        cmbAlumno.setSelectedIndex(-1);
-    }
-
-    public List<Alumno> getAlumnosAsignados() {
-        List<Alumno> alumnosAsignados = new ArrayList<>();
-
-        // Itera a través de las materias del docente
-        for (Materia materia : docenteActual.getMaterias()) {
-            // Agrega los alumnos de cada materia a la lista de alumnos asignados
-            alumnosAsignados.addAll(materia.getAlumnos());
-        }
-
-        return alumnosAsignados;
+       
     }
 
     /**

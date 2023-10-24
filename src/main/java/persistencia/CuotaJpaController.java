@@ -31,7 +31,7 @@ public class CuotaJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    //CONTROLADOR
+//CONTROLADOR
     public CuotaJpaController() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
     }

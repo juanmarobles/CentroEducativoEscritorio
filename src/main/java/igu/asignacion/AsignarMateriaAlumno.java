@@ -529,7 +529,6 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
                 materia.getDia(),
                 materia.getDesde(),
                 materia.getHasta(),
-                obtenerNombresDocentes(materias) // Enumera los docentes de la materia
             };
             tabla.addRow(objeto);
 
@@ -541,15 +540,6 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
         tablaMaterias.setRowSorter(sorter);
     }
 
-// Esta función obtiene los nombres de los docentes asociados a una lista de materias
-    private String obtenerNombresDocentes(List<Materia> materias) {
-        List<String> nombres = new ArrayList<>();
-        for (Materia materia : materias) {
-            for (Docente docente : materia.getDocentes()) {
-                nombres.add(docente.getApellido());
-            }
-        }
-        return String.join(", ", nombres);
-    }
+
 
 }

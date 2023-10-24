@@ -19,15 +19,10 @@ public class Nota implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idNota;
 
-    @ManyToOne
-    @JoinColumn(name = "alumno_id")
     private Alumno alumno;
-
-    @ManyToOne
-    @JoinColumn(name = "materia_id")
+   
     private Materia materia;
 
-    @ManyToOne
     private Docente docente;
 
     private int valor;

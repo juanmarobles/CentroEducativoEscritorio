@@ -294,22 +294,17 @@ public class EditarAlumno extends javax.swing.JFrame {
         String nivel = (cmbNivel.getSelectedItem() != null) ? cmbNivel.getSelectedItem().toString() : "";
         String division = (cmbDivision.getSelectedItem() != null) ? cmbDivision.getSelectedItem().toString() : "";
         String nombreTutor = txtTutor.getText();
-        Tutor tutor = control.buscarTutorPorNombre(nombreTutor);
+        //Tutor tutor = control.buscarTutorPorNombre(nombreTutor);
 
-        if (tutor != null) {
-            control.editarAlumno(alumno, nombre, apellido, dni, fecha, tutor, nivel, division, fecha);
-            mostrarMensaje("Alumno modificado correctamente", "Info", "Edición exitosa!");
+        control.editarAlumno(alumno, nombre, apellido, dni, fecha, nivel, division, fecha);
+        mostrarMensaje("Alumno modificado correctamente", "Info", "Edición exitosa!");
 
-            VerDatosAlumno verAnterior = new VerDatosAlumno();
-            verAnterior.setVisible(true);
-            verAnterior.setLocationRelativeTo(null);
+        VerDatosAlumno verAnterior = new VerDatosAlumno();
+        verAnterior.setVisible(true);
+        verAnterior.setLocationRelativeTo(null);
 
-            this.dispose();
-        } else {
-            mostrarMensaje("Tutor no encontrado", "Error", "El tutor especificado no se encuentra en la base de datos.");
-        }
-
-
+        this.dispose();
+    
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

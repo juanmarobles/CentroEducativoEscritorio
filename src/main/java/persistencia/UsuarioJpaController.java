@@ -14,6 +14,8 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import logica.entidades.Alumno;
+import logica.entidades.Tutor;
 import logica.entidades.Usuario;
 import persistencia.exceptions.NonexistentEntityException;
 
@@ -43,6 +45,21 @@ public class UsuarioJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(usuario);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+    
+    public void create(Alumno alumno, Tutor tutor) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            em.persist(alumno);
+             em.persist(tutor);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
