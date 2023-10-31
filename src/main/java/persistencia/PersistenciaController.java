@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import logica.entidades.Alumno;
 import logica.entidades.Aula;
 import logica.entidades.Docente;
+import logica.entidades.DocenteMateria;
 import logica.entidades.Materia;
 import logica.entidades.Nota;
 import logica.entidades.Personal;
@@ -32,6 +33,7 @@ public class PersistenciaController {
     MateriaJpaController matJPA = new MateriaJpaController();
     NotaJpaController notJPA = new NotaJpaController();
     AulaJpaController1 aulaJPA = new AulaJpaController1();
+    DocenteMateriaJpaController dymJPA = new DocenteMateriaJpaController();
 
     /* ------------------------------------CRUD USUARIOS--------------------------------------------------------*/
     public void crearUsuario(Usuario usuario) {
@@ -44,7 +46,6 @@ public class PersistenciaController {
     public void guardarAlumno(Alumno alumno) {
         aluJPA.create(alumno);
     }
-
 
     //listar
     public List<Alumno> traerAlumnos() {
@@ -79,8 +80,6 @@ public class PersistenciaController {
     public void guardarTutor(Tutor tutor) {
         tutorJPA.create(tutor);
     }
-
- 
 
     //edit
     public void EditarTutor(Tutor tutor) {
@@ -168,13 +167,10 @@ public class PersistenciaController {
     }
 
     /* ------------------------------------CRUD MATERIA--------------------------------------------------------*/
-   
-
     public List<Materia> traerMaterias() {
         return matJPA.findMateriaEntities();
     }
 
-   
     public void asignarNotaAlumno(Nota nuevaNota) {
         notJPA.create(nuevaNota);
     }
@@ -198,15 +194,15 @@ public class PersistenciaController {
     }
 
     public void asignarMateriaAlumno(Alumno alumno) {
-     aluJPA.create(alumno);
+        aluJPA.create(alumno);
     }
 
     public void crearUsuario(Alumno alumno, Tutor tutor) {
-        usuJPA.create(alumno,tutor);
+        usuJPA.create(alumno, tutor);
     }
 
     public List<Usuario> traerUsuarios() {
-         return usuJPA.findUsuarioEntities();
+        return usuJPA.findUsuarioEntities();
     }
 
     public List<Nota> traerNotas() {
@@ -241,6 +237,34 @@ public class PersistenciaController {
         }
     }
 
+    public Docente traerDocentePorId(int idDocente) {
+        return docJPA.findDocente(idDocente);
+    }
 
+    public void actualizarDocente(Docente docente) {
+        try {
+            docJPA.edit(docente);
+        } catch (Exception ex) {
+            Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void actualizarMateria(Materia materia) {
+        try {
+            matJPA.edit(materia);
+        } catch (Exception ex) {
+            Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void actualizarDocenteMateria(DocenteMateria asignacion) {
+        try {
+            dymJPA.edit(asignacion);
+        } catch (Exception ex) {
+            Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 
 }

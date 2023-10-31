@@ -25,7 +25,7 @@ public class Alumno implements Serializable {
     private String division;
     private String fechaNac;
     private Aula aula;
-    
+
     private String nombre;
     private String apellido;
     private int dni;
@@ -34,7 +34,11 @@ public class Alumno implements Serializable {
     private String email;
     private String rol;
 
-    private Materia materia;
+    @ManyToMany
+    @JoinTable(name = "alumno_materia",
+            joinColumns = @JoinColumn(name = "alumno_id"),
+            inverseJoinColumns = @JoinColumn(name = "materia_id"))
+    private List<Materia> materias;
 
     private Tutor tutor;
 
@@ -44,7 +48,7 @@ public class Alumno implements Serializable {
 
     }
 
-    public Alumno(int id, String nivel, String division, String fechaNac, Aula aula, String nombre, String apellido, int dni, int telefono, String domicilio, String email, String rol, Materia materia, Tutor tutor, List<Nota> notas) {
+    public Alumno(int id, String nivel, String division, String fechaNac, Aula aula, String nombre, String apellido, int dni, int telefono, String domicilio, String email, String rol, List<Materia> materias, Tutor tutor, List<Nota> notas) {
         this.id = id;
         this.nivel = nivel;
         this.division = division;
@@ -57,11 +61,20 @@ public class Alumno implements Serializable {
         this.domicilio = domicilio;
         this.email = email;
         this.rol = rol;
-        this.materia = materia;
+        this.materias = materias;
         this.tutor = tutor;
         this.notas = notas;
     }
 
+    public List<Materia> getMaterias() {
+        return materias;
+    }
+
+    public void setMaterias(List<Materia> materias) {
+        this.materias = materias;
+    }
+
+  
 
     public String getRol() {
         return rol;
@@ -159,13 +172,7 @@ public class Alumno implements Serializable {
         this.email = email;
     }
 
-    public Materia getMateria() {
-        return materia;
-    }
-
-    public void setMateria(Materia materia) {
-        this.materia = materia;
-    }
+    
 
     public Tutor getTutor() {
         return tutor;
@@ -182,7 +189,6 @@ public class Alumno implements Serializable {
     public void setNotas(List<Nota> notas) {
         this.notas = notas;
     }
-    
 
     @Override
     public String toString() {

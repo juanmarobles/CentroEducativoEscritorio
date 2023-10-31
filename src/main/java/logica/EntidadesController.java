@@ -9,6 +9,7 @@ import java.util.List;
 import logica.entidades.Alumno;
 import logica.entidades.Aula;
 import logica.entidades.Docente;
+import logica.entidades.DocenteMateria;
 import logica.entidades.Materia;
 import logica.entidades.Nota;
 import logica.entidades.Personal;
@@ -237,19 +238,31 @@ public class EntidadesController {
     }
 
     /* ------------------------------------CRUD MATERIAS--------------------------------------------------------*/
-    public void asignarMateriaDocente(Aula aula, Materia materia, String dia, String desde, String hasta, Docente docente) {
-        // Asigna la materia al docente
-        materia.setAula(aula);
-        materia.setDia(dia);
-        materia.setDesde(desde);
-        materia.setHasta(hasta);
-        materia.setDocente(docente);
-        materia.setAula(aula);
+    public void asignarMateriaDocente(int idMateria, String dia, String desde, String hasta, int idDocente, Aula aula) {
+        Materia materia = ctrl.traerMateriaPorId(idMateria);
+        Docente docente = ctrl.traerDocentePorId(idDocente);
 
-        docente.setMateria(materia);
-        docente.setAula(aula);
+        if (materia != null && docente != null) {
+            // Crear una instancia de AsignacionDocenteMateria y establecer los detalles
+            DocenteMateria asignacion = new DocenteMateria();
+            asignacion.setDia(dia);
+            asignacion.setDesde(desde);
+            asignacion.setHasta(hasta);
+            asignacion.setDocente(docente);
+            asignacion.setMateria(materia);
+            asignacion.setAula(aula);
+           
+            // Agregar la asignación a las colecciones correspondientes
+            docente.getMaterias().add(materia);
+            materia.getDocente().add(docente);
 
-        ctrl.asignarMateriaDocente(materia, docente, aula);
+            // Guardar los cambios
+            ctrl.actualizarDocente(docente);
+            ctrl.actualizarMateria(materia);
+            ctrl.actualizarDocenteMateria(asignacion);
+        } else {
+            // Manejar casos en los que no se encontraron la materia o el docente
+        }
     }
 
     public List<Materia> traerMaterias() {
@@ -263,7 +276,7 @@ public class EntidadesController {
 
         if (materia != null && alumno != null) {
             // Asigna la materia al alumno
-            alumno.setMateria(materia);
+            alumno.getMaterias().add(materia);
 
             // Obtén el aula de la materia y asígnala al alumno
             Aula aula = materia.getAula();

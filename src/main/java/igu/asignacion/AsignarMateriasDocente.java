@@ -47,7 +47,6 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
      */
     public AsignarMateriasDocente() {
         initComponents();
-        TextPrompt FiltroBusqueda = new TextPrompt("Buscar por Materia", txtBuscarMateria);
 
         // Obtiene el tamaño de la pantalla
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -61,7 +60,7 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
         cargarDocentes();
         cargarMaterias();
         cargarAulas();
-        mostrarTablaDocentes();
+      
 
     }
 
@@ -88,9 +87,6 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
         cmbMateria = new javax.swing.JComboBox<>();
         cmbDia = new javax.swing.JComboBox<>();
         cmbDocente = new javax.swing.JComboBox<>();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tablaMaterias = new javax.swing.JTable();
-        txtBuscarMateria = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -169,13 +165,10 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(75, 75, 75)
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addGap(75, 75, 75)
-                                        .addComponent(txtDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addGap(75, 75, 75)
-                                        .addComponent(txtHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -225,25 +218,6 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
                 .addGap(96, 96, 96))
         );
 
-        tablaMaterias.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane2.setViewportView(tablaMaterias);
-
-        txtBuscarMateria.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtBuscarMateriaKeyTyped(evt);
-            }
-        });
-
         jLabel16.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("Asignar materias");
@@ -258,28 +232,16 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(66, 66, 66)
                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(20, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtBuscarMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(248, 248, 248))))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscarMateria, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8))
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -353,7 +315,9 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
         if (aula == null || materia == null || dia.isEmpty() || desde.isEmpty() || hasta.isEmpty() || docente == null) {
             JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos antes de asignar la materia", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
         } else {
-            control.asignarMateriaDocente(aula, materia, dia, desde, hasta, docente);
+            int idDocente = docente.getId();  // Asumiendo que existe un método getId() para obtener el ID del alumno
+            int idMateria = materia.getIdMateria();
+            control.asignarMateriaDocente(idMateria, dia, desde, hasta, idDocente,aula);
             JOptionPane.showMessageDialog(this, "La materia se ha asignado correctamente", "Asignación Exitosa", JOptionPane.INFORMATION_MESSAGE);
             // Actualizar la tabla
             this.dispose();
@@ -493,21 +457,8 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
     }
-    private void txtBuscarMateriaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarMateriaKeyTyped
-        txtBuscarMateria.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                trs.setRowFilter(RowFilter.regexFilter("(?i)" + txtBuscarMateria.getText(), 3));
-            }
-
-        });
-        trs = new TableRowSorter(tablaMaterias.getModel());
-        tablaMaterias.setRowSorter(trs);
-
-    }//GEN-LAST:event_txtBuscarMateriaKeyTyped
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        mostrarTablaDocentes();
+        
     }//GEN-LAST:event_formWindowOpened
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -562,48 +513,9 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tablaMaterias;
-    private javax.swing.JTextField txtBuscarMateria;
     private javax.swing.JFormattedTextField txtDesde;
     private javax.swing.JFormattedTextField txtHasta;
     // End of variables declaration//GEN-END:variables
 
-    private void mostrarTablaDocentes() {
-        // Carga de los datos desde la base de datos
-        List<Docente> listaDocentes = control.traerDocentes();
-
-        // Filtrar la lista para excluir docentes sin materia
-        List<Docente> docentesConMateria = listaDocentes.stream()
-                .filter(docente -> docente.getMateria() != null)
-                .collect(Collectors.toList());
-
-        // Filas y columnas no editables
-        DefaultTableModel tabla = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-
-        // Nombres de columnas
-        String titulos[] = {"Nombre", "Apellido", "Telefono", "Materia", "Desde", "Hasta", "Dia"};
-        tabla.setColumnIdentifiers(titulos);
-
-        // Recorrer la lista de docentes con materia y mostrar elementos en la tabla
-        for (Docente d : docentesConMateria) {
-            String nombreMateria = d.getMateria().getMateria();
-            String materiaDesde = d.getMateria().getDesde();
-            String materiaHasta = d.getMateria().getHasta();
-            String dia = d.getMateria().getDia();
-            Object[] objeto = {d.getNombre(), d.getApellido(), d.getTelefono(), nombreMateria, materiaDesde, materiaHasta, dia};
-            tabla.addRow(objeto);
-        }
-
-        // Configurar el TableRowSorter para habilitar el ordenamiento en la tabla
-        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabla);
-        tablaMaterias.setModel(tabla);
-        tablaMaterias.setRowSorter(sorter);
-    }
 
 }

@@ -24,18 +24,21 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Docente implements Serializable {
-    
-     @Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String turno;
     private String nivel;
 
-    private Materia materia;
+    @ManyToMany
+    @JoinTable(name = "docente_materia",
+            joinColumns = @JoinColumn(name = "docente_id"),
+            inverseJoinColumns = @JoinColumn(name = "materia_id"))
+    private List<Materia> materias;
     private Aula aula;
     private Nota nota;
-    
-    
+
     private String nombre;
     private String apellido;
     private int dni;
@@ -43,15 +46,15 @@ public class Docente implements Serializable {
     private String domicilio;
     private String email;
     private String rol;
-    
+
     public Docente() {
     }
 
-    public Docente(int id, String turno, String nivel, Materia materia, Aula aula, Nota nota, String nombre, String apellido, int dni, int telefono, String domicilio, String email, String rol) {
+    public Docente(int id, String turno, String nivel, List<Materia> materias, Aula aula, Nota nota, String nombre, String apellido, int dni, int telefono, String domicilio, String email, String rol) {
         this.id = id;
         this.turno = turno;
         this.nivel = nivel;
-        this.materia = materia;
+        this.materias = materias;
         this.aula = aula;
         this.nota = nota;
         this.nombre = nombre;
@@ -62,6 +65,8 @@ public class Docente implements Serializable {
         this.email = email;
         this.rol = rol;
     }
+
+    
 
     public int getId() {
         return id;
@@ -87,13 +92,14 @@ public class Docente implements Serializable {
         this.nivel = nivel;
     }
 
-    public Materia getMateria() {
-        return materia;
+    public List<Materia> getMaterias() {
+        return materias;
     }
 
-    public void setMateria(Materia materia) {
-        this.materia = materia;
+    public void setMaterias(List<Materia> materias) {
+        this.materias = materias;
     }
+
 
     public Aula getAula() {
         return aula;
@@ -166,10 +172,15 @@ public class Docente implements Serializable {
     public void setRol(String rol) {
         this.rol = rol;
     }
- @Override
+
+    @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Docente docente = (Docente) o;
         return Objects.equals(nombre, docente.nombre);
     }
@@ -179,10 +190,9 @@ public class Docente implements Serializable {
         return Objects.hash(nombre);
     }
 
-
     @Override
     public String toString() {
-        return nombre+ " " + apellido+"\n";
+        return nombre + " " + apellido + "\n";
     }
 
 }

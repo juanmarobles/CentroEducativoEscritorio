@@ -29,8 +29,9 @@ public class Materia implements Serializable {
     private String desde;
     private String hasta;
     private String materia;
-    private Docente docente;
-    private Alumno alumno;
+    private List<Docente> docente;
+    @ManyToMany(mappedBy = "materias")
+    private List<Alumno> alumnos;
 
     private Nota nota;
     private Aula aula; // Representa el curso o aula en el que se imparte la materia
@@ -38,17 +39,30 @@ public class Materia implements Serializable {
     public Materia() {
     }
 
-    public Materia(int idMateria, String dia, String desde, String hasta, String materia, Docente docente, Alumno alumno, Nota nota, Aula aula) {
+    public Materia(int idMateria, String dia, String desde, String hasta, String materia, List<Docente> docente, List<Alumno> alumnos, Nota nota, Aula aula) {
         this.idMateria = idMateria;
         this.dia = dia;
         this.desde = desde;
         this.hasta = hasta;
         this.materia = materia;
         this.docente = docente;
-        this.alumno = alumno;
+        this.alumnos = alumnos;
         this.nota = nota;
         this.aula = aula;
     }
+
+    public List<Docente> getDocente() {
+        return docente;
+    }
+
+    public void setDocente(List<Docente> docente) {
+        this.docente = docente;
+    }
+
+   
+
+    
+
 
     public int getIdMateria() {
         return idMateria;
@@ -90,20 +104,12 @@ public class Materia implements Serializable {
         this.materia = materia;
     }
 
-    public Docente getDocente() {
-        return docente;
+    public List<Alumno> getAlumnos() {
+        return alumnos;
     }
 
-    public void setDocente(Docente docente) {
-        this.docente = docente;
-    }
-
-    public Alumno getAlumno() {
-        return alumno;
-    }
-
-    public void setAlumno(Alumno alumno) {
-        this.alumno = alumno;
+    public void setAlumnos(List<Alumno> alumnos) {
+        this.alumnos = alumnos;
     }
 
     public Nota getNota() {
@@ -144,7 +150,5 @@ public class Materia implements Serializable {
     public String toString() {
         return getMateria();
     }
-    
-    
 
 }
