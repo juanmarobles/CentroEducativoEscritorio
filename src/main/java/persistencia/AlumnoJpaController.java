@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package persistencia;
 
 import java.io.Serializable;
@@ -11,10 +10,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import logica.entidades.Alumno;
+import logica.entidades.Materia;
 import persistencia.exceptions.NonexistentEntityException;
 
 /**
@@ -31,7 +32,7 @@ public class AlumnoJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
+
     //CONTROLADOR
     public AlumnoJpaController() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
@@ -50,7 +51,6 @@ public class AlumnoJpaController implements Serializable {
             }
         }
     }
- 
 
     public void edit(Alumno alumno) throws NonexistentEntityException, Exception {
         EntityManager em = null;
@@ -137,6 +137,32 @@ public class AlumnoJpaController implements Serializable {
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+
+    public void asignarMateriaAlumno(Alumno alumno, Materia materia) {
+        EntityManager em = getEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        try {
+            transaction.begin();
+
+            // Asigna la materia al alumno
+            alumno.setMateria(materia);
+
+            // Realiza otras operaciones relacionadas si es necesario
+            // Persiste el alumno (y la materia si es necesario)
+            em.persist(alumno);
+
+            // Comitea la transacción
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
         } finally {
             em.close();
         }

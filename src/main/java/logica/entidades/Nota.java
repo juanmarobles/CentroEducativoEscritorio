@@ -38,6 +38,11 @@ public class Nota implements Serializable {
         this.valor = valor;
     }
 
+    public Nota(int valor) {
+        this.valor = valor;
+    }
+    
+
     public int getIdNota() {
         return idNota;
     }

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -46,7 +47,7 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
      */
     public AsignarMateriasDocente() {
         initComponents();
-        TextPrompt FiltroBusqueda = new TextPrompt("Buscar por Apellido", txtBuscarMateria);
+        TextPrompt FiltroBusqueda = new TextPrompt("Buscar por Materia", txtBuscarMateria);
 
         // Obtiene el tamaño de la pantalla
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -406,17 +407,28 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
         // Limpiar el ComboBox
         cmbAula.removeAllItems();
 
-        // Agregar los nombres de los clientes al ComboBox de forma ordenada
+        ArrayList<Aula> aulasUnicas = new ArrayList<>();
+
         for (Aula aula : listaAulas) {
-            // Añadir salidas de depuración para verificar el contenido de los objetos Tutor
-            cmbAula.addItem(aula);
+            if (!aulasUnicas.contains(aula)) {
+                aulasUnicas.add(aula);
+            }
         }
 
+        // Limpiar el ComboBox
+        cmbAula.removeAllItems();
+
+        // Agregar aulas al ComboBox de forma ordenada
+        for (Aula aula : aulasUnicas) {
+            cmbAula.addItem(aula);
+        }
+        // Agregar ActionListener para capturar el evento de selección de alumno
         cmbAula.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Aula tutorSeleccionado = (Aula) cmbAula.getSelectedItem();
-                if (tutorSeleccionado != null) {
+                Aula aulaSeleccionado = (Aula) cmbAula.getSelectedItem();
+                if (aulaSeleccionado != null) {
+
                 }
             }
         });
@@ -485,7 +497,7 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
         txtBuscarMateria.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                trs.setRowFilter(RowFilter.regexFilter("(?i)" + txtBuscarMateria.getText(), 4));
+                trs.setRowFilter(RowFilter.regexFilter("(?i)" + txtBuscarMateria.getText(), 3));
             }
 
         });
@@ -561,6 +573,11 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
         // Carga de los datos desde la base de datos
         List<Docente> listaDocentes = control.traerDocentes();
 
+        // Filtrar la lista para excluir docentes sin materia
+        List<Docente> docentesConMateria = listaDocentes.stream()
+                .filter(docente -> docente.getMateria() != null)
+                .collect(Collectors.toList());
+
         // Filas y columnas no editables
         DefaultTableModel tabla = new DefaultTableModel() {
             @Override
@@ -570,19 +587,17 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
         };
 
         // Nombres de columnas
-        String titulos[] = {"Id_Docente", "Nombre", "Apellido", "Telefono", "Materia", "Desde", "Hasta","Dia"};
+        String titulos[] = {"Nombre", "Apellido", "Telefono", "Materia", "Desde", "Hasta", "Dia"};
         tabla.setColumnIdentifiers(titulos);
 
-        // Recorrer la lista ordenada y mostrar elementos en la tabla
-        if (listaDocentes != null) {
-            for (Docente d : listaDocentes) {
-                String nombreMateria = (d.getMateria()!= null) ? d.getMateria().getMateria() : "Sin Materia";
-                String materiaDesde = (d.getMateria()!= null) ? d.getMateria().getDesde(): "Sin Hora";
-                String materiaHasta = (d.getMateria()!= null) ? d.getMateria().getHasta(): "Sin Hora";
-                String dia = (d.getMateria()!= null) ? d.getMateria().getDia(): "Sin dia";
-                Object[] objeto = {d.getId(), d.getNombre(), d.getApellido(), d.getTelefono(),nombreMateria, materiaDesde,materiaHasta,dia};
-                tabla.addRow(objeto);
-            }
+        // Recorrer la lista de docentes con materia y mostrar elementos en la tabla
+        for (Docente d : docentesConMateria) {
+            String nombreMateria = d.getMateria().getMateria();
+            String materiaDesde = d.getMateria().getDesde();
+            String materiaHasta = d.getMateria().getHasta();
+            String dia = d.getMateria().getDia();
+            Object[] objeto = {d.getNombre(), d.getApellido(), d.getTelefono(), nombreMateria, materiaDesde, materiaHasta, dia};
+            tabla.addRow(objeto);
         }
 
         // Configurar el TableRowSorter para habilitar el ordenamiento en la tabla
@@ -590,4 +605,5 @@ public class AsignarMateriasDocente extends javax.swing.JFrame {
         tablaMaterias.setModel(tabla);
         tablaMaterias.setRowSorter(sorter);
     }
+
 }

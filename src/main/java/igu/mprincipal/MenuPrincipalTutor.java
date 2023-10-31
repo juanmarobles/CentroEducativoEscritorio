@@ -129,7 +129,7 @@ public class MenuPrincipalTutor extends javax.swing.JFrame {
         jMenuBar1.setPreferredSize(new java.awt.Dimension(505, 40));
 
         Entidades1.setForeground(new java.awt.Color(255, 255, 255));
-        Entidades1.setText("Asignar Materias");
+        Entidades1.setText("Ver ");
         Entidades1.add(jSeparator5);
         Entidades1.add(jSeparator6);
         Entidades1.add(jSeparator7);
@@ -223,11 +223,11 @@ public class MenuPrincipalTutor extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private VerDatosAlumno ventanaAlumnos;
+    //private VerDatosAlumno ventanaAlumnos;
     private VerDatosDocentes ventanaDocentes;
     private VerDatosPersonal ventanaPersonal;
     // private PagoCuotas ventanaCuotas;
-    private AsignarMateriaAlumno ventanaHorarios;
+    private VerDatosAlumno ventanaHorarios;
     //private CargarNotas ventanaCarga_Notas;
     private BoletinNotas ventanaVer_Notas;
     private VerDatosTutor ventanaTutor;
@@ -242,7 +242,7 @@ public class MenuPrincipalTutor extends javax.swing.JFrame {
 
     private void AsignarMateriaAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignarMateriaAlumnoActionPerformed
         if (ventanaHorarios == null || !ventanaHorarios.isVisible()) {
-            ventanaHorarios = new AsignarMateriaAlumno();
+            ventanaHorarios = new VerDatosAlumno();
         }
 
         ventanaHorarios.setVisible(true);

@@ -139,4 +139,8 @@ public class MateriaJpaController implements Serializable {
         }
     }
 
+    void asginarMateriaAlumno(Materia materia) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

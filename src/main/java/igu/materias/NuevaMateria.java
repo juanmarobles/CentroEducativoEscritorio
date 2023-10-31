@@ -9,6 +9,8 @@ import igu.alumnos.VerDatosAlumno;
 import igu.personal.VerDatosPersonal;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Persistence;
@@ -316,18 +318,39 @@ public class NuevaMateria extends javax.swing.JFrame {
     }
 
     private void cargarAulas() {
-        ModeloAula modAulas = new ModeloAula();
-        List<Aula> listaAulas = modAulas.getAulas();
+         ModeloAula modAula = new ModeloAula();
+        ArrayList<Aula> listaAulas = modAula.getAulas();
+
+        cmbAula.setEditable(false);
 
         // Limpiar el ComboBox
         cmbAula.removeAllItems();
 
-        // Agregar los nombres de los clientes al ComboBox de forma ordenada
+        ArrayList<Aula> aulasUnicas = new ArrayList<>();
+
         for (Aula aula : listaAulas) {
-            // Añadir salidas de depuración para verificar el contenido de los objetos Tutor
-            System.out.println("aula: " + aula);
+            if (!aulasUnicas.contains(aula)) {
+                aulasUnicas.add(aula);
+            }
+        }
+
+        // Limpiar el ComboBox
+        cmbAula.removeAllItems();
+
+        // Agregar aulas al ComboBox de forma ordenada
+        for (Aula aula : aulasUnicas) {
             cmbAula.addItem(aula);
         }
+        // Agregar ActionListener para capturar el evento de selección de alumno
+        cmbAula.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Aula aulaSeleccionado = (Aula) cmbAula.getSelectedItem();
+                if (aulaSeleccionado != null) {
+                    
+                }
+            }
+        });
 
     }
 

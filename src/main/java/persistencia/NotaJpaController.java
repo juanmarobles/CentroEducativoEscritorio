@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package persistencia;
 
 import java.io.Serializable;
@@ -14,6 +13,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import logica.entidades.Alumno;
 import logica.entidades.Nota;
 import persistencia.exceptions.NonexistentEntityException;
 
@@ -36,6 +36,7 @@ public class NotaJpaController implements Serializable {
     public NotaJpaController() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
     }
+
     public void create(Nota nota) {
         EntityManager em = null;
         try {
@@ -135,6 +136,20 @@ public class NotaJpaController implements Serializable {
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Nota> findNotasByAlumno(Alumno alumno) {
+        EntityManager em = getEntityManager();
+        try {
+            // Crea una consulta JPQL para seleccionar las notas del alumno específico
+            Query query = em.createQuery("SELECT n FROM Nota n WHERE n.alumno = :alumno");
+            query.setParameter("alumno", alumno);
+
+            // Ejecuta la consulta y devuelve la lista de notas
+            return query.getResultList();
         } finally {
             em.close();
         }

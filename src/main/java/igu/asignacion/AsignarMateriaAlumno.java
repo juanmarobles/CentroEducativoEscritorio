@@ -293,8 +293,11 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
         if (materia == null || alumno == null) {
             JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos antes de asignar la materia", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
         } else {
+            // Obtén el ID del alumno seleccionado
+            int idAlumnoSeleccionado = alumno.getId();  // Asumiendo que existe un método getId() para obtener el ID del alumno
+            int materiaSeleccionada = materia.getIdMateria();
             // Todos los campos están completos, realiza la asignación de la materia
-            control.asignarMateriaAlumno(materia, alumno);
+            control.asignarMateriaAlumno(idAlumnoSeleccionado, materiaSeleccionada);  // Pasa el ID del alumno en lugar del objeto Alumno
             JOptionPane.showMessageDialog(this, "La materia se ha asignado correctamente", "Asignación Exitosa", JOptionPane.INFORMATION_MESSAGE);
             // Actualizar la tabla
             this.dispose();
@@ -418,7 +421,7 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
         txtBuscarMateria.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                trs.setRowFilter(RowFilter.regexFilter("(?i)" + txtBuscarMateria.getText(), 2));
+                trs.setRowFilter(RowFilter.regexFilter("(?i)" + txtBuscarMateria.getText(), 1));
             }
 
         });
@@ -510,7 +513,7 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
         };
 
         // Nombres de columnas
-        String titulos[] = {"idMateria", "AULA", "MATERIA", "DIA", "DESDE", "HASTA", "DOCENTE"};
+        String titulos[] = {"AULA", "MATERIA", "DIA", "DESDE", "HASTA"};
         tabla.setColumnIdentifiers(titulos);
 
         // Recorrer las materias agrupadas y mostrar elementos en la tabla
@@ -523,13 +526,11 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
             System.out.println(materia.getHasta());
             System.out.println(materia.getDia());
             Object[] objeto = {
-                materia.getIdMateria(),
                 materia.getAula(),
                 materia.getMateria(),
                 materia.getDia(),
                 materia.getDesde(),
-                materia.getHasta(),
-            };
+                materia.getHasta(),};
             tabla.addRow(objeto);
 
         }
@@ -539,7 +540,5 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
         tablaMaterias.setModel(tabla);
         tablaMaterias.setRowSorter(sorter);
     }
-
-
 
 }

@@ -4,7 +4,7 @@ package igu.mprincipal;
 import igu.alumnos.VerDatosAlumno;
 import igu.asignacion.AsignarMateriaAlumno;
 import igu.asignacion.AsignarMateriasDocente;
-import igu.docentes.CargarNotaDocente;
+import igu.asignacion.AsignarNotaAlumno;
 import igu.docentes.VerDatosAlumnoDocente;
 import igu.docentes.VerDatosDocentes;
 import igu.docentes.VerHorariosMateriaDocente;
@@ -247,11 +247,11 @@ public class MenuPrincipalDocente extends javax.swing.JFrame {
     private VerDatosAlumnoDocente ventanaAlumnos;
     private Login ventanaLogin;
     private VerHorariosMateriaDocente ventanaHorarios;
-    private CargarNotaDocente ventanaCargarNotas;
+    private AsignarNotaAlumno ventanaCargarNotas;
     private void asignarNotaAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asignarNotaAlumnoActionPerformed
         System.out.println("Debug: Valor de docenteActual = " + docenteActual);
         if (ventanaCargarNotas == null || !ventanaCargarNotas.isVisible()) {
-            ventanaCargarNotas = new CargarNotaDocente(docenteActual);
+            ventanaCargarNotas = new AsignarNotaAlumno();
         }
 
         ventanaCargarNotas.setVisible(true);

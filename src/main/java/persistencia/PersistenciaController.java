@@ -197,10 +197,8 @@ public class PersistenciaController {
         aulaJPA.create(aula);
     }
 
-    public void asignarMateriaAlumno(Alumno alumno, Materia materia) {
-        matJPA.create(materia);
-        //aluJPA.create(alumno, materia);
-        
+    public void asignarMateriaAlumno(Alumno alumno) {
+     aluJPA.create(alumno);
     }
 
     public void crearUsuario(Alumno alumno, Tutor tutor) {
@@ -210,6 +208,39 @@ public class PersistenciaController {
     public List<Usuario> traerUsuarios() {
          return usuJPA.findUsuarioEntities();
     }
+
+    public List<Nota> traerNotas() {
+        return notJPA.findNotaEntities();
+    }
+
+    public List<Nota> traerNotasPorAlumno(Alumno alumnoSeleccionado) {
+        return notJPA.findNotasByAlumno(alumnoSeleccionado);
+    }
+
+    public List<Aula> traerAulas() {
+        return aulaJPA.findAulaEntities();
+    }
+
+    public List<Alumno> findAlumnosPorAula(Aula aulaSeleccionado) {
+        return aulaJPA.findAlumnosPorAula(aulaSeleccionado);
+    }
+
+    public Materia traerMateriaPorId(int materia) {
+        return matJPA.findMateria(materia);
+    }
+
+    public Alumno traerAlumnoPorId(int alumno) {
+        return aluJPA.findAlumno(alumno);
+    }
+
+    public void actualizarAlumno(Alumno alumno) {
+        try {
+            aluJPA.edit(alumno);
+        } catch (Exception ex) {
+            Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 
 
 }

@@ -38,13 +38,13 @@ public class Alumno implements Serializable {
 
     private Tutor tutor;
 
-    private Nota nota;
+    private List<Nota> notas;
 
     public Alumno() {
 
     }
 
-    public Alumno(int id, String nivel, String rol, String division, String fechaNac, Aula aula, String nombre, String apellido, int dni, int telefono, String domicilio, String email, Materia materia, Tutor tutor, Nota nota) {
+    public Alumno(int id, String nivel, String division, String fechaNac, Aula aula, String nombre, String apellido, int dni, int telefono, String domicilio, String email, String rol, Materia materia, Tutor tutor, List<Nota> notas) {
         this.id = id;
         this.nivel = nivel;
         this.division = division;
@@ -56,11 +56,12 @@ public class Alumno implements Serializable {
         this.telefono = telefono;
         this.domicilio = domicilio;
         this.email = email;
+        this.rol = rol;
         this.materia = materia;
         this.tutor = tutor;
-        this.nota = nota;
-        this.rol = rol;
+        this.notas = notas;
     }
+
 
     public String getRol() {
         return rol;
@@ -174,14 +175,13 @@ public class Alumno implements Serializable {
         this.tutor = tutor;
     }
 
-    public Nota getNota() {
-        return nota;
+    public List<Nota> getNotas() {
+        return notas;
     }
 
-    public void setNota(Nota nota) {
-        this.nota = nota;
+    public void setNotas(List<Nota> notas) {
+        this.notas = notas;
     }
-
     
 
     @Override

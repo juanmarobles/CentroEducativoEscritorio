@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package persistencia;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,7 +14,9 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import logica.entidades.Alumno;
 import logica.entidades.Aula;
+import logica.entidades.Materia;
 import persistencia.exceptions.NonexistentEntityException;
 
 /**
@@ -32,9 +34,11 @@ public class AulaJpaController1 implements Serializable {
         return emf.createEntityManager();
     }
 //CONTROLADOR
+
     public AulaJpaController1() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
     }
+
     public void create(Aula aula) {
         EntityManager em = null;
         try {
@@ -134,6 +138,20 @@ public class AulaJpaController1 implements Serializable {
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Alumno> findAlumnosPorAula(Aula aula) {
+        EntityManager em = getEntityManager();
+        try {
+            // Crea una consulta JPQL para seleccionar los alumnos asignados a un aula específica
+            Query query = em.createQuery("SELECT a FROM Alumno a WHERE a.aula = :aula");
+            query.setParameter("aula", aula);
+
+            // Ejecuta la consulta y devuelve la lista de alumnos
+            return query.getResultList();
         } finally {
             em.close();
         }

@@ -106,10 +106,11 @@ public class EntidadesController {
         alumno.setDivision(division);
         alumno.setFechaNac(fecha);
         alumno.setRol("Alumno");
+
         tutor.setAlumno(alumno);
         ctrl.guardarAlumno(alumno);
         ctrl.guardarTutor(tutor);
-       // ctrl.guardarTutor(tutor);
+        // ctrl.guardarTutor(tutor);
     }
 
     public void editarAlumno(Alumno alumno, String nombre, String apellido, int dni, String fecha, String nivel, String division, String fecha2) {
@@ -150,10 +151,11 @@ public class EntidadesController {
         tutor.setRol("Tutor");
         ctrl.EditarTutor(tutor);
     }
-    
-     public void borrarTutor(int idTutor) {
+
+    public void borrarTutor(int idTutor) {
         ctrl.borrarTutor(idTutor);
     }
+
     public List<Tutor> traerTutores() {
         return ctrl.traerTutores();
     }
@@ -193,9 +195,6 @@ public class EntidadesController {
     public void borrarDocente(int idDocente) {
         ctrl.borrarDocente(idDocente);
     }
-
-
-    
 
     public void borrarPersonal(int idPersonal) {
         ctrl.borrarPersonal(idPersonal);
@@ -246,12 +245,9 @@ public class EntidadesController {
         materia.setHasta(hasta);
         materia.setDocente(docente);
         materia.setAula(aula);
-        
-        
+
         docente.setMateria(materia);
         docente.setAula(aula);
-        
-        
 
         ctrl.asignarMateriaDocente(materia, docente, aula);
     }
@@ -260,19 +256,36 @@ public class EntidadesController {
         return ctrl.traerMaterias();
     }
 
-    public void asignarMateriaAlumno(Materia materia, Alumno alumno) {
-       materia.setAlumno(alumno);
-       
-       alumno.setMateria(materia);
-       
-       ctrl.asignarMateriaAlumno(alumno,materia);
+    public void asignarMateriaAlumno(int idAlumno, int idMateria) {
+        // Obtén la materia y el alumno correspondientes a los IDs proporcionados
+        Materia materia = ctrl.traerMateriaPorId(idMateria);
+        Alumno alumno = ctrl.traerAlumnoPorId(idAlumno);
+
+        if (materia != null && alumno != null) {
+            // Asigna la materia al alumno
+            alumno.setMateria(materia);
+
+            // Obtén el aula de la materia y asígnala al alumno
+            Aula aula = materia.getAula();
+            if (aula != null) {
+                alumno.setAula(aula);
+            } else {
+                // Aquí puedes manejar el caso en el que la materia no tiene un aula asignada
+            }
+
+            // Guarda los cambios
+            ctrl.actualizarAlumno(alumno);
+        } else {
+            // Aquí puedes manejar el caso en el que no se encontraron la materia o el alumno
+        }
     }
 
-    public void asignarNotaAlumno(Alumno alumno, int valorNota) {
-        Nota nuevaNota = new Nota();
-        nuevaNota.setAlumno(alumno);
-        nuevaNota.setValor(valorNota);
-        ctrl.asignarNotaAlumno(nuevaNota);
+    public void asignarNotaAlumno(Materia materia, Alumno alumno, int nota) {
+        Nota notaAlumno = new Nota();
+        notaAlumno.setAlumno(alumno);
+        notaAlumno.setMateria(materia);
+        notaAlumno.setValor(nota);
+        ctrl.asignarNotaAlumno(notaAlumno);
     }
 
     public void crearMateria(String nombre, Aula aula, String dia, String desde, String hasta) {
@@ -295,6 +308,22 @@ public class EntidadesController {
 
     public Alumno traerAlumnoPorId(int idAlumno) {
         return ctrl.traerAlumno(idAlumno);
+    }
+
+    public List<Nota> traerNotas() {
+        return ctrl.traerNotas();
+    }
+
+    public List<Nota> traerNotasPorAlumno(Alumno alumnoSeleccionado) {
+        return ctrl.traerNotasPorAlumno(alumnoSeleccionado);
+    }
+
+    public List<Aula> traerAulas() {
+        return ctrl.traerAulas();
+    }
+
+    public List<Alumno> traerAlumnosPorAula(Aula aulaSeleccionado) {
+        return ctrl.findAlumnosPorAula(aulaSeleccionado);
     }
 
 }
