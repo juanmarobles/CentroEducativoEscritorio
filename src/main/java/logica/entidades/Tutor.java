@@ -34,13 +34,15 @@ public class Tutor implements Serializable {
     private int telefono;
     private String domicilio;
     private String email;
-    private Alumno alumno;
+
+    @OneToMany(mappedBy = "tutor")
+    private List<TutorAlumno> tutorAlumnos;
     private String rol;
 
     public Tutor() {
     }
 
-    public Tutor(int id, String nombre, String rol, String apellido, int dni, int telefono, String domicilio, String email, Alumno alumno) {
+    public Tutor(int id, String nombre, String apellido, int dni, int telefono, String domicilio, String email, List<TutorAlumno> tutorAlumnos, String rol) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -48,9 +50,20 @@ public class Tutor implements Serializable {
         this.telefono = telefono;
         this.domicilio = domicilio;
         this.email = email;
-        this.alumno = alumno;
+        this.tutorAlumnos = tutorAlumnos;
         this.rol = rol;
     }
+
+    public List<TutorAlumno> getTutorAlumnos() {
+        return tutorAlumnos;
+    }
+
+    public void setTutorAlumnos(List<TutorAlumno> tutorAlumnos) {
+        this.tutorAlumnos = tutorAlumnos;
+    }
+
+        
+   
 
     public String getRol() {
         return rol;
@@ -116,19 +129,16 @@ public class Tutor implements Serializable {
         this.email = email;
     }
 
-    public Alumno getAlumno() {
-        return alumno;
-    }
+   
 
-    public void setAlumno(Alumno alumno) {
-        this.alumno = alumno;
-    }
-
-  
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Tutor tutor = (Tutor) o;
         return Objects.equals(nombre, tutor.nombre);
     }
@@ -137,7 +147,7 @@ public class Tutor implements Serializable {
     public int hashCode() {
         return Objects.hash(nombre);
     }
-    
+
     @Override
     public String toString() {
         return nombre + " " + apellido;

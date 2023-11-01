@@ -15,6 +15,7 @@ import logica.entidades.Materia;
 import logica.entidades.Nota;
 import logica.entidades.Personal;
 import logica.entidades.Tutor;
+import logica.entidades.TutorAlumno;
 import logica.entidades.Usuario;
 import persistencia.exceptions.NonexistentEntityException;
 
@@ -34,6 +35,7 @@ public class PersistenciaController {
     NotaJpaController notJPA = new NotaJpaController();
     AulaJpaController1 aulaJPA = new AulaJpaController1();
     DocenteMateriaJpaController dymJPA = new DocenteMateriaJpaController();
+    TutorAlumnoJpaController tutyAluJPA = new TutorAlumnoJpaController();
 
     /* ------------------------------------CRUD USUARIOS--------------------------------------------------------*/
     public void crearUsuario(Usuario usuario) {
@@ -265,6 +267,30 @@ public class PersistenciaController {
             Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    public Tutor traerTutorPorId(int idTutor) {
+        return tutorJPA.findTutor(idTutor);
+    }
+
+    public void actualizarTutor(Tutor tutor) {
+        try {
+            tutorJPA.edit(tutor);
+        } catch (Exception ex) {
+            Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void actualizarTutorAlumno(TutorAlumno tutorAlumno) {
+        try {
+            tutyAluJPA.edit(tutorAlumno);
+        } catch (Exception ex) {
+            Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public List<Materia> findMateriasPorDocente(Docente docSeleccionado) {
+        return dymJPA.traerMateriasPorDocente(docSeleccionado);
     }
 
 }

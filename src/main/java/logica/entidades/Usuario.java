@@ -22,7 +22,7 @@ import javax.persistence.OneToMany;
  *
  * @author juanmarobles
  */
-@Entity// Cambia a la estrategia JOINED
+@Entity
 public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -29,7 +29,10 @@ public class Materia implements Serializable {
     private String desde;
     private String hasta;
     private String materia;
-    private List<Docente> docente;
+    @ManyToOne
+    @JoinColumn(name = "docente_id")
+    private Docente docente;
+
     @ManyToMany(mappedBy = "materias")
     private List<Alumno> alumnos;
 
@@ -39,7 +42,7 @@ public class Materia implements Serializable {
     public Materia() {
     }
 
-    public Materia(int idMateria, String dia, String desde, String hasta, String materia, List<Docente> docente, List<Alumno> alumnos, Nota nota, Aula aula) {
+    public Materia(int idMateria, String dia, String desde, String hasta, String materia, Docente docente, List<Alumno> alumnos, Nota nota, Aula aula) {
         this.idMateria = idMateria;
         this.dia = dia;
         this.desde = desde;
@@ -51,19 +54,15 @@ public class Materia implements Serializable {
         this.aula = aula;
     }
 
-    public List<Docente> getDocente() {
+    public Docente getDocente() {
         return docente;
     }
 
-    public void setDocente(List<Docente> docente) {
+    public void setDocente(Docente docente) {
         this.docente = docente;
     }
 
-   
-
-    
-
-
+  
     public int getIdMateria() {
         return idMateria;
     }

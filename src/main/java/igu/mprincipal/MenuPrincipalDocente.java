@@ -7,7 +7,6 @@ import igu.asignacion.AsignarMateriasDocente;
 import igu.asignacion.AsignarNotaAlumno;
 import igu.docentes.VerDatosAlumnoDocente;
 import igu.docentes.VerDatosDocentes;
-import igu.docentes.VerHorariosMateriaDocente;
 import igu.login.Login;
 import igu.notas.BoletinNotas;
 //import igu.notas.CargarNotas;
@@ -246,7 +245,7 @@ public class MenuPrincipalDocente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     private VerDatosAlumnoDocente ventanaAlumnos;
     private Login ventanaLogin;
-    private VerHorariosMateriaDocente ventanaHorarios;
+    //private VerHorariosMateriaDocente ventanaHorarios;
     private AsignarNotaAlumno ventanaCargarNotas;
     private void asignarNotaAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asignarNotaAlumnoActionPerformed
         System.out.println("Debug: Valor de docenteActual = " + docenteActual);
@@ -279,12 +278,7 @@ public class MenuPrincipalDocente extends javax.swing.JFrame {
     }//GEN-LAST:event_SalirActionPerformed
 
     private void verHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verHorariosActionPerformed
-        if (ventanaHorarios == null || !ventanaHorarios.isVisible()) {
-            String apellidoDocente = "ApellidoDelDocente";
-            ventanaHorarios = new VerHorariosMateriaDocente(apellidoDocente);
-        }
-        ventanaHorarios.setVisible(true);
-        ventanaHorarios.toFront();
+      
     }//GEN-LAST:event_verHorariosActionPerformed
 
     private void verHorarios1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verHorarios1ActionPerformed

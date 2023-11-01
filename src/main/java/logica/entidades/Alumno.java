@@ -40,6 +40,8 @@ public class Alumno implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "materia_id"))
     private List<Materia> materias;
 
+    @ManyToOne
+    @JoinColumn(name = "tutor_id")
     private Tutor tutor;
 
     private List<Nota> notas;
@@ -66,6 +68,8 @@ public class Alumno implements Serializable {
         this.notas = notas;
     }
 
+    
+
     public List<Materia> getMaterias() {
         return materias;
     }
@@ -73,8 +77,6 @@ public class Alumno implements Serializable {
     public void setMaterias(List<Materia> materias) {
         this.materias = materias;
     }
-
-  
 
     public String getRol() {
         return rol;
@@ -171,8 +173,6 @@ public class Alumno implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    
 
     public Tutor getTutor() {
         return tutor;

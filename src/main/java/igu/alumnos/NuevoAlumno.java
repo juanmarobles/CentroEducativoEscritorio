@@ -266,7 +266,8 @@ public class NuevoAlumno extends javax.swing.JFrame {
         String nivel = (cmbNivel.getSelectedItem() != null) ? cmbNivel.getSelectedItem().toString() : "";
         String division = (cmbDivision.getSelectedItem() != null) ? cmbDivision.getSelectedItem().toString() : "";
         String fecha = txtFecha.getText();
-        control.cargarAlumno(nombre, apellido, dni, tutor, nivel, division, fecha);
+        int idTutor = tutor.getId();
+        control.cargarAlumno(nombre, apellido, dni, idTutor, nivel, division, fecha);
         mostrarMensaje("Alumno agregado correctamente", "Info", "Agregado con éxito!");
         VerDatosAlumno verAnterior = new VerDatosAlumno();
         verAnterior.setVisible(true);

@@ -14,6 +14,7 @@ import logica.entidades.Materia;
 import logica.entidades.Nota;
 import logica.entidades.Personal;
 import logica.entidades.Tutor;
+import logica.entidades.TutorAlumno;
 import logica.entidades.Usuario;
 import persistencia.PersistenciaController;
 
@@ -97,21 +98,30 @@ public class EntidadesController {
         return ctrl.traerAlumnos();
     }
 
-    public void cargarAlumno(String nombre, String apellido, int dni, Tutor tutor, String nivel, String division, String fecha) {
+    public void cargarAlumno(String nombre, String apellido, int dni, int idTutor, String nivel, String division, String fecha) {
+        Tutor tutor = ctrl.traerTutorPorId(idTutor);
+
         Alumno alumno = new Alumno();
         alumno.setNombre(nombre);
         alumno.setApellido(apellido);
         alumno.setDni(dni);
-        alumno.setTutor(tutor);
+        //alumno.setTutor(tutor);
         alumno.setNivel(nivel);
         alumno.setDivision(division);
         alumno.setFechaNac(fecha);
         alumno.setRol("Alumno");
 
-        tutor.setAlumno(alumno);
+        TutorAlumno tutorAlumno = new TutorAlumno();
+        tutorAlumno.setAlumno(alumno);
+        tutorAlumno.setTutor(tutor);
+
+        // Agrega el tutorAlumno a las listas de tutor y alumno
+        tutor.getTutorAlumnos().add(tutorAlumno);
+        alumno.setTutor(tutor);
+
         ctrl.guardarAlumno(alumno);
-        ctrl.guardarTutor(tutor);
-        // ctrl.guardarTutor(tutor);
+        ctrl.actualizarTutor(tutor);
+        ctrl.actualizarTutorAlumno(tutorAlumno);
     }
 
     public void editarAlumno(Alumno alumno, String nombre, String apellido, int dni, String fecha, String nivel, String division, String fecha2) {
@@ -251,18 +261,16 @@ public class EntidadesController {
             asignacion.setDocente(docente);
             asignacion.setMateria(materia);
             asignacion.setAula(aula);
-           
+
             // Agregar la asignación a las colecciones correspondientes
             docente.getMaterias().add(materia);
-            materia.getDocente().add(docente);
+            materia.setDocente(docente);
 
             // Guardar los cambios
             ctrl.actualizarDocente(docente);
             ctrl.actualizarMateria(materia);
             ctrl.actualizarDocenteMateria(asignacion);
-        } else {
-            // Manejar casos en los que no se encontraron la materia o el docente
-        }
+        } 
     }
 
     public List<Materia> traerMaterias() {
@@ -337,6 +345,10 @@ public class EntidadesController {
 
     public List<Alumno> traerAlumnosPorAula(Aula aulaSeleccionado) {
         return ctrl.findAlumnosPorAula(aulaSeleccionado);
+    }
+
+    public List<Materia> traerMateriasPorDocente(Docente docSeleccionado) {
+        return ctrl.findMateriasPorDocente(docSeleccionado);
     }
 
 }
