@@ -416,7 +416,7 @@ public class VerDatosAlumno extends javax.swing.JFrame {
         };
 
         // Nombres de columnas
-        String titulos[] = {"id_Alumno", "Nombre", "Apellido", "Tutor", "Telefono", "Email", "Domicilio"};
+        String titulos[] = {"id_Alumno", "Nombre", "Apellido", "Tutor"};
         tabla.setColumnIdentifiers(titulos);
 
         // Recorrer la lista ordenada y mostrar elementos en la tabla

@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import logica.entidades.Alumno;
+import logica.entidades.AlumnoCuota;
 import logica.entidades.Aula;
+import logica.entidades.Cuota;
 import logica.entidades.Docente;
 import logica.entidades.DocenteMateria;
 import logica.entidades.Materia;
@@ -36,6 +38,7 @@ public class PersistenciaController {
     AulaJpaController1 aulaJPA = new AulaJpaController1();
     DocenteMateriaJpaController dymJPA = new DocenteMateriaJpaController();
     TutorAlumnoJpaController tutyAluJPA = new TutorAlumnoJpaController();
+    AlumnoCuotaJpaController aluCuotaJPA = new AlumnoCuotaJpaController();
 
     /* ------------------------------------CRUD USUARIOS--------------------------------------------------------*/
     public void crearUsuario(Usuario usuario) {
@@ -292,5 +295,40 @@ public class PersistenciaController {
     public List<Materia> findMateriasPorDocente(Docente docSeleccionado) {
         return dymJPA.traerMateriasPorDocente(docSeleccionado);
     }
+
+   
+
+    public List<Cuota> traerCuotasDeAlumno(Alumno alumno) {
+       return cuotaJPA.traerCuotasDeAlumno(alumno);
+    }
+
+    public void guardarCuota(Cuota cuota) {
+        cuotaJPA.create(cuota);
+    }
+
+    public void actualizarCuota(Cuota cuotaExistente) {
+        try {
+            cuotaJPA.edit(cuotaExistente);
+        } catch (Exception ex) {
+            Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    public void actualizarAlumnoCuota(AlumnoCuota asignacion) {
+        try {
+            aluCuotaJPA.edit(asignacion);
+        } catch (Exception ex) {
+            Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public List<Cuota> traerCuotas() {
+        return cuotaJPA.findCuotaEntities();
+    }
+
+   
+
+  
 
 }

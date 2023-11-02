@@ -5,7 +5,6 @@ import igu.alumnos.VerDatosAlumno;
 import igu.asignacion.AsignarMateriaAlumno;
 import igu.asignacion.AsignarMateriasDocente;
 import igu.asignacion.AsignarNotaAlumno;
-import igu.docentes.VerDatosAlumnoDocente;
 import igu.docentes.VerDatosDocentes;
 import igu.login.Login;
 import igu.notas.BoletinNotas;
@@ -31,25 +30,13 @@ import persistencia.DocenteJpaController;
 public class MenuPrincipalDocente extends javax.swing.JFrame {
 
     private static MenuPrincipalDocente instancia;
-    private Docente docenteActual;
 
-    public MenuPrincipalDocente(Usuario usuario) {
+    public MenuPrincipalDocente() {
         initComponents();
-        System.out.println("Debug: Valor de docenteActual en MenuPrincipal = " + docenteActual);
 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         instancia = this;
-        if (usuario != null) {
-            String rol = usuario.getRol();
-            lblRol.setText("Ingreso como: " + rol);
-
-            // Si el rol es "Docente", busca y asigna el docente actual
-            if (rol.equals("Docente")) {
-                //docenteActual = obtenerDocenteAsociadoAUsuario(usuario);
-            }
-        } else {
-            lblRol.setText("Rol no especificado");
-        }
+        
         //labelRol.setText("Rol del usuario: " + rolUsuario);
     }
 
@@ -243,12 +230,10 @@ public class MenuPrincipalDocente extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private VerDatosAlumnoDocente ventanaAlumnos;
     private Login ventanaLogin;
     //private VerHorariosMateriaDocente ventanaHorarios;
     private AsignarNotaAlumno ventanaCargarNotas;
     private void asignarNotaAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asignarNotaAlumnoActionPerformed
-        System.out.println("Debug: Valor de docenteActual = " + docenteActual);
         if (ventanaCargarNotas == null || !ventanaCargarNotas.isVisible()) {
             ventanaCargarNotas = new AsignarNotaAlumno();
         }
@@ -258,12 +243,7 @@ public class MenuPrincipalDocente extends javax.swing.JFrame {
     }//GEN-LAST:event_asignarNotaAlumnoActionPerformed
 
     private void verAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verAlumnosActionPerformed
-        if (ventanaAlumnos == null || !ventanaAlumnos.isVisible()) {
-            ventanaAlumnos = new VerDatosAlumnoDocente();
-        }
-
-        ventanaAlumnos.setVisible(true);
-        ventanaAlumnos.toFront();
+        
     }//GEN-LAST:event_verAlumnosActionPerformed
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
@@ -292,7 +272,8 @@ public class MenuPrincipalDocente extends javax.swing.JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-
+               MenuPrincipalDocente ventanaPrincipal = new MenuPrincipalDocente();
+                ventanaPrincipal.setVisible(true);
             }
         });
     }

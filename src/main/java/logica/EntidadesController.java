@@ -7,7 +7,9 @@ package logica;
 import java.util.Date;
 import java.util.List;
 import logica.entidades.Alumno;
+import logica.entidades.AlumnoCuota;
 import logica.entidades.Aula;
+import logica.entidades.Cuota;
 import logica.entidades.Docente;
 import logica.entidades.DocenteMateria;
 import logica.entidades.Materia;
@@ -66,9 +68,28 @@ public class EntidadesController {
             Alumno alumno = new Alumno();
             alumno.setNombre(nombre);
             alumno.setApellido(apellido);
-            // Configurar otras propiedades específicas de Alumno
+            // Configura otras propiedades específicas de Alumno
             u.setAlumno(alumno);
+
+            // Crear el alumno
             ctrl.guardarAlumno(alumno);
+
+            // Crear las cuotas para el alumno
+            for (int mes = 1; mes <= 12; mes++) {
+                Cuota cuota = new Cuota();
+                cuota.setAlumno(alumno);
+                cuota.setMonto(0.0); // Establece el monto (ajusta según tus requisitos)
+                cuota.setMes(mes);
+                if (mes == 1) {
+                    cuota.setPagado(false); // Establece "pagado" en false solo para el mes 1
+                } else {
+                    cuota.setPagado(true); // Establece "pagado" en true para los demás meses
+                } // Establece "pagado" en falso
+                cuota.setFechaPago(null); // Puedes establecer la fecha de pago como nula o a una fecha por defecto
+                // Guarda la cuota
+                ctrl.guardarCuota(cuota);
+            }
+
         } else if ("Tutor".equals(rol)) {
             Tutor tutor = new Tutor();
             tutor.setNombre(nombre);
@@ -270,7 +291,7 @@ public class EntidadesController {
             ctrl.actualizarDocente(docente);
             ctrl.actualizarMateria(materia);
             ctrl.actualizarDocenteMateria(asignacion);
-        } 
+        }
     }
 
     public List<Materia> traerMaterias() {
@@ -296,8 +317,6 @@ public class EntidadesController {
 
             // Guarda los cambios
             ctrl.actualizarAlumno(alumno);
-        } else {
-            // Aquí puedes manejar el caso en el que no se encontraron la materia o el alumno
         }
     }
 
@@ -349,6 +368,51 @@ public class EntidadesController {
 
     public List<Materia> traerMateriasPorDocente(Docente docSeleccionado) {
         return ctrl.findMateriasPorDocente(docSeleccionado);
+    }
+
+    public void asignarPagoAlumno(int idAlumno, int mes, Double monto) {
+        Alumno alumno = ctrl.traerAlumnoPorId(idAlumno);
+
+        if (alumno != null) {
+            // Busca la cuota correspondiente al mes
+            Cuota cuotaExistente = null;
+            List<Cuota> cuotasDelAlumno = ctrl.traerCuotasDeAlumno(alumno);
+            for (Cuota cuota : cuotasDelAlumno) {
+                if (cuota.getMes() == mes) {
+                    cuotaExistente = cuota;
+                    break; // Encontramos la cuota, salimos del bucle
+                }
+            }
+
+            if (cuotaExistente != null) {
+                // Verifica si la cuota ya está pagada
+                if (cuotaExistente.getPagado()) {
+                    // Lanza una excepción o maneja la situación, ya está pagada
+                    return;
+                }
+
+                // Actualiza la cuota existente con el nuevo monto y marca como pagado
+                cuotaExistente.setMonto(monto);
+                cuotaExistente.setPagado(true);
+
+                // Actualiza la cuota en la base de datos
+                ctrl.actualizarCuota(cuotaExistente);
+
+                // Luego, crea una instancia de AlumnoCuota y establece los detalles
+                AlumnoCuota asignacion = new AlumnoCuota();
+                asignacion.setMes(mes);
+                asignacion.setAlumno(alumno);
+                asignacion.setCuota(cuotaExistente);
+                asignacion.setPagado(true); // Marca como pagado
+
+                // Actualiza la relación entre el alumno y la cuota
+                ctrl.actualizarAlumnoCuota(asignacion);
+            }
+        }
+    }
+
+    public List<Cuota> traerCuotas() {
+        return ctrl.traerCuotas();
     }
 
 }

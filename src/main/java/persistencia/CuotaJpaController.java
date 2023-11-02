@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package persistencia;
 
 import java.io.Serializable;
@@ -12,8 +11,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import logica.entidades.Alumno;
 import logica.entidades.Cuota;
 import persistencia.exceptions.NonexistentEntityException;
 
@@ -31,7 +32,8 @@ public class CuotaJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-//CONTROLADOR
+
+    //CONTROLADOR
     public CuotaJpaController() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
     }
@@ -139,5 +141,17 @@ public class CuotaJpaController implements Serializable {
             em.close();
         }
     }
+
+   public List<Cuota> traerCuotasDeAlumno(Alumno alumno) {
+    EntityManager em = getEntityManager();
+    try {
+        TypedQuery<Cuota> query = em.createQuery("SELECT c FROM Cuota c WHERE c.alumno = :alumno", Cuota.class);
+        query.setParameter("alumno", alumno);
+        return query.getResultList();
+    } finally {
+        em.close();
+    }
+}
+
 
 }

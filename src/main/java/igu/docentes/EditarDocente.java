@@ -234,11 +234,11 @@ public class EditarDocente extends javax.swing.JFrame {
         String telefonoText = txtTelefono.getText();
         int telefono = Integer.parseInt(telefonoText);
         String email =  txtEmail.getText();
-        //String nivel = (cmbNivel.getSelectedItem() != null) ? cmbNivel.getSelectedItem().toString() : "";
+       //String nivel = (cmbNivel.getSelectedItem() != null) ? cmbNivel.getSelectedItem().toString() : "";
        //String turno = (cmbTurno.getSelectedItem() != null) ? cmbTurno.getSelectedItem().toString() : "";
 
         control.editarDocente(docente,nombre, apellido, dni, domicilio,telefono,email);
-        mostrarMensaje("Alumno agregado correctamente", "Info", "Agregado con exito!");
+        mostrarMensaje("Docente agregado correctamente", "Info", "Agregado con exito!");
 
         VerDatosDocentes verAnterior = new VerDatosDocentes();
         verAnterior.setVisible(true);
