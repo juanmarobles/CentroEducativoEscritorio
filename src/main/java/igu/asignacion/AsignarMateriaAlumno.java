@@ -427,7 +427,6 @@ public class AsignarMateriaAlumno extends javax.swing.JFrame {
         });
         trs = new TableRowSorter(tablaMaterias.getModel());
         tablaMaterias.setRowSorter(trs);
-
     }//GEN-LAST:event_txtBuscarMateriaKeyTyped
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
