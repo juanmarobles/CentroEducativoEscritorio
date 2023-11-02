@@ -48,7 +48,6 @@ public class VerNotas extends javax.swing.JFrame {
         tablaNotas = new javax.swing.JTable();
         jLabel16 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        cmbAlumno1 = new javax.swing.JComboBox<>();
         cmbAlumno = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -118,11 +117,6 @@ public class VerNotas extends javax.swing.JFrame {
                         .addGap(37, 37, 37)
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 834, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(89, Short.MAX_VALUE))
-            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel9Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(cmbAlumno1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,11 +129,6 @@ public class VerNotas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(173, 173, 173))
-            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel9Layout.createSequentialGroup()
-                    .addGap(0, 375, Short.MAX_VALUE)
-                    .addComponent(cmbAlumno1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 376, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -242,7 +231,6 @@ public class VerNotas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Alumno> cmbAlumno;
-    private javax.swing.JComboBox<Alumno> cmbAlumno1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
@@ -295,12 +283,12 @@ public class VerNotas extends javax.swing.JFrame {
             }
         };
 
-        String titulos[] = {"Nombre", "Apellido", "Nota", "Materia"};
+        String titulos[] = {"Nombre y Apellido", "Nota", "Materia"};
         tabla.setColumnIdentifiers(titulos);
         
         if (listaNotas != null) {
             for (Nota nota : listaNotas) {
-                Object[] objeto = {nota.getAlumno().getNombre(), nota.getAlumno().getApellido(), nota.getValor(), nota.getMateria()};
+                Object[] objeto = {nota.getAlumno().getNombre() + " " + nota.getAlumno().getApellido(), nota.getValor(), nota.getMateria()};
                 tabla.addRow(objeto);
             }
         } else {
@@ -319,12 +307,12 @@ public class VerNotas extends javax.swing.JFrame {
             }
         };
 
-        String titulos[] = {"Nombre", "Apellido", "Nota", "Materia"};
+        String titulos[] = {"Nombre y Apellido", "Nota", "Materia"};
         tabla.setColumnIdentifiers(titulos);
 
         if (listaNotas != null) {
             for (Nota nota : listaNotas) {
-                Object[] objeto = {nota.getAlumno().getNombre(), nota.getAlumno().getApellido(), nota.getValor(), nota.getMateria()};
+                Object[] objeto = {nota.getAlumno().getNombre() +" "+ nota.getAlumno().getApellido(), nota.getValor(), nota.getMateria()};
                 tabla.addRow(objeto);
             }
         } else {

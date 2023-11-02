@@ -2,12 +2,12 @@ package igu.mprincipal;
 
 //import com.mycompany.lestanitest.igu.PagoCuotas;
 import igu.alumnos.VerDatosAlumno;
+import igu.alumnos.VerNotas;
 import igu.asignacion.AsignarMateriaAlumno;
 import igu.asignacion.AsignarMateriasDocente;
 import igu.asignacion.AsignarNotaAlumno;
 import igu.docentes.VerDatosDocentes;
 import igu.login.Login;
-import igu.notas.BoletinNotas;
 //import igu.notas.CargarNotas;
 import igu.personal.VerDatosPersonal;
 import igu.tutores.VerDatosTutor;
@@ -318,7 +318,7 @@ public class MenuPrincipalAutoridad extends javax.swing.JFrame {
     private AsignarMateriasDocente ventanaHorarios;
     private AsignarMateriaAlumno ventanaAsignarMatAlumno;
     private AsignarNotaAlumno ventanaCarga_Notas;
-    private BoletinNotas ventanaVer_Notas;
+    private VerNotas ventanaVer_Notas;
     private Login ventanaLogin;
     private VerDatosTutor ventanaTutor;
     
@@ -379,7 +379,7 @@ public class MenuPrincipalAutoridad extends javax.swing.JFrame {
 
     private void VerNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerNotasActionPerformed
         if (ventanaVer_Notas == null || !ventanaVer_Notas.isVisible()) {
-            ventanaVer_Notas = new BoletinNotas();
+            ventanaVer_Notas = new VerNotas();
         }
 
         ventanaVer_Notas.setVisible(true);

@@ -6,13 +6,13 @@ package igu.mprincipal;
 
 import igu.alumnos.VerAlumnosPorCurso;
 import igu.alumnos.VerDatosAlumno;
+import igu.alumnos.VerNotas;
 import igu.asignacion.AsignarMateriaAlumno;
 import igu.asignacion.AsignarMateriasDocente;
 import igu.asignacion.AsignarNotaAlumno;
 import igu.asignacion.VerAlumnosPorDocente;
 import igu.docentes.VerDatosDocentes;
 import igu.login.Login;
-import igu.notas.BoletinNotas;
 import igu.personal.VerDatosPersonal;
 import igu.tutores.VerDatosTutor;
 
@@ -228,7 +228,7 @@ public class MenuPrincipalPersonal extends javax.swing.JFrame {
     private AsignarMateriasDocente ventanaAsignarMatDocente;
     private AsignarMateriaAlumno ventanaAsignarMatAlumno;
     private AsignarNotaAlumno ventanaCarga_Notas;
-    private BoletinNotas ventanaVer_Notas;
+    private VerNotas ventanaVer_Notas;
     private Login ventanaLogin;
     private VerDatosTutor ventanaTutor;
     private VerAlumnosPorDocente ventanaAlumnosxDocente;
