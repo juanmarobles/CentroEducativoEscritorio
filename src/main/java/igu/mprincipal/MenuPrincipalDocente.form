@@ -225,14 +225,14 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="510" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lbl" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
-                              <Component id="lblRol" alignment="0" min="-2" pref="271" max="-2" attributes="0"/>
+                              <Component id="lblRol" min="-2" pref="271" max="-2" attributes="0"/>
+                              <Component id="lbl" min="-2" pref="294" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="labelRol" min="-2" pref="216" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="620" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

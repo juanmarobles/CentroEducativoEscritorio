@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package persistencia;
 
 import java.io.Serializable;
@@ -12,6 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import logica.entidades.Alumno;
@@ -33,11 +33,11 @@ public class UsuarioJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-     //CONTROLADOR
+    //CONTROLADOR
+
     public UsuarioJpaController() {
         emf = Persistence.createEntityManagerFactory("centroeducativoPU");
     }
-
 
     public void create(Usuario usuario) {
         EntityManager em = null;
@@ -52,14 +52,14 @@ public class UsuarioJpaController implements Serializable {
             }
         }
     }
-    
+
     public void create(Alumno alumno, Tutor tutor) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(alumno);
-             em.persist(tutor);
+            em.persist(tutor);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -153,6 +153,49 @@ public class UsuarioJpaController implements Serializable {
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+
+    public Usuario validarUsuario(String usuario, String password) {
+        EntityManager em = getEntityManager(); // Obtén el EntityManager adecuado
+
+        try {
+            TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :usuario AND u.contrasena = :password", Usuario.class);
+            query.setParameter("usuario", usuario);
+            query.setParameter("password", password);
+
+            List<Usuario> resultados = query.getResultList();
+
+            if (resultados.size() == 1) {
+                // Se encontró un usuario con las credenciales proporcionadas
+                Usuario usuarioAutenticado = resultados.get(0);
+                String rol = usuarioAutenticado.getRol();
+
+                // Ahora, en función del rol, obtén el ID correspondiente
+                int id;
+                if ("Alumno".equals(rol)) {
+                    id = usuarioAutenticado.getAlumno().getId();
+                } else if ("Docente".equals(rol)) {
+                    id = usuarioAutenticado.getDocente().getId();
+                } else if ("Personal".equals(rol)) {
+                    id = usuarioAutenticado.getPersonal().getId();
+                } else if ("Tutor".equals(rol)) {
+                    id = usuarioAutenticado.getTutor().getId();
+                } else {
+                    // Manejar otros roles si es necesario
+                    id = -1; // Valor predeterminado si el rol no se reconoce
+                }
+
+                // Asigna el ID al usuario autenticado
+                usuarioAutenticado.setId(id);
+
+                return usuarioAutenticado;
+            } else {
+                // No se encontró un usuario válido
+                return null;
+            }
         } finally {
             em.close();
         }

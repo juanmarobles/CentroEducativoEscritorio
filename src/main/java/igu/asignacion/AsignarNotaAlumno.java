@@ -41,13 +41,17 @@ public class AsignarNotaAlumno extends javax.swing.JFrame {
 
     EntidadesController control = new EntidadesController();
     TableRowSorter trs;
+    private String nombreUsuario;
+    private int idUsuario;
 
     /**
      * Creates new form AsignarNotaAlumno
      */
-    public AsignarNotaAlumno() {
+    public AsignarNotaAlumno(String nombreUsuario, int idUsuario) {
+        this.nombreUsuario = nombreUsuario;
+        this.idUsuario = idUsuario;
         initComponents();
-        cargarAlumnos();
+        cargarAlumnos(idUsuario);
         cargarMaterias();
     }
 
@@ -244,7 +248,7 @@ public class AsignarNotaAlumno extends javax.swing.JFrame {
             control.asignarNotaAlumno(materia, alumno, nota);
             JOptionPane.showMessageDialog(this, "La materia se ha asignado correctamente", "Asignación Exitosa", JOptionPane.INFORMATION_MESSAGE);
             // Actualizar la tabla
-            
+
         }
 
     }//GEN-LAST:event_btnAsignarActionPerformed
@@ -279,7 +283,7 @@ public class AsignarNotaAlumno extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AsignarNotaAlumno().setVisible(true);
+                //new AsignarNotaAlumno(" ").setVisible(true);
             }
         });
     }
@@ -347,26 +351,17 @@ public class AsignarNotaAlumno extends javax.swing.JFrame {
         });
     }
 
-    private void cargarAlumnos() {
-        ModeloAlumno modAlumno = new ModeloAlumno();
-        ArrayList<Alumno> listaAlumnos = modAlumno.getAlumnos();
-
-        cmbAlumno.setEditable(true);
-
-        // Crear una lista de materias únicas
-        ArrayList<Alumno> alumnosUnicos = new ArrayList<>();
-
-        for (Alumno alumno : listaAlumnos) {
-            if (!alumnosUnicos.contains(alumno)) {
-                alumnosUnicos.add(alumno);
-            }
-        }
+    private void cargarAlumnos(int idDocente) {
+        cmbAlumno.setEditable(false);
 
         // Limpiar el ComboBox
         cmbAlumno.removeAllItems();
 
-        // Agregar las materias únicas al ComboBox de forma ordenada
-        for (Alumno alumno : alumnosUnicos) {
+        // Obtén la lista de alumnos asignados al docente con el ID proporcionado
+        List<Alumno> alumnosAsignados = control.obtenerAlumnosAsignadosPorId(idDocente);
+
+        // Agregar los alumnos asignados al ComboBox
+        for (Alumno alumno : alumnosAsignados) {
             cmbAlumno.addItem(alumno);
         }
 
@@ -379,14 +374,14 @@ public class AsignarNotaAlumno extends javax.swing.JFrame {
         cmbAlumno.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Verifica si hay una materia seleccionada
+                // Verifica si hay un alumno seleccionado
                 if (cmbAlumno.getSelectedItem() != null) {
-                    // Obtén el objeto Materia seleccionado
-                    Alumno alumnoseleccionado = alumnosUnicos.get(cmbAlumno.getSelectedIndex());
+                    // Obtén el objeto Alumno seleccionado
+                    Alumno alumnoSeleccionado = (Alumno) cmbAlumno.getSelectedItem();
 
-                    // Ahora puedes trabajar con la materiaSeleccionada
+                    // Ahora puedes trabajar con el alumnoSeleccionado
                 } else {
-                    mostrarMensaje("Por favor, selecciona una materia válida.", "Error", "Error de selección");
+                    mostrarMensaje("Por favor, selecciona un alumno válido.", "Error", "Error de selección");
                 }
             }
         });

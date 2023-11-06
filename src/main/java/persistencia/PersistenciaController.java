@@ -45,6 +45,10 @@ public class PersistenciaController {
         usuJPA.create(usuario);
     }
 
+    public List<Usuario> traerUsuarios(String usuario, String password) {
+        return usuJPA.findUsuarioEntities();
+    }
+
 
     /* ------------------------------------CRUD ALUMNOS--------------------------------------------------------*/
     //save
@@ -206,10 +210,6 @@ public class PersistenciaController {
         usuJPA.create(alumno, tutor);
     }
 
-    public List<Usuario> traerUsuarios() {
-        return usuJPA.findUsuarioEntities();
-    }
-
     public List<Nota> traerNotas() {
         return notJPA.findNotaEntities();
     }
@@ -296,10 +296,8 @@ public class PersistenciaController {
         return dymJPA.traerMateriasPorDocente(docSeleccionado);
     }
 
-   
-
     public List<Cuota> traerCuotasDeAlumno(Alumno alumno) {
-       return cuotaJPA.traerCuotasDeAlumno(alumno);
+        return cuotaJPA.traerCuotasDeAlumno(alumno);
     }
 
     public void guardarCuota(Cuota cuota) {
@@ -312,7 +310,7 @@ public class PersistenciaController {
         } catch (Exception ex) {
             Logger.getLogger(PersistenciaController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     public void actualizarAlumnoCuota(AlumnoCuota asignacion) {
@@ -327,8 +325,12 @@ public class PersistenciaController {
         return cuotaJPA.findCuotaEntities();
     }
 
-   
+    public List<Alumno> obtenerAlumnosAsignadosAlDocente(int docenteId) {
+        return dymJPA.obtenerAlumnosAsignadosAlDocente(docenteId);
+    }
 
-  
+    public List<Alumno> obtenerAlumnosPorDocente(int idUsuario) {
+        return dymJPA.obtenerAlumnosAsignadosAlDocente(idUsuario);
+    }
 
 }

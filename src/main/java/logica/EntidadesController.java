@@ -4,6 +4,11 @@
  */
 package logica;
 
+import igu.mprincipal.MenuPrincipalAlumno;
+import igu.mprincipal.MenuPrincipalAutoridad;
+import igu.mprincipal.MenuPrincipalDocente;
+import igu.mprincipal.MenuPrincipalPersonal;
+import igu.mprincipal.MenuPrincipalTutor;
 import java.util.Date;
 import java.util.List;
 import logica.entidades.Alumno;
@@ -31,22 +36,21 @@ public class EntidadesController {
     /**
      * --------------------------------------Verificacion Usuario-------------------------------------------------
      */
-    public boolean validarUsuario(String usuario, String password) {
-        return true;
-        /*
-        List<Usuario> listaUsuarios = ctrl.traerUsuarios();
-        boolean usuarioValido = false;
+    public Usuario validarUsuario(String usuario, String password) {
+        List<Usuario> usuarios = ctrl.traerUsuarios(usuario, password);
 
-        for (Usuario usu : listaUsuarios) {
-            if (usu.getUsuario().equals(usuario) && usu.getContraseña().equals(password)) {
-                usuarioValido = true;
-                break;
+        for (Usuario usu : usuarios) {
+            if (usu.getUsuario().equals(usuario) && usu.getContrasena().equals(password)) {
+                // La autenticación es exitosa
+                return usu;
             }
         }
 
-        return usuarioValido;
-         */
+        // La autenticación falló
+        return null;
     }
+
+    
 
     public void crearUsuario(String nombre, String apellido, String usuario, String contrasena, String rol) {
         Usuario u = new Usuario();
@@ -342,10 +346,6 @@ public class EntidadesController {
         ctrl.eliminarMateria(idMateria);
     }
 
-    public List<Usuario> traerUsuarios() {
-        return ctrl.traerUsuarios();
-    }
-
     public Alumno traerAlumnoPorId(int idAlumno) {
         return ctrl.traerAlumno(idAlumno);
     }
@@ -413,6 +413,15 @@ public class EntidadesController {
 
     public List<Cuota> traerCuotas() {
         return ctrl.traerCuotas();
+    }
+    /*
+    public List<Alumno> obtenerAlumnosAsignadosAlDocente(String nombreUsuario) {
+        return ctrl.obtenerAlumnosAsignadosAlDocente(nombreUsuario);
+    }
+     */
+
+    public List<Alumno> obtenerAlumnosAsignadosPorId(int idUsuario) {
+        return ctrl.obtenerAlumnosPorDocente(idUsuario);
     }
 
 }

@@ -175,10 +175,40 @@ public class Login extends javax.swing.JFrame {
         String usuario = txtUsuario.getText();
         String password = txtPassword.getText();
 
-       
+        // Validar el usuario y obtener el usuario autenticado
+        Usuario usuarioAutenticado = control.validarUsuario(usuario, password);
+
+        if (usuarioAutenticado != null) {
+            String rol = usuarioAutenticado.getRol();
+            String nombreUsuario = usuarioAutenticado.getNombre();
+            int id;
+
+            if ("Docente".equals(rol)) {
+                // Acceder al ID del docente
+                id = usuarioAutenticado.getDocente().getId();
+                MenuPrincipalDocente ventanaDocente = new MenuPrincipalDocente(nombreUsuario, id);
+                ventanaDocente.setVisible(true);
+            } else if ("Alumno".equals(rol)) {
+                // Acceder al ID del alumno
+                id = usuarioAutenticado.getAlumno().getId();
+            } else if ("Personal".equals(rol)) {
+                // Acceder al ID del personal
+                id = usuarioAutenticado.getPersonal().getId();
+            } else if ("Tutor".equals(rol)) {
+                // Acceder al ID del tutor
+                id = usuarioAutenticado.getTutor().getId();
+            } else {
+                // Manejar otros roles si es necesario
+                id = -1; // Valor predeterminado si el rol no se reconoce
+            }
+
+            // Ahora puedes usar el ID y el rol según lo necesites
+            // Resto de tu lógica para redirigir según el rol
+        } else {
+            // Maneja el caso en el que la autenticación falló
+        }
+
     }//GEN-LAST:event_btnAccederActionPerformed
-  
-    
 
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed

@@ -5,14 +5,18 @@
 package persistencia;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import logica.entidades.Alumno;
 import logica.entidades.Docente;
 import logica.entidades.DocenteMateria;
 import logica.entidades.Materia;
@@ -154,5 +158,38 @@ public class DocenteMateriaJpaController implements Serializable {
             em.close();
         }
     }
+
+    public List<Alumno> obtenerAlumnosAsignadosAlDocente(int docenteId) {
+    EntityManager em = getEntityManager();
+    try {
+        // Busca al docente por su ID
+        Docente docente = em.find(Docente.class, docenteId);
+
+        if (docente != null) {
+            // Luego, obtén las relaciones DocenteMateria para el docente
+            TypedQuery<DocenteMateria> docenteMateriaQuery = em.createQuery(
+                "SELECT dm FROM DocenteMateria dm WHERE dm.docente = :docente",
+                DocenteMateria.class
+            );
+            docenteMateriaQuery.setParameter("docente", docente);
+            List<DocenteMateria> docenteMaterias = docenteMateriaQuery.getResultList();
+
+            // A continuación, obtén los alumnos relacionados con esas relaciones DocenteMateria
+            List<Alumno> alumnosAsignados = new ArrayList<>();
+            for (DocenteMateria docenteMateria : docenteMaterias) {
+                Materia materia = docenteMateria.getMateria();
+                alumnosAsignados.addAll(materia.getAlumnos());
+            }
+
+            return alumnosAsignados;
+        } else {
+            // Manejar el caso en que el docente no se encuentra
+            return Collections.emptyList();
+        }
+    } finally {
+        em.close();
+    }
+}
+
 
 }

@@ -365,12 +365,13 @@ public class MenuPrincipalAutoridad extends javax.swing.JFrame {
     }//GEN-LAST:event_asignarMateriaDocenteActionPerformed
 
     private void CargarNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarNotasActionPerformed
-        if (ventanaCarga_Notas == null || !ventanaCarga_Notas.isVisible()) {
+        /*if (ventanaCarga_Notas == null || !ventanaCarga_Notas.isVisible()) {
             ventanaCarga_Notas = new AsignarNotaAlumno();
         }
 
         ventanaCarga_Notas.setVisible(true);
         ventanaCarga_Notas.toFront();
+        */
     }//GEN-LAST:event_CargarNotasActionPerformed
 
     private void AsignarMaterias2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignarMaterias2ActionPerformed

@@ -16,18 +16,26 @@ import igu.docentes.VerDatosDocentes;
 import igu.login.Login;
 import igu.personal.VerDatosPersonal;
 import igu.tutores.VerDatosTutor;
+import java.util.List;
+import logica.EntidadesController;
+import logica.entidades.Alumno;
 
 /**
  *
  * @author lucia
  */
 public class MenuPrincipalDocente extends javax.swing.JFrame {
+     private String nombreUsuario;
+     private int idUsuario;
+     EntidadesController control = new EntidadesController();
+     //List<Alumno> alumnosAsignados = control.obtenerAlumnosAsignadosAlDocente(nombreUsuario); // Reemplaza con la lógica real
 
     /**
      * Creates new form MenuPrincipalDocente
      */
-    public MenuPrincipalDocente() {
+    public MenuPrincipalDocente(String nombreUsuario, int idUsuario) {
         initComponents();
+        lblRol.setText(nombreUsuario);
     }
 
     /**
@@ -81,11 +89,11 @@ public class MenuPrincipalDocente extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(510, 510, 510)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelRol, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(620, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,7 +239,7 @@ public class MenuPrincipalDocente extends javax.swing.JFrame {
 
     private void CargarNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarNotasActionPerformed
         if (ventanaCarga_Notas == null || !ventanaCarga_Notas.isVisible()) {
-            ventanaCarga_Notas = new AsignarNotaAlumno();
+            ventanaCarga_Notas = new AsignarNotaAlumno(nombreUsuario, idUsuario);
         }
 
         ventanaCarga_Notas.setVisible(true);
@@ -296,7 +304,7 @@ public class MenuPrincipalDocente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPrincipalDocente().setVisible(true);
+            //new MenuPrincipalDocente("NombreDeUsuario").setVisible(true); // Reemplaza "NombreDeUsuario" con el nombre real del usuario
             }
         });
     }
